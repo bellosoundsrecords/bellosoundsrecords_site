@@ -1,0 +1,79 @@
+:root{
+  --bg:#0b0b0f; --fg:#f5f1eb; --muted:#bcb8b1;
+  --accent:#ff8a3d; /* warm orange glow */
+  --accent2:#1ea7aa; /* optional cool accent */
+  --maxw:1200px; --gap:16px; --radius:18px;
+}
+*{box-sizing:border-box}
+html:focus-within{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.6 Inter,system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
+img{max-width:100%;display:block}
+a{color:inherit}
+main{max-width:var(--maxw);margin:0 auto;padding:24px}
+header, footer{max-width:var(--maxw);margin:0 auto;padding:16px 24px}
+header{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.site-brand{display:flex;align-items:center;gap:10px;text-decoration:none}
+.site-brand .logo{width:28px;height:28px;border-radius:6px;background:linear-gradient(135deg,var(--accent),#ffd2b1)}
+nav a{margin:0 10px;text-decoration:none;font-weight:600;opacity:.9}
+nav a:hover, nav a:focus{opacity:1;text-decoration:underline}
+.notice-bar{background:#141419;border-block:1px solid #1f1f28}
+.notice-bar .inner{max-width:var(--maxw);margin:0 auto;padding:8px 24px;font-size:14px;color:var(--muted)}
+footer{color:var(--muted);font-size:14px;border-top:1px solid #1f1f28}
+footer .grid{display:grid;grid-template-columns:1fr auto;gap:8px;align-items:center}
+footer .social{display:flex;gap:10px}
+footer .social a{display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;border-radius:999px;background:#15151c}
+.btn{display:inline-block;padding:10px 16px;border-radius:999px;background:var(--accent);color:#000;text-decoration:none;font-weight:700}
+.btn.outline{background:transparent;color:var(--fg);border:1px solid var(--fg)}
+
+/* Hero */
+.hero-inner{position:relative;display:grid;grid-template-columns:1fr;gap:var(--gap)}
+.hero-inner img{border-radius:var(--radius)}
+.hero-text h1{font-size:clamp(28px,4vw,48px);margin:8px 0}
+.hero-text p{color:var(--muted);margin-top:0}
+
+/* Grids & Cards */
+.grid.releases{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:var(--gap);margin-top:24px}
+.grid.artists{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:var(--gap)}
+.card{background:#111;border-radius:var(--radius);overflow:hidden;border:1px solid #1a1a22}
+.card .meta{padding:10px}
+.card .meta h3{margin:4px 0 2px 0}
+.card .meta .catalog{color:var(--accent);font-weight:700;font-size:12px}
+.card .meta .artists{color:var(--muted);font-size:14px}
+.card a{display:block;text-decoration:none}
+.card figure{margin:0;overflow:hidden;aspect-ratio:1/1}
+.card figure img{width:100%;height:100%;object-fit:cover;transition:transform .25s ease}
+.card:hover figure img{transform:scale(1.02)}
+
+/* Filter bar */
+.filter-bar{display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin:8px 0 16px}
+.filter-bar label{font-size:14px;color:var(--muted)}
+.filter-bar select,.filter-bar input[type="search"]{background:#0f0f15;color:var(--fg);border:1px solid #2a2a33;border-radius:10px;padding:8px 10px}
+.tag{display:inline-flex;align-items:center;gap:6px;padding:4px 8px;border-radius:20px;border:1px solid #262631;font-size:12px;color:var(--muted)}
+
+/* Split two sides */
+.split-hero{display:grid;grid-template-columns:1fr;gap:var(--gap);margin-top:28px}
+.split-hero .block{background:#111;border-radius:var(--radius);padding:18px;border:1px solid #1a1a22}
+.split-hero h3{margin:8px 0}
+.split-hero p{margin:0;color:var(--muted)}
+
+/* Detail pages */
+.detail{display:grid;grid-template-columns:1fr;gap:var(--gap)}
+.detail .cover{aspect-ratio:1/1;border-radius:var(--radius);overflow:hidden;border:1px solid #1a1a22}
+.detail .cover img{width:100%;height:100%;object-fit:cover}
+.detail .info{background:#111;border-radius:var(--radius);padding:18px;border:1px solid #1a1a22}
+.detail .info h1{margin-top:0}
+.detail .tags{display:flex;gap:8px;flex-wrap:wrap}
+.embed{margin-top:12px;border-radius:12px;overflow:hidden;border:1px solid #1a1a22}
+.tracklist, .credits, .links{margin-top:12px}
+.links a{display:inline-block;margin-right:10px;margin-bottom:6px}
+
+/* Playlist card */
+.playlist-highlight{display:grid;grid-template-columns:1fr;gap:var(--gap);margin-top:24px}
+.playlist-highlight .card{display:grid;grid-template-columns:1fr 1fr;gap:var(--gap);padding:12px}
+.playlist-highlight .card figure{aspect-ratio:1/1;border-radius:12px;overflow:hidden}
+
+/* Responsive */
+@media (min-width:900px){
+  .hero-inner{grid-template-columns:1fr 1fr;align-items:center}
+  .detail{grid-template-columns:1fr 1fr}
+}
