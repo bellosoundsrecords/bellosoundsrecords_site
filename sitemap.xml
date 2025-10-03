@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url><loc>https://YOUR_DOMAIN_OR_PAGES_URL/</loc></url>
+  <url><loc>https://YOUR_DOMAIN_OR_PAGES_URL/releases.html</loc></url>
+  <url><loc>https://YOUR_DOMAIN_OR_PAGES_URL/artists.html</loc></url>
+  <url><loc>https://YOUR_DOMAIN_OR_PAGES_URL/playlists.html</loc></url>
+  <url><loc>https://YOUR_DOMAIN_OR_PAGES_URL/about.html</loc></url>
+  <url><loc>https://YOUR_DOMAIN_OR_PAGES_URL/contact.html</loc></url>
+  <url><loc>https://YOUR_DOMAIN_OR_PAGES_URL/legal.html</loc></url>
+</urlset>
