@@ -1,4 +1,4 @@
-# BelloSounds Records — Static Site (Nervous-inspired)
+# BelloSounds Records — Static Site
 
 ## Run locally
 Use a local server to avoid module/CORS issues:
