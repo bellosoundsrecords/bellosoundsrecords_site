@@ -72,4 +72,8 @@ footer .social a{display:inline-flex;align-items:center;justify-content:center;w
 .playlist-highlight .card{display:grid;grid-template-columns:1fr 1fr;gap:var(--gap);padding:12px}
 .playlist-highlight .card figure{aspect-ratio:1/1;border-radius:12px;overflow:hidden}
 
+/* Responsive */
+@media (min-width:900px){
+  .hero-inner{grid-template-columns:1fr 1fr;align-items:center}
+  .detail{grid-template-columns:1fr 1fr}
 }
