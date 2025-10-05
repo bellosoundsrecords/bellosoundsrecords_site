@@ -7,19 +7,27 @@ export function formatDate(iso){ if(!iso) return ''; try{ return new Date(iso).t
 export function renderHeaderFooter(settings){
   const header = document.getElementById('site-header');
   const footer = document.getElementById('site-footer');
+
   header.innerHTML = `
     <a class="site-brand" href="./">
       <span class="logo" aria-hidden="true"></span>
       <strong>${settings.brand}</strong>
     </a>
-    <nav aria-label="Main menu">
+
+    <button class="menu-toggle" aria-label="Menu" aria-controls="site-nav" aria-expanded="false">
+      <span class="bars"></span>
+    </button>
+
+    <nav id="site-nav" class="nav" aria-label="Main menu">
+      <a href="./">Home</a>
       <a href="./releases.html">Releases</a>
       <a href="./artists.html">Artists</a>
       <a href="./playlists.html">Playlists</a>
-      <a href="./about.html">About us</a>
+      <a href="./about.html">About</a>
       <a href="./contact.html">Contact</a>
     </nav>
   `;
+
   footer.innerHTML = `
     <div class="grid">
       <div>© ${new Date().getFullYear()} ${settings.brand} · <a href="./legal.html">Legal</a></div>
@@ -29,6 +37,20 @@ export function renderHeaderFooter(settings){
     </div>
     <div class="tagline">${settings.tagline}</div>
   `;
+
+  // Toggle mobile (a11y)
+  const btn = header.querySelector('.menu-toggle');
+  const nav = header.querySelector('#site-nav');
+
+  const open = () => { btn.setAttribute('aria-expanded','true'); nav.classList.add('open'); document.body.classList.add('nav-open'); };
+  const close = () => { btn.setAttribute('aria-expanded','false'); nav.classList.remove('open'); document.body.classList.remove('nav-open'); };
+
+  btn?.addEventListener('click', () => (btn.getAttribute('aria-expanded')==='true' ? close() : open()));
+  document.addEventListener('keydown', e => { if(e.key === 'Escape') close(); });
+  nav.querySelectorAll('a').forEach(a => a.addEventListener('click', close));
+  const mq = window.matchMedia('(min-width:900px)');
+  const onChange = () => { if(mq.matches) close(); };
+  mq.addEventListener ? mq.addEventListener('change', onChange) : mq.addListener(onChange);
 }
 
 export function renderSocial(socials){
