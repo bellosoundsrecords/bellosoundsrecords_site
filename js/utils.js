@@ -16,7 +16,7 @@ export function renderHeaderFooter(settings){
       <a href="./releases.html">Releases</a>
       <a href="./artists.html">Artists</a>
       <a href="./playlists.html">Playlists</a>
-      <a href="./about.html">About</a>
+      <a href="./about.html">About us</a>
       <a href="./contact.html">Contact</a>
     </nav>
   `;
