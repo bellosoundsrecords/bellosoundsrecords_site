@@ -1,13 +1,13 @@
 // content/releases.js
 export const releases = [
   {
-    slug: "bsr006-your-heart",
-    catalog: "BSR006",
+    slug: "bsr001-your-heart",
+    catalog: "BSR001",
     title: "Your Heart",
     artists: ["Nick Evan"],
     alias: "nick-evan",
-    releaseDate: "2025-06-15",
-    cover: "./images/releases/BSR006.jpg",
+    releaseDate: "2025-06-03",
+    cover: "./images/releases/BSR001.jpg",
     tags: ["deephouse", "soulfulhouse", "underground"],
     descriptionShort: "Deep, soulful and timeless.",
     descriptionLong: "A focused cut with a warm groove and introspective tone.",
@@ -15,11 +15,11 @@ export const releases = [
       { title: "Your Heart (Original Mix)", bpm: 118, key: "F minor", isrc: "BSR00601" }
     ],
     embeds: {
-      youtube: "YOUTUBE_VIDEO_ID"
+      youtube: "https://youtu.be/F5UNBLMv2jM?si=qXO54tC92hjVp0Mg"
     },
     links: {
       stream: {
-        youtube: "https://youtu.be/"
+        youtube: "https://youtu.be/F5UNBLMv2jM?si=qXO54tC92hjVp0Mg"
       },
       buy: {
         beatport: "https://www.beatport.com/",
@@ -31,7 +31,7 @@ export const releases = [
       producedBy: "Nick Evan",
       mixedBy: "Nick Evan",
       masteredBy: "Nick Evan",
-      artwork: "BelloSounds"
+      artwork: "BelloSounds Records"
     }
   },
   {
