@@ -9,7 +9,7 @@ export const artists = [
     image: "./images/artists/Nick-Evan.jpg",
     socials: {
       youtube: "https://youtube.com/@Nick_Evan",
-      spotify: "https://https://open.spotify.com/artist/0A3wvqAWipmmhvcqAbxZQd",
+      spotify: "https://open.spotify.com/artist/0A3wvqAWipmmhvcqAbxZQd",
       }
   },
   {
