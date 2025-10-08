@@ -67,16 +67,16 @@ export const releases = [
     }
   },
   {
-    slug: "bsr005-city-tension",
-    catalog: "BSR005",
-    title: "City Tension",
+    slug: "bsr003-night-at-district",
+    catalog: "BSR003",
+    title: "Night At District",
     artists: ["Neel Miles"],
     alias: "neel-miles",
-    releaseDate: "2025-05-20",
-    cover: "./images/releases/BSR005.jpg",
+    releaseDate: "2025-08-14",
+    cover: "./images/releases/BSR003.jpg",
     tags: ["deephouse", "garage", "raw"],
     descriptionShort: "Raw energy, unfiltered.",
-    tracks: [ { title: "City Tension (Club Mix)", bpm: 122 } ],
+    tracks: [ { title: "City Tension (Club Mix)", bpm: 127, key: "D minor", isrc:"QZWFG2550410" } ],
     embeds: { youtube: "YOUTUBE_VIDEO_ID" },
     links: { stream: { youtube: "https://youtu.be/" } },
     credits: { writtenBy: "Neel Miles" }
