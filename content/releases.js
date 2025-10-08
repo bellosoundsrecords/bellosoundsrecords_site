@@ -44,7 +44,7 @@ export const releases = [
     cover: "./images/releases/BSR002.jpg",
     tags: ["DeepHouse", "UrbanVibes", "LateNight", "MinimalGroove", "NickEvan", "BelloSoundsRecords", "CityTension"],
     descriptionShort: "Born on a late-night platform: city murmur, last train running late, groove held in suspense.",
-    descriptionLong: "City Tension” was born late, on a platform, when the city doesn’t sleep but speaks in whispers. The background hum, the buzzing lights, the wait for the last train—everything becomes structure. Back in the studio I kept only what’s needed—tight bass, dry percussion, micro-shifts that push and hold. Urban-minded deep house: no fireworks, just controlled motion, essential hits and breathing space. It’s a snapshot of that moment between leaving and staying, when your inner tempo locks to the city’s noise.",
+    descriptionLong: "City Tension was born late, on a platform, when the city doesn’t sleep but speaks in whispers. The background hum, the buzzing lights, the wait for the last train—everything becomes structure. Back in the studio I kept only what’s needed—tight bass, dry percussion, micro-shifts that push and hold. Urban-minded deep house: no fireworks, just controlled motion, essential hits and breathing space. It’s a snapshot of that moment between leaving and staying, when your inner tempo locks to the city’s noise.",
     tracks: [ { title: "City Tension (Original Mix)", bpm: 124, key: "G minor", isrc:"QZTB22543684" } ],
     embeds: {
       youtube: "ScJCsjhJifU"
@@ -55,7 +55,7 @@ export const releases = [
       },
       buy: {
         beatport: "https://www.beatport.com/it/release/city-tension/5125387",
-        bandcamp: "https://https://nickevan.bandcamp.com",
+        bandcamp: "https://nickevan.bandcamp.com",
         }
     },
       credits: {
@@ -121,4 +121,5 @@ export const releases = [
       masteredBy: "Nick Evan",
       artwork: "BelloSounds Records"
     }
+   }
  ];
