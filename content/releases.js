@@ -121,5 +121,4 @@ export const releases = [
       masteredBy: "Nick Evan",
       artwork: "BelloSounds Records"
     }
-  }
-];
+ ];
