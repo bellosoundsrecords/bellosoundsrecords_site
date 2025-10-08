@@ -103,15 +103,13 @@ export const releases = [
       { title: "Lost In The Feeling (Feeling Mix)", bpm: 118, key: "Db minor", isrc: "QT3F62513541" }
     ],
     embeds: {
-      youtube: ""
-    },
+         },
     links: {
       stream: {
-        youtube: "https://www.youtube.com/watch?v="
-      },
+              },
       buy: {
         beatport: "https://www.beatport.com/it/release/lost-in-the-feeling/5440607",
-        bandcamp: "https://https://nickevan.bandcamp.com"
+        bandcamp: "https://nickevan.bandcamp.com"
       }
     },
     credits: {
@@ -121,5 +119,4 @@ export const releases = [
       masteredBy: "Nick Evan",
       artwork: "BelloSounds Records"
     }
-   }
- ];
+   }];
