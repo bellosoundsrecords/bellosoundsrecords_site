@@ -97,13 +97,13 @@ export const releases = [
     releaseDate: "2025-10-15",
     cover: "./images/releases/BSR004.jpg",
     tags: ["deephouse", "soulfulhouse", "NickEvan", "AnalogHouse", "BelloSoundsRecords", "LostInTheFeeling"],
-    descriptionShort: "Born after a night in a St Martin St pub: a live piano stuck in my head, carved into a groove that won’t let go.",
-    descriptionLong: "The spark for “Your Heart” came after an unplanned night in a St Martin St pub. There was live music, a piano cycling on a simple, stubborn riff, and a table of new faces talking about music until late. Back in the studio I kept only what mattered: that hook under the skin, a round bass, essential percussion and room to breathe. Deep house with a soulful core—movement over loudness, micro-shifts, unexpected hits and a groove that keeps evolving. It’s the memory of that night: strangers who understand each other when music is the common language.",
+    descriptionShort: "3 a.m. — empty roads, windows down, the city breathing slow. Lost in the Feeling is a night drive with no address, just a pulse to follow.",
+    descriptionLong: "It’s that hour when the streets belong to you. Sodium lights blur into a soft orange halo, the dashboard glows, and the world shrinks to a lane, a heartbeat, a thought you don’t want to lose. The bass is steady like tires on asphalt; pads drift past like streetlights; a hush of echo sits where words would be. You’re not rushing anywhere— you’re staying in motion because motion feels like truth. Lost in the Feeling is Nick Evan at his most intimate: slow-blooming, soulful, the kind of deep that keeps you company and keeps you honest. No big gestures, no endings—just a quiet surrender to the road until night decides it’s enough.",
     tracks: [
       { title: "Lost In The Feeling (Feeling Mix)", bpm: 118, key: "Db minor", isrc: "QT3F62513541" }
     ],
     embeds: {
-      youtube: "- - -"
+      youtube: ""
     },
     links: {
       stream: {
