@@ -8,7 +8,7 @@ export const releases = [
     alias: "nick-evan",
     releaseDate: "2025-06-03",
     cover: "./images/releases/BSR001.jpg",
-    tags: ["deephouse", "soulfulhouse", "NickEvan", "BelloSoundsRecords", "CityTension"],
+    tags: ["deephouse", "soulfulhouse", "NickEvan", "BelloSoundsRecords", "YourHeart"],
     descriptionShort: "Born after a night in a St Martin St pub: a live piano stuck in my head, carved into a groove that won’t let go.",
     descriptionLong: "The spark for “Your Heart” came after an unplanned night in a St Martin St pub. There was live music, a piano cycling on a simple, stubborn riff, and a table of new faces talking about music until late. Back in the studio I kept only what mattered: that hook under the skin, a round bass, essential percussion and room to breathe. Deep house with a soulful core—movement over loudness, micro-shifts, unexpected hits and a groove that keeps evolving. It’s the memory of that night: strangers who understand each other when music is the common language.",
     tracks: [
