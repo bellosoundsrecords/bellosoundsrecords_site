@@ -87,7 +87,7 @@ export const releases = [
       masteredBy: "Neel Miles",
       artwork: "BelloSounds Records"
     },
-    
+    {
     slug: "bsr004-lost-in-the-feeling",
     catalog: "BSR004",
     title: "Lost In The Feeling",
