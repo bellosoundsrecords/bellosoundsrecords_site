@@ -86,6 +86,39 @@ export const releases = [
       mixedBy: "Neel Miles",
       masteredBy: "Neel Miles",
       artwork: "BelloSounds Records"
+    },
+    
+    slug: "bsr004-lost-in-the-feeling",
+    catalog: "BSR004",
+    title: "Lost In The Feeling",
+    artists: ["Nick Evan"],
+    alias: "nick-evan",
+    releaseDate: "2025-10-15",
+    cover: "./images/releases/BSR004.jpg",
+    tags: ["deephouse", "soulfulhouse", "NickEvan", "AnalogHouse", "BelloSoundsRecords", "LostInTheFeeling"],
+    descriptionShort: "Born after a night in a St Martin St pub: a live piano stuck in my head, carved into a groove that won’t let go.",
+    descriptionLong: "The spark for “Your Heart” came after an unplanned night in a St Martin St pub. There was live music, a piano cycling on a simple, stubborn riff, and a table of new faces talking about music until late. Back in the studio I kept only what mattered: that hook under the skin, a round bass, essential percussion and room to breathe. Deep house with a soulful core—movement over loudness, micro-shifts, unexpected hits and a groove that keeps evolving. It’s the memory of that night: strangers who understand each other when music is the common language.",
+    tracks: [
+      { title: "Lost In The Feeling (Feeling Mix)", bpm: 118, key: "Db minor", isrc: "QT3F62513541" }
+    ],
+    embeds: {
+      youtube: "- - -"
+    },
+    links: {
+      stream: {
+        youtube: "https://www.youtube.com/watch?v="
+      },
+      buy: {
+        beatport: "https://www.beatport.com/it/release/lost-in-the-feeling/5440607",
+        bandcamp: "https://https://nickevan.bandcamp.com"
+      }
+    },
+    credits: {
+      writtenBy: "Nick Evan",
+      producedBy: "Nick Evan",
+      mixedBy: "Nick Evan",
+      masteredBy: "Nick Evan",
+      artwork: "BelloSounds Records"
     }
   }
 ];
