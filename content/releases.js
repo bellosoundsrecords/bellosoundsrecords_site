@@ -75,10 +75,17 @@ export const releases = [
     releaseDate: "2025-08-14",
     cover: "./images/releases/BSR003.jpg",
     tags: ["deephouse", "garage", "raw"],
-    descriptionShort: "Raw energy, unfiltered.",
-    tracks: [ { title: "City Tension (Club Mix)", bpm: 127, key: "D minor", isrc:"QZWFG2550410" } ],
-    embeds: { youtube: "YOUTUBE_VIDEO_ID" },
-    links: { stream: { youtube: "https://youtu.be/" } },
-    credits: { writtenBy: "Neel Miles" }
+    descriptionShort: "Chicago night. A glance, no words. Night at District is sweet tension—desire moving without hurry.",
+    descriptionLong: "The doors open; the air tastes like rain on asphalt. Inside, low lights, bodies tracing time. Neel sees her. She feels him. They don’t speak— they look for each other between dry kicks and short steps. The club (somewhere in Chicago, the District) turns into a suspended hallway where desire doesn’t ask permission—only space. A hand lifts a glass, a smile pauses halfway, and the world slows down for a breath. There’s no promise, no ending—only the courage to stay there, one step closer, until the night decides to hold them in the balance. Night at District doesn’t shout; it whispers. It’s a courtship born from rhythm that leaves you wearing the scent of what might have happened.",
+    tracks: [ { title: "Night At District", bpm: 127, key: "D minor", isrc:"QZWFG2550410" } ],
+    embeds: { youtube: "2kkpkOQRlao" },
+    links: { stream: { youtube: "https://www.youtube.com/watch?v=2kkpkOQRlao" } },
+     credits: {
+      writtenBy: "Neel Miles",
+      producedBy: "Neel Miles",
+      mixedBy: "Neel Miles",
+      masteredBy: "Neel Miles",
+      artwork: "BelloSounds Records"
+    }
   }
 ];
