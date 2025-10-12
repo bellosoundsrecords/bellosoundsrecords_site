@@ -116,3 +116,20 @@ nav.nav{ display:flex; gap:10px; }
   nav.nav a{ padding:12px 0; font-size:18px; text-decoration:none; }
   body.nav-open{ overflow:hidden; } /* blocca lo scroll sotto il menu */
 }
+.site-brand {
+  display:flex;
+  align-items:center;
+  text-decoration:none;
+  padding:8px 0;
+}
+
+.site-brand .logo {
+  height:42px;               /* adatta qui: 42-50 px mantiene leggibilità */
+  width:auto;
+  object-fit:contain;
+  display:block;
+}
+
+@media (min-width:899px){
+  .site-brand .logo { height:54px; }
+}
