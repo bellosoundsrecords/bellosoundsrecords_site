@@ -10,22 +10,22 @@ export function renderHeaderFooter(settings){
 
   header.innerHTML = `
     <a class="site-brand" href="./">
-      <span class="logo" aria-hidden="true"></span>
-      <strong>${settings.brand}</strong>
-    </a>
+    <img class="logo" src="./images/logo.png" alt="BelloSounds Records" width="270" height="87"/>
+    <strong>${settings.brand}</strong>
+  </a>
 
-    <button class="menu-toggle" aria-label="Menu" aria-controls="site-nav" aria-expanded="false">
-      <span class="bars"></span>
-    </button>
+  <button class="menu-toggle" aria-label="Menu" aria-controls="site-nav" aria-expanded="false">
+    <span class="bars"></span>
+  </button>
 
-    <nav id="site-nav" class="nav" aria-label="Main menu">
-      <a href="./">Home</a>
-      <a href="./releases.html">Releases</a>
-      <a href="./artists.html">Artists</a>
-      <a href="./playlists.html">Playlists</a>
-      <a href="./about.html">About</a>
-      <a href="./contact.html">Contact</a>
-    </nav>
+  <nav id="site-nav" class="nav" aria-label="Main menu">
+    <a href="./">Home</a>
+    <a href="./releases.html">Releases</a>
+    <a href="./artists.html">Artists</a>
+    <a href="./playlists.html">Playlists</a>
+    <a href="./about.html">About</a>
+    <a href="./contact.html">Contact</a>
+  </nav>
   `;
 
   footer.innerHTML = `
