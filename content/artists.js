@@ -3,9 +3,9 @@ export const artists = [
   {
     slug: "nick-evan",
     name: "Nick Evan",
-    tagline: "The Place. Grove, identity, evolution.",
-    bioShort: "Nick Evan — the introspective side of BelloSounds. Deep house, urban & soulful. Essential groove, evolving rhythm, no frills.",
-    bioLong: "Nick Evan defines the minimal, reflective identity of BelloSounds Records, a creative place conceived by an idea that places groove at the core. His productions merge deep house, urban and soulful into clean fabrics: uncommon rhythmic divisions, essential hits, breathing space. The flow is hypnotic and purposeful, no filler. Nick leads creative direction and sound, from instrument choice to mix/master decisions, prioritizing musicality over loudness. Tracks are built to grow over time: breaks as breathing, original rhythmic splits that move the body without force, warm harmonies opening emotional frames. Fewer elements, greater impact, that’s his mark.",
+    tagline: "Identity, Evolution. <br> Sound comes first",
+    bioShort: "Nick Evan is a sound project born inside BelloSounds Records. It comes from a time—the ’90s and 2000s—that still moves us. It starts again from there: no imitation, it remembers where it came from and looks ahead. No special effects—just presence. Memory becoming future.",
+    bioLong: "Nick Evan is a sound project born inside BelloSounds Records. It comes from a time—the ’90s and 2000s—that still moves us. It starts again from there: it doesn’t imitate; it remembers and looks forward, to preserve and pass on that culture. <br>The music begins with a simple idea: a few well-chosen elements and room to breathe. It changes the air through details, not special effects: a step, a pause, a chord that opens. Deep house with urban and soulful touches, made to move without shouting—from the club to the headphones. <br>Memory becoming future.",
     image: "./images/artists/Nick-Evan.jpg",
     socials: {
       youtube: "https://youtube.com/@Nick_Evan",
