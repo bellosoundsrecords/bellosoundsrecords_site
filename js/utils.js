@@ -11,8 +11,7 @@ export function renderHeaderFooter(settings){
   header.innerHTML = `
     <a class="site-brand" href="./">
     <img class="logo" src="./images/logo.png" alt="BelloSounds Records" width="270" height="87"/>
-    <strong>${settings.brand}</strong>
-  </a>
+   </a>
 
   <button class="menu-toggle" aria-label="Menu" aria-controls="site-nav" aria-expanded="false">
     <span class="bars"></span>
