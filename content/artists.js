@@ -15,10 +15,13 @@ export const artists = [
   {
     slug: "neel-miles",
     name: "Neel Miles",
-    tagline: "Raw groove.",
-    bioShort: "Instinctive, cutting grooves that shake the floor.",
-    bioLong: "Neel Miles is the raw, club‑oriented soul of BelloSounds — garage edges and urban vibes.",
+    tagline: "Instinctive, cutting grooves that shake the floor.",
+    bioShort: "Neel Miles is a signal coming from afar. Born within BelloSounds Records, it travels through the night, across distance and memory. No face, only presence. A sound that crosses through, leaves a trace, then fades. A message that arrives, even if no one is waiting.",
+    bioLong: "Neel Miles is a sound project born within BelloSounds Records. His sound moves between deep house, urban grooves, and modern electronic influences, always focused on rhythm and impact. Each production grows from instinct — built on deep basslines, dynamic details, and a tension that evolves over time. Neel Miles embodies the more direct and physical side of the BelloSounds world: less theory, more impulse. A sound designed to move, yet built to be heard. Controlled energy, rhythm as language.",
     image: "./images/artists/neel-miles.jpg",
-    socials: { youtube: "https://youtube.com/@NeelMiles" }
+    socials: { 
+      youtube: "https://youtube.com/@NeelMiles",
+      spotify: " https://open.spotify.com/intl-it/artist/67xtsqHXj0H7QReNrN2qe7?si=wB1RED3kQJWdXyO3N3TC5g",
+    }
   }
 ];
