@@ -31,6 +31,9 @@ function renderHero(rel){
     <div class="hero-text">
       <h1>${rel.title}</h1>
       <p>${rel.descriptionShort ?? ''}</p>
+      // dentro renderHero(rel)
+      <a class="btn" href="./release.html?slug=${rel.slug}">View</a>
+      <button class="btn play" data-action="play" data-slug="${rel.slug}">Play</button>
       <a class="btn" href="./release.html?slug=${rel.slug}">Listen</a>
       <a class="btn outline" href="./releases.html">View all</a>
     </div>
@@ -122,6 +125,9 @@ export function bootReleaseDetail(){
       <div class="info">
         <h1>${rel.title}</h1>
         <p class="artists">${rel.artists.join(', ')}</p>
+        // dentro renderHero(rel)
+        <a class="btn" href="./release.html?slug=${rel.slug}">View</a>
+        <button class="btn play" data-action="play" data-slug="${rel.slug}">Play</button>
         <p><strong>${rel.catalog}</strong> · ${formatDate(rel.releaseDate)}</p>
         <div class="tags">${tags}</div>
         ${embedPlayer(rel.embeds)}
