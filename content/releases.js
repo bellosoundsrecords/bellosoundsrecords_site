@@ -15,12 +15,13 @@ export const releases = [
       { title: "Your Heart (Original Mix)", bpm: 124, key: "A minor", isrc: "QZNWZ2599230" }
     ],
     embeds: {
-      youtube: "F5UNBLMv2jM"
+      youtube: "F5UNBLMv2jM",
+      spotify: "track:5JgD9PvzNT57Lw2Vza7x2H?si=0213cd2fae56403b"
     },
     links: {
       stream: {
-        youtube: "https://www.youtube.com/watch?v=F5UNBLMv2jM"
-      },
+        youtube: "https://www.youtube.com/watch?v=F5UNBLMv2jM",
+        },
       buy: {
         beatport: "https://www.beatport.com/it/release/your-heart/5109760",
         bandcamp: "https://https://nickevan.bandcamp.com"
@@ -47,11 +48,13 @@ export const releases = [
     descriptionLong: "City Tension was born late, on a platform, when the city doesn’t sleep but speaks in whispers. The background hum, the buzzing lights, the wait for the last train—everything becomes structure. Back in the studio I kept only what’s needed—tight bass, dry percussion, micro-shifts that push and hold. Urban-minded deep house: no fireworks, just controlled motion, essential hits and breathing space. It’s a snapshot of that moment between leaving and staying, when your inner tempo locks to the city’s noise.",
     tracks: [ { title: "City Tension (Original Mix)", bpm: 124, key: "G minor", isrc:"QZTB22543684" } ],
     embeds: {
-      youtube: "ScJCsjhJifU"
+      youtube: "ScJCsjhJifU",
+      spotify: "track:475rP8OuX9Qk1sPsADmvJv?si=0fda161cba8e4e06"
     },
     links: {
       stream: {
-        youtube: "https://www.youtube.com/watch?v=ScJCsjhJifU"
+        youtube: "https://www.youtube.com/watch?v=ScJCsjhJifU",
+        
       },
       buy: {
         beatport: "https://www.beatport.com/it/release/city-tension/5125387",
@@ -78,7 +81,10 @@ export const releases = [
     descriptionShort: "Chicago night. A glance, no words. Night at District is sweet tension—desire moving without hurry.",
     descriptionLong: "The doors open; the air tastes like rain on asphalt. Inside, low lights, bodies tracing time. Neel sees her. She feels him. They don’t speak— they look for each other between dry kicks and short steps. The club (somewhere in Chicago, the District) turns into a suspended hallway where desire doesn’t ask permission—only space. A hand lifts a glass, a smile pauses halfway, and the world slows down for a breath. There’s no promise, no ending—only the courage to stay there, one step closer, until the night decides to hold them in the balance. Night at District doesn’t shout; it whispers. It’s a courtship born from rhythm that leaves you wearing the scent of what might have happened.",
     tracks: [ { title: "Night At District", bpm: 127, key: "D minor", isrc:"QZWFG2550410" } ],
-    embeds: { youtube: "2kkpkOQRlao" },
+    embeds: { 
+      youtube: "2kkpkOQRlao",
+      spotify: "track:0wQP6cjak4tqAwoSrUV9nx"
+    },
     links: { stream: { youtube: "https://www.youtube.com/watch?v=2kkpkOQRlao" } },
      credits: {
       writtenBy: "Neel Miles",
@@ -107,7 +113,8 @@ export const releases = [
     },
     links: {
       stream: {
-        youtube: "https://www.youtube.com/watch?v=-SMEW-rV2S4"
+        youtube: "https://www.youtube.com/watch?v=-SMEW-rV2S4",
+        spotify: "track:6pg7enrcAoexwRjtMo8EGu?si=ab6cd532870e4ff1"
       },
         buy: {
         beatport: "https://www.beatport.com/it/release/lost-in-the-feeling/5440607",
