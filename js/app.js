@@ -1,5 +1,4 @@
 // js/app.js
-import { addReleaseToQueue } from './components/ytQueue.js';
 import { settings } from '../content/settings.js';
 import { releases }  from '../content/releases.js';
 import { renderHeaderFooter, qs } from './utils.js';
@@ -42,6 +41,7 @@ function bootReleaseDetail(slug){
       <div class="actions">
         <button class="btn play" data-slug="${rel.slug}">Play</button>
       </div>
+      ${embedPlayer(rel.embeds, 'release')}
     </div>
   </section>`;
 }
@@ -56,31 +56,22 @@ function route(){
 }
 function navigate(url){ history.pushState({}, '', url); route(); }
 
-
-// --- nav interna senza reload (router SPA super robusto)
 document.addEventListener('click', (e)=>{
-  // solo click sinistro, senza modificatori, non già gestito
-  if (e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
-
-  const a = e.target.closest('a[href]');
+  const a = e.target.closest('a');
   if (!a) return;
-
-  const href = a.getAttribute('href');
-  if (!href) return;
-
-  // link che NON vogliamo intercettare
-  if (href.startsWith('#') || href.startsWith('mailto:') || href.startsWith('tel:')) return;
-  if (a.target && a.target !== '_self') return;     // es. _blank o altro target
-  if (a.hasAttribute('download')) return;
-
-  const url = new URL(href, location.href);
-  if (url.origin !== location.origin) return;        // esterni -> lascia stare
-
-  e.preventDefault();
-  navigate(url.pathname + url.search);
+  const url = new URL(a.getAttribute('href'), location.origin);
+  const internal = url.origin === location.origin && !a.target && !a.hasAttribute('download');
+  if (!internal) return;
+  e.preventDefault(); navigate(url.pathname + url.search);
 });
 
-
+// Play → sticky player (Spotify preferito)
+document.addEventListener('click', (e)=>{
+  const btn = e.target.closest('.btn.play'); if (!btn) return;
+  e.preventDefault();
+  const rel = releases.find(r=>r.slug === btn.dataset.slug);
+  if (rel) setPlayer({ title: `${rel.artists.join(', ')} — ${rel.title}`, embeds: rel.embeds });
+});
 
 renderHeaderFooter(settings);
 window.addEventListener('popstate', route);
