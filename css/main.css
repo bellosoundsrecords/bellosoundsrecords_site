@@ -162,3 +162,17 @@ nav.nav{ display:flex; gap:10px; }
 #sticky-player .title{ font-size:13px; color:var(--muted); flex:1; white-space:nowrap; overflow:hidden; text-overflow:ellipsis }
 #sticky-player .close{ border:0; background:#222; color:#fff; border-radius:8px; padding:6px 10px; cursor:pointer }
 
+/* Mini-player quadrato */
+#sticky-player{ position:fixed; left:12px; bottom:12px; z-index:1000; display:none; }
+#sticky-player.visible{ display:block; }
+.miniplayer{ width:96px; height:96px; border-radius:14px; overflow:hidden;
+  box-shadow:0 12px 30px rgba(0,0,0,.45); background:#000; border:1px solid #222; }
+.miniplayer .art{ width:100%; height:100%; background:center/cover no-repeat; position:relative; }
+.miniplayer .ctl{ position:absolute; width:28px; height:28px; border-radius:50%;
+  border:0; color:#fff; background:rgba(0,0,0,.55); display:grid; place-items:center;
+  cursor:pointer; font-size:16px; }
+.miniplayer .ctl.prev{ left:6px; top:calc(50% - 14px); }
+.miniplayer .ctl.next{ right:6px; top:calc(50% - 14px); }
+.miniplayer .ctl.toggle{ left:calc(50% - 14px); bottom:6px; }
+
+
