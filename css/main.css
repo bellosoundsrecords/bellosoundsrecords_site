@@ -133,3 +133,15 @@ nav.nav{ display:flex; gap:10px; }
 @media (min-width:899px){
   .site-brand .logo { height:54px; }
 }
+.yt-audio .cover{
+  display:block; width:100%; aspect-ratio:1/1;
+  background:center/cover no-repeat; border:0; border-radius:12px; position:relative; cursor:pointer
+}
+.yt-audio .cover .play{
+  position:absolute; inset:0; margin:auto; width:64px; height:64px;
+  display:grid; place-items:center; border-radius:50%;
+  background:rgba(0,0,0,.55); color:#fff; font-size:28px; transition:transform .15s ease
+}
+.yt-audio .cover.playing .play{ transform:scale(.9) }  /* mini feedback */
+.yt-iframe{ width:0; height:0; overflow:hidden; }      /* iframe “nascosto” */
+
