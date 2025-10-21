@@ -82,6 +82,17 @@ document.addEventListener('click', (e)=>{
   if (rel) addReleaseToQueue(rel, { autoplay:true });
 });
 
+// Intercetta QUALSIASI elemento con data-action="play"
+document.addEventListener('click', (e)=>{
+  const el = e.target.closest('[data-action="play"]');
+  if (!el) return;
+  e.preventDefault();
+  const slug = el.dataset.slug;
+  const rel  = releases.find(r => r.slug === slug);
+  if (!rel) { console.warn('Play: release non trovata per slug', slug); return; }
+  addReleaseToQueue(rel, { autoplay:true });
+});
+
 
 renderHeaderFooter(settings);
 window.addEventListener('popstate', route);
