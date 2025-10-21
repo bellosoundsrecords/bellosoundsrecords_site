@@ -57,15 +57,29 @@ function route(){
 function navigate(url){ history.pushState({}, '', url); route(); }
 
 
-// Play → sticky player (Spotify preferito)
+// --- nav interna senza reload (router SPA super robusto)
 document.addEventListener('click', (e)=>{
-  const btn = e.target.closest('.btn.play'); 
-  if (!btn) return;
-  e.preventDefault(); // evita reload se è un <a>
-  const slug = btn.dataset.slug;
-  const rel = releases.find(r => r.slug === slug);
-  if (rel) addReleaseToQueue(rel, { autoplay:true });
+  // solo click sinistro, senza modificatori, non già gestito
+  if (e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+
+  const a = e.target.closest('a[href]');
+  if (!a) return;
+
+  const href = a.getAttribute('href');
+  if (!href) return;
+
+  // link che NON vogliamo intercettare
+  if (href.startsWith('#') || href.startsWith('mailto:') || href.startsWith('tel:')) return;
+  if (a.target && a.target !== '_self') return;     // es. _blank o altro target
+  if (a.hasAttribute('download')) return;
+
+  const url = new URL(href, location.href);
+  if (url.origin !== location.origin) return;        // esterni -> lascia stare
+
+  e.preventDefault();
+  navigate(url.pathname + url.search);
 });
+
 
 
 renderHeaderFooter(settings);
