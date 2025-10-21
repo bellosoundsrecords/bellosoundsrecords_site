@@ -1,4 +1,5 @@
 // js/app.js
+import { addReleaseToQueue } from './components/ytQueue.js';
 import { settings } from '../content/settings.js';
 import { releases }  from '../content/releases.js';
 import { renderHeaderFooter, qs } from './utils.js';
@@ -41,7 +42,6 @@ function bootReleaseDetail(slug){
       <div class="actions">
         <button class="btn play" data-slug="${rel.slug}">Play</button>
       </div>
-      ${embedPlayer(rel.embeds, 'release')}
     </div>
   </section>`;
 }
@@ -56,22 +56,17 @@ function route(){
 }
 function navigate(url){ history.pushState({}, '', url); route(); }
 
-document.addEventListener('click', (e)=>{
-  const a = e.target.closest('a');
-  if (!a) return;
-  const url = new URL(a.getAttribute('href'), location.origin);
-  const internal = url.origin === location.origin && !a.target && !a.hasAttribute('download');
-  if (!internal) return;
-  e.preventDefault(); navigate(url.pathname + url.search);
-});
 
 // Play → sticky player (Spotify preferito)
 document.addEventListener('click', (e)=>{
-  const btn = e.target.closest('.btn.play'); if (!btn) return;
-  e.preventDefault();
-  const rel = releases.find(r=>r.slug === btn.dataset.slug);
-  if (rel) setPlayer({ title: `${rel.artists.join(', ')} — ${rel.title}`, embeds: rel.embeds });
+  const btn = e.target.closest('.btn.play'); 
+  if (!btn) return;
+  e.preventDefault(); // evita reload se è un <a>
+  const slug = btn.dataset.slug;
+  const rel = releases.find(r => r.slug === slug);
+  if (rel) addReleaseToQueue(rel, { autoplay:true });
 });
+
 
 renderHeaderFooter(settings);
 window.addEventListener('popstate', route);
