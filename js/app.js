@@ -58,7 +58,7 @@ function bootReleaseDetail(slug){
         <button class="btn play" data-action="play" data-slug="${rel.slug}">Play</button>
       </div>
 
-      ${embedPlayer(rel.embeds, 'release')}
+     
     </div>
   </section>`;
 }
