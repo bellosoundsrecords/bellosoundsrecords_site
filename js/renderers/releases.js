@@ -1,9 +1,10 @@
 // renderers/releases.js
+import { ytAudioCover } from '../components/ytAudio.js';
+import { extractYouTubeId } from '../components/embedPlayer.js'; // se già lo hai lì
 import { releases } from '../../content/releases.js';
 import { playlists } from '../../content/playlists.js';
 import { settings } from '../../content/settings.js';
 import { cardRelease } from '../components/cardRelease.js';
-import { embedPlayer } from '../components/embedPlayer.js';
 import { filterBar, attachFilterBarHandlers } from '../components/filterBar.js';
 import { qs, setPageMeta, getParam, formatDate } from '../utils.js';
 
