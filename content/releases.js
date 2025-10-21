@@ -102,12 +102,10 @@ export const releases = [
     tracks: [
       { title: "Lost In The Feeling (Feeling Mix)", bpm: 118, key: "Db minor", isrc: "QT3F62513541" }
     ],
-    embeds: {
+    embeds: {youtube: "-SMEW-rV2S4"
          },
-    links: {
-      stream: {
-              },
-      buy: {
+    links: { stream: { youtube: "https://www.youtube.com/watch?v=-SMEW-rV2S4" } },
+        buy: {
         beatport: "https://www.beatport.com/it/release/lost-in-the-feeling/5440607",
         bandcamp: "https://nickevan.bandcamp.com"
       }
