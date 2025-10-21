@@ -1,32 +1,93 @@
-// components/embedPlayer.js
-export function embedPlayer(embeds){
-  if(!embeds) return '';
-  if(embeds.youtube){
-    // Accept either full URL or video ID
+// js/components/embedPlayer.js
+
+/** Estrae l'ID di YouTube da un URL o restituisce la stringa così com'è.
+ *  - video: 11 caratteri
+ *  - playlist: usa isPlaylist=true (prende ?list=...)
+ */
+export function extractYouTubeId(input = '', isPlaylist = false){
+  const s = String(input || '');
+
+  if (isPlaylist){
+    // es: https://www.youtube.com/playlist?list=PLxxxx
+    const m = s.match(/[?&]list=([a-zA-Z0-9_-]+)/);
+    return m ? m[1] : s;
+  }
+
+  // video: supporta youtu.be/<id> e ...v=<id>
+  const m = s.match(/(?:youtu\.be\/|[?&]v=)([a-zA-Z0-9_-]{11})/);
+  return m ? m[1] : s;
+}
+
+/** Ritorna l’HTML dell’embed in base ai provider presenti.
+ *  context: 'release' | 'playlist'
+ */
+export function embedPlayer(embeds = {}, context = 'release'){
+  if (!embeds) return '';
+
+  // --- PLAYLIST: usa YouTube ---
+  if (context === 'playlist' && embeds.youtube){
+    const listId = extractYouTubeId(embeds.youtube, true);
+    return `
+      <div class="embed youtube">
+        <iframe
+          loading="lazy"
+          src="https://www.youtube-nocookie.com/embed/videoseries?list=${listId}"
+          title="YouTube playlist"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          referrerpolicy="strict-origin-when-cross-origin"
+          allowfullscreen
+        ></iframe>
+      </div>`;
+  }
+
+  // --- RELEASE: prefer Spotify se presente (player compatto) ---
+  if (embeds.spotify){
+    const { url, kind } = asSpotifyEmbed(embeds.spotify);
+    return `
+      <div class="embed spotify ${kind}">
+        <iframe
+          loading="lazy"
+          src="${url}"
+          allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+        ></iframe>
+      </div>`;
+  }
+
+  // --- Fallback YouTube video ---
+  if (embeds.youtube){
     const id = extractYouTubeId(embeds.youtube);
-    return `<div class="embed"><iframe width="560" height="315"
-      src="https://www.youtube.com/embed/${id}" title="YouTube player" frameborder="0"
-      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div>`;
+    return `
+      <div class="embed youtube">
+        <iframe
+          loading="lazy"
+          src="https://www.youtube-nocookie.com/embed/${id}"
+          title="YouTube player"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          referrerpolicy="strict-origin-when-cross-origin"
+          allowfullscreen
+        ></iframe>
+      </div>`;
   }
-  if(embeds.spotify){
-    // ID could be track/album/playlist id or full URL
-    const url = embeds.spotify.includes('open.spotify.com') ? embeds.spotify :
-      `https://open.spotify.com/track/${embeds.spotify}`;
-    return `<div class="embed"><iframe style="border-radius:12px" src="${url.replace('open.spotify.com/','open.spotify.com/embed/')}"
-      width="100%" height="152" frameborder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe></div>`;
+
+  // --- Fallback SoundCloud ---
+  if (embeds.soundcloud){
+    return `
+      <div class="embed sc">
+        <iframe loading="lazy"
+          src="https://w.soundcloud.com/player/?url=${encodeURIComponent(embeds.soundcloud)}"
+        ></iframe>
+      </div>`;
   }
-  if(embeds.soundcloud){
-    const url = embeds.soundcloud.includes('soundcloud.com') ? embeds.soundcloud :
-      `https://soundcloud.com/${embeds.soundcloud}`;
-    return `<div class="embed"><iframe width="100%" height="166" scrolling="no" frameborder="no" allow="autoplay"
-      src="https://w.soundcloud.com/player/?url=${encodeURIComponent(url)}&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true"></iframe></div>`;
-  }
+
   return '';
 }
 
-function extractYouTubeId(input){
-  if(!input) return '';
-  if(/^[\w-]{11}$/.test(input)) return input;
-  const m = String(input).match(/(?:v=|\.be\/|embed\/)([\w-]{11})/);
-  return m ? m[1] : input;
+/** Converte input Spotify (track:/album:/playlist: o URL) in URL embed */
+function asSpotifyEmbed(input){
+  const s = String(input || '');
+  // match "track:ID" / "album:ID" / "playlist:ID" o URL con /track/ID ecc.
+  const m = s.match(/(track|album|playlist)[:/](?:.+\/)?([0-9A-Za-z]{22})/);
+  const kind = m ? m[1] : 'track';
+  const id   = m ? m[2] : s;
+  return { url: `https://open.spotify.com/embed/${kind}/${id}`, kind };
 }
