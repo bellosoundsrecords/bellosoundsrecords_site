@@ -144,4 +144,21 @@ nav.nav{ display:flex; gap:10px; }
 }
 .yt-audio .cover.playing .play{ transform:scale(.9) }  /* mini feedback */
 .yt-iframe{ width:0; height:0; overflow:hidden; }      /* iframe “nascosto” */
+/* Embed */
+.embed iframe{ width:100%; border:0; border-radius:12px; display:block }
+.embed.youtube iframe{ aspect-ratio:16/9; height:auto }
+.embed.spotify.track iframe{ height:152px }
+.embed.spotify.album iframe, .embed.spotify.playlist iframe{ height:352px }
+
+/* Sticky mini-player */
+#sticky-player{
+  position:fixed; left:12px; right:12px; bottom:12px;
+  z-index:1000; display:none; background:#111; border:1px solid #222;
+  border-radius:14px; box-shadow:0 10px 30px rgba(0,0,0,.45); padding:8px;
+}
+#sticky-player.visible{ display:block }
+#sticky-player iframe{ width:100%; border-radius:10px }
+#sticky-player .bar{ display:flex; align-items:center; gap:8px; margin-bottom:8px }
+#sticky-player .title{ font-size:13px; color:var(--muted); flex:1; white-space:nowrap; overflow:hidden; text-overflow:ellipsis }
+#sticky-player .close{ border:0; background:#222; color:#fff; border-radius:8px; padding:6px 10px; cursor:pointer }
 
