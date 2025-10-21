@@ -1,6 +1,6 @@
 // renderers/releases.js
 import { ytAudioCover } from '../components/ytAudio.js';
-import { extractYouTubeId } from '../components/embedPlayer.js'; // se già lo hai lì
+import { extractYouTubeId, embedPlayer } from '../components/embedPlayer.js';
 import { releases } from '../../content/releases.js';
 import { playlists } from '../../content/playlists.js';
 import { settings } from '../../content/settings.js';
