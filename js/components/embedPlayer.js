@@ -1,9 +1,4 @@
 // components/embedPlayer.js
-export function extractYouTubeId(input=''){
-  const s = String(input);
-  const m = s.match(/(?:[?&]v=|youtu\.be\/)([a-zA-Z0-9_-]{11})/);
-  return m ? m[1] : s;
-}
 export function embedPlayer(embeds){
   if(!embeds) return '';
   if(embeds.youtube){
