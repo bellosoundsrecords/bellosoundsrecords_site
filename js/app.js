@@ -1,7 +1,12 @@
 // app.js - simple page boot dispatcher
 import { settings } from '../content/settings.js';
+import { playReleaseNow, addToQueue, wireFooterControls } from './components/footerPlayer.js';
+import { releases } from '../content/releases.js';
 import { renderHeaderFooter } from './utils.js';
 
+// Attiva i pulsanti del footer (prev/toggle/next) - senza logica di progress
+wireFooterControls();
+//----------------------------
 renderHeaderFooter(settings);
 // CREA SOLO IL CONTENITORE DEL PLAYER (niente logica ancora)
 (function ensureAudioFooter(){
@@ -41,6 +46,25 @@ renderHeaderFooter(settings);
   // Mostralo: per ora come “shell” sempre visibile (poi lo nasconderemo/mostreremo quando serve)
   bar.style.display = 'block';
 })();
+// PLAY ORA (parte subito e accoda se non c'è)
+document.addEventListener('click', (e)=>{
+  const el = e.target.closest('[data-action="play"]');
+  if (!el) return;
+  e.preventDefault();
+  const slug = el.dataset.slug;
+  const rel  = releases.find(r => r.slug === slug);
+  if (rel) playReleaseNow(rel);
+});
+
+// ACCODA soltanto (non parte)
+document.addEventListener('click', (e)=>{
+  const el = e.target.closest('[data-action="queue"]');
+  if (!el) return;
+  e.preventDefault();
+  const slug = el.dataset.slug;
+  const rel  = releases.find(r => r.slug === slug);
+  if (rel) addToQueue(rel);
+});
 
 // Dispatch by body data-page attribute
 const page = document.body.dataset.page;
