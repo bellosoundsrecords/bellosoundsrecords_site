@@ -1,8 +1,14 @@
-// app.js - simple page boot dispatcher
+// app.js — boot + footer player wiring (clean)
+
+// --- IMPORT ---
 import { settings } from '../content/settings.js';
-import { playReleaseNow, addToQueue, wireFooterControls } from './components/footerPlayer.js';
 import { releases } from '../content/releases.js';
 import { renderHeaderFooter } from './utils.js';
+import { playReleaseNow, addToQueue, wireFooterControls } from './components/footerPlayer.js';
+
+// --- DEBUG HELP (facoltativo: utile da mobile) ---
+window.BSR = window.BSR || {};
+window.BSR.releases = releases;
 
 // 1) Header/footer del sito
 renderHeaderFooter(settings);
@@ -19,9 +25,13 @@ renderHeaderFooter(settings);
         <div class="top">
           <div class="wave">
             <div class="wf">
-              <svg class="wf-bg" viewBox="0 0 100 36"><rect x="0" y="10" width="100" height="16" rx="4" ry="4"/></svg>
+              <svg class="wf-bg" viewBox="0 0 100 36">
+                <rect x="0" y="10" width="100" height="16" rx="4" ry="4"/>
+              </svg>
               <div class="wf-played">
-                <svg class="wf-fg" viewBox="0 0 100 36"><rect x="0" y="10" width="100" height="16" rx="4" ry="4"/></svg>
+                <svg class="wf-fg" viewBox="0 0 100 36">
+                  <rect x="0" y="10" width="100" height="16" rx="4" ry="4"/>
+                </svg>
               </div>
             </div>
           </div>
@@ -42,61 +52,76 @@ renderHeaderFooter(settings);
       </div>
     </div>`;
   document.body.appendChild(bar);
-  bar.style.display = 'block'; // per ora visibile sempre
+  // Mostralo solo quando parte una traccia
+  bar.style.display = 'none';
 })();
 
-// 3) SOLO ORA: attacca i listener dei bottoni del footer
+// 3) Attacca i listener dei bottoni del footer (prev/toggle/next)
 wireFooterControls();
 
 // 4) Listener globali: Play (parte e accoda se serve) + Add (accoda e basta)
-document.addEventListener('click', (e)=>{
-  const el = e.target.closest('[data-action="play"]');
-  if (!el) return;
-  e.preventDefault();
-  const slug = el.dataset.slug;
-  const rel  = releases.find(r => r.slug === slug);
-  if (rel) playReleaseNow(rel);
-});
+//    Evita doppie bind se per qualunque motivo app.js venisse ricaricato.
+if (!window.__BSR_LISTENERS_BOUND__) {
+  window.__BSR_LISTENERS_BOUND__ = true;
 
-document.addEventListener('click', (e)=>{
-  const el = e.target.closest('[data-action="queue"]');
-  if (!el) return;
-  e.preventDefault();
-  const slug = el.dataset.slug;
-  const rel  = releases.find(r => r.slug === slug);
-  if (rel) addToQueue(rel);
-});
+  // PLAY ORA
+  document.addEventListener('click', (e)=>{
+    const el = e.target.closest('[data-action="play"]');
+    if (!el) return;
+    e.preventDefault();
+    const slug = el.dataset.slug;
+    if (!slug) { console.warn('Play: missing data-slug'); return; }
+    const rel  = releases.find(r => r.slug === slug);
+    if (!rel)  { console.warn('Play: release not found for', slug); return; }
+    // mostra il footer alla prima riproduzione
+    const bar = document.getElementById('audio-footer');
+    if (bar) bar.style.display = 'block';
+    playReleaseNow(rel);
+  });
 
-// Dispatch by body data-page attribute
+  // ACCODA (non parte)
+  document.addEventListener('click', (e)=>{
+    const el = e.target.closest('[data-action="queue"]');
+    if (!el) return;
+    e.preventDefault();
+    const slug = el.dataset.slug;
+    if (!slug) { console.warn('Queue: missing data-slug'); return; }
+    const rel  = releases.find(r => r.slug === slug);
+    if (!rel)  { console.warn('Queue: release not found for', slug); return; }
+    addToQueue(rel);
+  });
+}
+
+// ---------- Dispatch by body data-page attribute ----------
 const page = document.body.dataset.page;
 
 (async () => {
   try {
-    if(page === 'home'){
+    if (page === 'home') {
       const mod = await import('./renderers/releases.js');
       mod.bootHome();
-    } else if(page === 'releases'){
+    } else if (page === 'releases') {
       const mod = await import('./renderers/releases.js');
       mod.bootReleases();
-    } else if(page === 'release-detail'){
+    } else if (page === 'release-detail') {
       const mod = await import('./renderers/releases.js');
       mod.bootReleaseDetail();
-    } else if(page === 'artists'){
+    } else if (page === 'artists') {
       const mod = await import('./renderers/artists.js');
       mod.bootArtists();
-    } else if(page === 'artist-detail'){
+    } else if (page === 'artist-detail') {
       const mod = await import('./renderers/artists.js');
       mod.bootArtistDetail();
-    } else if(page === 'playlists'){
+    } else if (page === 'playlists') {
       const mod = await import('./renderers/playlists.js');
       mod.bootPlaylists();
-    } else if(page === 'playlist-detail'){
+    } else if (page === 'playlist-detail') {
       const mod = await import('./renderers/playlists.js');
       mod.bootPlaylistDetail();
     }
-  } catch (e){
+  } catch (e) {
     console.error('Boot error:', e);
     const app = document.getElementById('app');
-    if(app) app.innerHTML = `<p>Something went wrong while loading this page.</p>`;
+    if (app) app.innerHTML = `<p>Something went wrong while loading this page.</p>`;
   }
 })();
