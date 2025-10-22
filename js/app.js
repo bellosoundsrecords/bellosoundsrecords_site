@@ -4,18 +4,17 @@ import { playReleaseNow, addToQueue, wireFooterControls } from './components/foo
 import { releases } from '../content/releases.js';
 import { renderHeaderFooter } from './utils.js';
 
-// Attiva i pulsanti del footer (prev/toggle/next) - senza logica di progress
-wireFooterControls();
-//----------------------------
+// 1) Header/footer del sito
 renderHeaderFooter(settings);
-// CREA SOLO IL CONTENITORE DEL PLAYER (niente logica ancora)
+
+// 2) CREA il contenitore del player (shell, nessuna logica qui)
 (function ensureAudioFooter(){
   if (document.getElementById('audio-footer')) return;
   const bar = document.createElement('div');
   bar.id = 'audio-footer';
   bar.innerHTML = `
     <div class="wrap">
-      <div class="cover" style="background-image:url('./images/placeholder-cover.jpg')"></div>
+      <div class="cover"></div>
       <div class="right">
         <div class="top">
           <div class="wave">
@@ -43,10 +42,13 @@ renderHeaderFooter(settings);
       </div>
     </div>`;
   document.body.appendChild(bar);
-  // Mostralo: per ora come “shell” sempre visibile (poi lo nasconderemo/mostreremo quando serve)
-  bar.style.display = 'block';
+  bar.style.display = 'block'; // per ora visibile sempre
 })();
-// PLAY ORA (parte subito e accoda se non c'è)
+
+// 3) SOLO ORA: attacca i listener dei bottoni del footer
+wireFooterControls();
+
+// 4) Listener globali: Play (parte e accoda se serve) + Add (accoda e basta)
 document.addEventListener('click', (e)=>{
   const el = e.target.closest('[data-action="play"]');
   if (!el) return;
@@ -56,7 +58,6 @@ document.addEventListener('click', (e)=>{
   if (rel) playReleaseNow(rel);
 });
 
-// ACCODA soltanto (non parte)
 document.addEventListener('click', (e)=>{
   const el = e.target.closest('[data-action="queue"]');
   if (!el) return;
