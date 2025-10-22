@@ -1,4 +1,5 @@
 // renderers/releases.js
+import { playReleaseNow, addToQueue } from '../components/footerPlayer.js';
 import { releases } from '../../content/releases.js';
 import { playlists } from '../../content/playlists.js';
 import { settings } from '../../content/settings.js';
