@@ -31,7 +31,7 @@ function renderHero(rel){
     <div class="hero-text">
       <h1>${rel.title}</h1>
       <p>${rel.descriptionShort ?? ''}</p>
-      <a class="btn" href="./release.html?slug=${rel.slug}">Listen</a>
+      <a class="btn" href="/release.html?slug=${rel.slug}&autoplay=1">Listen</a>
       <a class="btn outline" href="./releases.html">View all</a>
     </div>
   </div>`;
@@ -44,15 +44,10 @@ function renderPlaylistHighlight(slug){
     : pl.embeds?.spotify ? `<iframe style="border-radius:12px" src="https://open.spotify.com/embed/playlist/${pl.embeds.spotify}" width="100%" height="352" frameborder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>`
     : '';
   return `
-    <div class="card">
-      <div class="playlist-body">
-        <div style="display:grid;grid-template-columns:1fr;gap:var(--gap);">
-          <p>${pl.description||''}</p>
-          ${embed}
-          <a class="btn" href="./playlist.html?slug=${pl.slug}">Open playlist</a>
-        </div>
-      </div>
-    </div>
+    <div class="actions">
+  <button class="btn" data-action="play"  data-slug="${rel.slug}">Play</button>
+  <button class="btn ghost" data-action="queue" data-slug="${rel.slug}">Add to queue</button>
+</div>
   `;
 }
 
@@ -144,6 +139,14 @@ export function bootReleaseDetail(){
       <div class="grid releases">${related(rel, releases).map(cardRelease).join('')}</div>
     </section>
   `;
+  import { getParam } from '../utils.js'; // se non è già importato in cima
+
+// ...
+if (getParam('autoplay') === '1') {
+  const bar = document.getElementById('audio-footer');
+  if (bar) bar.style.display = 'block';   // assicura visibile
+  playReleaseNow(rel);
+}
 }
 
 function titleCase(s){ return String(s||'').replace(/([A-Z])/g,' $1').replace(/^./, m=>m.toUpperCase()); }
