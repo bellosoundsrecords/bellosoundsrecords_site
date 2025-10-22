@@ -53,7 +53,7 @@ renderHeaderFooter(settings);
     </div>`;
   document.body.appendChild(bar);
   // Mostralo solo quando parte una traccia
-  bar.style.display = 'none';
+  bar.style.display = 'block';
 })();
 
 // 3) Attacca i listener dei bottoni del footer (prev/toggle/next)
