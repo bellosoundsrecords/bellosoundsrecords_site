@@ -3,10 +3,24 @@
 // STEP 2: audio + queue + controlli base (niente progress/waveform).
 
 import { releases } from '../../content/releases.js';
-import { extractYouTubeId } from './embedPlayer.js';
 
-let ytReady = null;
-let player = null;
+// --- Estrattore ID YouTube interno (accetta ID, youtu.be, watch?v=, embed/...) ---
+function extractYouTubeId(input){
+  if (!input) return null;
+  const s = String(input).trim();
+  // ID puro
+  if (/^[\w-]{11}$/.test(s)) return s;
+  // URL comuni
+  const m =
+    s.match(/[?&]v=([\w-]{11})/) ||
+    s.match(/youtu\.be\/([\w-]{11})/) ||
+    s.match(/\/embed\/([\w-]{11})/);
+  return m ? m[1] : null;
+}
+
+let apiReady = null;     // promise: Iframe API caricata
+let player = null;       // istanza YT.Player
+let playerReady = null;  // promise: player onReady
 
 const state = {
   queue: [],    // array di slug
@@ -14,16 +28,17 @@ const state = {
   playing: false
 };
 
-function ensureYT() {
-  if (ytReady) return ytReady;
-  ytReady = new Promise((resolve) => {
+// ---------- Boot Iframe API ----------
+function ensureYTApi() {
+  if (apiReady) return apiReady;
+  apiReady = new Promise((resolve) => {
     if (window.YT && window.YT.Player) return resolve();
     const s = document.createElement('script');
     s.src = 'https://www.youtube.com/iframe_api';
     document.head.appendChild(s);
     window.onYouTubeIframeAPIReady = () => resolve();
   });
-  return ytReady;
+  return apiReady;
 }
 
 function ensureHiddenHost() {
@@ -38,38 +53,25 @@ function ensureHiddenHost() {
 }
 
 async function ensurePlayer() {
-  await ensureYT();
+  await ensureYTApi();
   if (player) return player;
-  player = new YT.Player(ensureHiddenHost(), {
-    height: '0',
-    width: '0',
-    events: {
-      onStateChange: onYTState
-    }
+  // promessa "onReady"
+  playerReady = new Promise((resolve) => {
+    player = new YT.Player(ensureHiddenHost(), {
+      height: '0',
+      width: '0',
+      playerVars: { playsinline: 1 },
+      events: {
+        onReady: () => resolve(),
+        onStateChange: onYTState
+      }
+    });
   });
+  await playerReady; // aspetta che il player sia pronto
   return player;
 }
 
-function onYTState(e) {
-  if (!player) return;
-  switch (e.data) {
-    case YT.PlayerState.PLAYING:
-      state.playing = true;
-      setToggleUI(true);
-      break;
-    case YT.PlayerState.PAUSED:
-    case YT.PlayerState.BUFFERING:
-      // teniamo playing true solo su PLAYING
-      break;
-    case YT.PlayerState.ENDED:
-      next(); // auto-next
-      break;
-    default:
-      break;
-  }
-}
-
-// ---------- Helpers UI ----------
+// ---------- UI helpers ----------
 function getBar() { return document.getElementById('audio-footer'); }
 function q(sel, root = document) { return root.querySelector(sel); }
 
@@ -92,14 +94,14 @@ function enableControls(enabled) {
 function updateMetaUI(rel) {
   const bar = getBar(); if (!bar) return;
   q('.title', bar).textContent = rel?.title ?? '—';
-  q('.artist', bar).textContent = rel?.artists?.join(', ') ? '— ' + rel.artists.join(', ') : '—';
+  q('.artist', bar).textContent = rel?.artists?.length ? '— ' + rel.artists.join(', ') : '—';
   q('.cat', bar).textContent = rel?.catalog ?? '—';
   const cover = q('.cover', bar);
   if (cover) cover.style.backgroundImage = rel?.cover ? `url('${rel.cover}')` : '';
-  bar.style.display = 'block'; // assicura visibile
+  bar.style.display = 'block'; // mostralo alla prima riproduzione
 }
 
-// ---------- Queue ops ----------
+// ---------- Stato coda ----------
 function getReleaseBySlug(slug) {
   return releases.find(r => r.slug === slug);
 }
@@ -108,29 +110,58 @@ function current() {
   return getReleaseBySlug(state.queue[state.index]);
 }
 
+// ---------- Player state ----------
+function onYTState(e) {
+  if (!player) return;
+  switch (e.data) {
+    case YT.PlayerState.PLAYING:
+      state.playing = true;
+      setToggleUI(true);
+      break;
+    case YT.PlayerState.PAUSED:
+      state.playing = false;
+      setToggleUI(false);
+      break;
+    case YT.PlayerState.ENDED:
+      next(); // auto-next
+      break;
+    default:
+      // buffering/unstarted/cued -> non cambiamo UI
+      break;
+  }
+}
+
+// ---------- Controllo riproduzione ----------
 async function playAt(index) {
   if (index < 0 || index >= state.queue.length) return;
   state.index = index;
   const rel = current();
-  if (!rel?.embeds?.youtube) return;
+  if (!rel?.embeds?.youtube) { console.warn('No youtube in release', rel); return; }
   const id = extractYouTubeId(rel.embeds.youtube);
-  await ensurePlayer();
+  if (!id) { console.warn('Invalid YouTube id/url in', rel.embeds.youtube); return; }
+
+  await ensurePlayer();  // API + player onReady
   updateMetaUI(rel);
   enableControls(true);
+
+  // carica e riproduci
   player.loadVideoById(id);
-  player.playVideo?.();
+  if (player.playVideo) player.playVideo();
   setToggleUI(true);
   state.playing = true;
 }
 
+// API pubbliche usate da app.js
 export async function playReleaseNow(rel) {
-  // se già in queue, spostati lì; altrimenti push e vai
+  if (!rel || !rel.slug) return;
+  // se già in queue, vai a quell'indice; altrimenti push & play
   const idxInQ = state.queue.indexOf(rel.slug);
   if (idxInQ === -1) state.queue.push(rel.slug);
   await playAt(idxInQ === -1 ? state.queue.length - 1 : idxInQ);
 }
 
 export function addToQueue(rel) {
+  if (!rel || !rel.slug) return;
   if (!state.queue.includes(rel.slug)) {
     state.queue.push(rel.slug);
   }
