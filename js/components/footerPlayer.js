@@ -1,7 +1,7 @@
 // js/components/footerPlayer.js
 // Player a tutta larghezza (footer) con coda semplice, basato su YouTube Iframe API.
 // STEP 2: audio + queue + controlli base (niente progress/waveform).
-
+let progressTimer = null;
 import { releases } from '../../content/releases.js';
 
 // --- Estrattore ID YouTube interno (accetta ID, youtu.be, watch?v=, embed/...) ---
@@ -101,6 +101,106 @@ function updateMetaUI(rel) {
   bar.style.display = 'block'; // mostralo alla prima riproduzione
 }
 
+function updateTimeUI(cur, dur){
+  const bar = document.getElementById('audio-footer'); if(!bar) return;
+  const t0 = bar.querySelector('.t0'); const tt = bar.querySelector('.ttot');
+  const fmt = s => {
+    s = Math.max(0, Math.floor(s));
+    const m = Math.floor(s/60), ss = (s%60).toString().padStart(2,'0');
+    return `${m}:${ss}`;
+  };
+  if (t0)  t0.textContent  = fmt(cur);
+  if (tt)  tt.textContent  = dur ? fmt(dur) : '0:00';
+}
+
+
+// ---------- Waveform from low-quality MP3 (Web Audio API) ----------
+const WF_BUCKETS = 120; // quante “barrette”
+const WF_CACHE_NS = 'bsr_wf_v1:'; // key per localStorage
+
+async function getPeaksFromPreview(url){
+  // cache locale per non ricalcolare
+  const k = WF_CACHE_NS + url;
+  const cached = localStorage.getItem(k);
+  if (cached) return JSON.parse(cached);
+
+  // scarica e decodifica
+  const resp = await fetch(url);
+  const arr  = await resp.arrayBuffer();
+  const ctx  = new (window.AudioContext || window.webkitAudioContext)();
+  const buf  = await ctx.decodeAudioData(arr);
+
+  // mono mix (se stereo)
+  const ch0 = buf.getChannelData(0);
+  const ch1 = buf.numberOfChannels > 1 ? buf.getChannelData(1) : null;
+
+  // suddividi in WF_BUCKETS finestre e calcola RMS/peak
+  const step = Math.floor(ch0.length / WF_BUCKETS);
+  const peaks = [];
+  for (let i=0; i<WF_BUCKETS; i++){
+    const start = i * step;
+    const end   = i === WF_BUCKETS-1 ? ch0.length : start + step;
+    let sum = 0, count = 0;
+    for (let j=start; j<end; j++){
+      const sL = ch0[j];
+      const sR = ch1 ? ch1[j] : sL;
+      const s  = (sL + sR) * 0.5; // mono mix
+      sum += s*s; count++;
+    }
+    const rms = Math.sqrt(sum / Math.max(1,count));
+    peaks.push(rms);
+  }
+
+  // normalizza 0..1
+  const max = Math.max(...peaks) || 1;
+  const norm = peaks.map(v => v / max);
+
+  localStorage.setItem(k, JSON.stringify(norm));
+  return norm;
+}
+
+function renderWave(peaks){
+  // genera il rettangolo “piatto” già presente + sostituisci con barrette
+  const bar = document.getElementById('audio-footer');
+  if (!bar) return;
+  const wf = bar.querySelector('.wf');
+  if (!wf) return;
+
+  // SVG a barrette sottili
+  const W = 100, H = 36; // viewBox coerente con CSS esistente
+  const col = getComputedStyle(document.documentElement)
+              .getPropertyValue('--accent') || '#ff8a3d';
+
+  const makeBars = (color) => {
+    const gap = 0.4; // spazio tra barrette
+    const bw  = (W / WF_BUCKETS) - gap;
+    let d = '';
+    for (let i = 0; i < peaks.length; i++){
+      const h = 6 + peaks[i] * 24; // min 6, max 30
+      const x = i*(bw+gap);
+      const y = (H - h) * 0.5;
+      d += `<rect x="${x.toFixed(2)}" y="${y.toFixed(2)}" width="${bw.toFixed(2)}" height="${h.toFixed(2)}" rx="1" ry="1"/>`;
+    }
+    return `<svg viewBox="0 0 ${W} ${H}" class="wf-svg" preserveAspectRatio="none">
+      <g fill="${color}">${d}</g>
+    </svg>`;
+  };
+
+  // sfondo grigio (bg) + maschera per la parte “played”
+  wf.innerHTML = `
+    <div class="wf-bg-svg">${makeBars('#202027')}</div>
+    <div class="wf-played" style="width:0%">${makeBars(col)}</div>
+  `;
+}
+
+function setWaveProgress(percent){
+  // percent = 0..1
+  const bar = document.getElementById('audio-footer');
+  const played = bar?.querySelector('.wf-played');
+  if (played) played.style.width = (percent*100).toFixed(3) + '%';
+}
+
+
 // ---------- Stato coda ----------
 function getReleaseBySlug(slug) {
   return releases.find(r => r.slug === slug);
@@ -110,26 +210,36 @@ function current() {
   return getReleaseBySlug(state.queue[state.index]);
 }
 
-// ---------- Player state ----------
 function onYTState(e) {
   if (!player) return;
   switch (e.data) {
     case YT.PlayerState.PLAYING:
       state.playing = true;
       setToggleUI(true);
+      // progress loop
+      clearInterval(progressTimer);
+      progressTimer = setInterval(()=>{
+        const cur = player.getCurrentTime?.() || 0;
+        const dur = player.getDuration?.() || 0;
+        if (dur > 0) setWaveProgress(cur/dur);
+        updateTimeUI(cur, dur); // facoltativo: per 0:00 / 0:00
+      }, 250);
       break;
     case YT.PlayerState.PAUSED:
-      state.playing = false;
-      setToggleUI(false);
+    case YT.PlayerState.BUFFERING:
+      // pausa: ferma il timer ma non azzera
+      clearInterval(progressTimer); progressTimer = null;
       break;
     case YT.PlayerState.ENDED:
-      next(); // auto-next
+      clearInterval(progressTimer); progressTimer = null;
+      setWaveProgress(1);
+      next();
       break;
     default:
-      // buffering/unstarted/cued -> non cambiamo UI
       break;
   }
 }
+
 
 // ---------- Controllo riproduzione ----------
 async function playAt(index) {
@@ -142,6 +252,16 @@ async function playAt(index) {
 
   await ensurePlayer();  // API + player onReady
   updateMetaUI(rel);
+  // se ho un previewAudio genero la waveform (una sola volta, poi cache)
+if (rel.previewAudio){
+  getPeaksFromPreview(rel.previewAudio)
+    .then(renderWave)
+    .catch(()=>{ /* fallback: resta la barra piatta */ });
+} else {
+  // niente preview -> waveform piatta
+  renderWave(new Array(120).fill(0.3));
+}
+
   enableControls(true);
 
   // carica e riproduci
