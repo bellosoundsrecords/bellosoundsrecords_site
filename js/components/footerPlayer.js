@@ -1,6 +1,6 @@
 // js/components/footerPlayer.js
 // Player a tutta larghezza (footer) con coda semplice, basato su YouTube Iframe API.
-// STEP 2: audio + queue + controlli base (niente progress/waveform).
+// STEP 2: audio + queue + controlli base + waveform reale (clipPath).
 let progressTimer = null;
 import { releases } from '../../content/releases.js';
 
@@ -8,9 +8,7 @@ import { releases } from '../../content/releases.js';
 function extractYouTubeId(input){
   if (!input) return null;
   const s = String(input).trim();
-  // ID puro
-  if (/^[\w-]{11}$/.test(s)) return s;
-  // URL comuni
+  if (/^[\w-]{11}$/.test(s)) return s; // ID puro
   const m =
     s.match(/[?&]v=([\w-]{11})/) ||
     s.match(/youtu\.be\/([\w-]{11})/) ||
@@ -36,7 +34,8 @@ function ensureYTApi() {
     const s = document.createElement('script');
     s.src = 'https://www.youtube.com/iframe_api';
     document.head.appendChild(s);
-    window.onYouTubeIframeAPIReady = () => resolve();
+    const prev = window.onYouTubeIframeAPIReady;
+    window.onYouTubeIframeAPIReady = () => { prev?.(); resolve(); };
   });
   return apiReady;
 }
@@ -113,10 +112,9 @@ function updateTimeUI(cur, dur){
   if (tt)  tt.textContent  = dur ? fmt(dur) : '0:00';
 }
 
-
 // ---------- Waveform from low-quality MP3 (Web Audio API) ----------
-const WF_BUCKETS = 800; // quante “barrette”
-const WF_CACHE_NS = 'bsr_wf_v2:'; // key per localStorage
+const WF_BUCKETS = 800;             // più definita
+const WF_CACHE_NS = 'bsr_wf_v2:';   // key per localStorage
 
 async function getPeaksFromPreview(url){
   const k = WF_CACHE_NS + url;
@@ -128,7 +126,6 @@ async function getPeaksFromPreview(url){
   const ctx  = new (window.AudioContext || window.webkitAudioContext)({ sampleRate: 44100 });
   const buf  = await ctx.decodeAudioData(arr);
 
-  // downmix mono + subsampling
   const ch0 = buf.getChannelData(0);
   const ch1 = buf.numberOfChannels > 1 ? buf.getChannelData(1) : null;
   const len = ch0.length;
@@ -139,7 +136,7 @@ async function getPeaksFromPreview(url){
     const start = i*step;
     const end   = i===WF_BUCKETS-1 ? len : start+step;
     let max = 0;
-    for (let j=start;j<end;j+=4){         // stride piccolo = più veloce
+    for (let j=start;j<end;j+=4){ // stride
       const sL = ch0[j]; const sR = ch1 ? ch1[j] : sL;
       const m  = Math.abs((sL+sR)*0.5);
       if (m>max) max=m;
@@ -148,7 +145,7 @@ async function getPeaksFromPreview(url){
   }
   // smooth leggero
   for (let i=1;i<WF_BUCKETS-1;i++){
-    peaks[i] = (peaks[i-1]+peaks[i]*2+peaks[i+1]) / 4;
+    peaks[i] = (peaks[i-1] + peaks[i]*2 + peaks[i+1]) / 4;
   }
   const mx = Math.max(...peaks)||1;
   const norm = peaks.map(v => Math.min(1, v/mx));
@@ -156,13 +153,22 @@ async function getPeaksFromPreview(url){
   localStorage.setItem(k, JSON.stringify(norm));
   return norm;
 }
-  // normalizza 0..1
-  const max = Math.max(...peaks) || 1;
-  const norm = peaks.map(v => v / max);
 
-  localStorage.setItem(k, JSON.stringify(norm));
-  return norm;
+// --- lock dimensione per evitare “respiro” dell’onda ---
+function lockWaveWidth(){
+  const wf  = document.querySelector('#audio-footer .wf');
+  if (!wf) return;
+  const w = Math.round(wf.getBoundingClientRect().width);
+  wf.style.width = w + 'px';
+  wf.style.maxWidth = w + 'px';
 }
+window.addEventListener('resize', ()=>{
+  const wf = document.querySelector('#audio-footer .wf');
+  if (!wf) return;
+  wf.style.width = '';
+  wf.style.maxWidth = '';
+  lockWaveWidth();
+});
 
 let WF_UID = 0; // per id unici nel DOM
 
@@ -195,7 +201,6 @@ function renderWave(peaks){
   const W = 100, H = wf.clientHeight || 36;       // usa altezza reale box
   const pathD = buildWavePath(peaks, W, H);
 
-  // colori da CSS
   const accent = getComputedStyle(document.documentElement).getPropertyValue('--accent') || '#ff8a3d';
 
   wf.innerHTML = `
@@ -209,27 +214,22 @@ function renderWave(peaks){
     <!-- fondo onda -->
     <path d="${pathD}" fill="#202027"></path>
 
-    <!-- barretta di avanzamento che colora SOLO dentro la forma -->
+    <!-- rettangolo di avanzamento, colorato SOLO dentro la forma -->
     <g clip-path="url(#wf-clip-${uid})">
       <rect id="wf-progress-${uid}" x="0" y="0" width="0" height="${H}" fill="${accent}"></rect>
     </g>
   </svg>`;
-  
-  // salva l'id sul nodo per update rapidi
-  wf.dataset.wfId = String(uid);
 
-  // blocca la larghezza per evitare “respiro”
-  requestAnimationFrame(lockWaveWidth);
+  wf.dataset.wfId = String(uid);
+  requestAnimationFrame(lockWaveWidth); // blocca larghezza per evitare “respiro”
 }
 
 function setWaveProgress(percent){
-  const bar = document.getElementById('audio-footer');
-  const wf  = bar?.querySelector('.wf');
+  const wf  = document.querySelector('#audio-footer .wf');
   if (!wf) return;
   const uid = wf.dataset.wfId;
   const svg = wf.querySelector('svg');
   if (!uid || !svg) return;
-  const H = svg.viewBox.baseVal.height || 36;
   const W = svg.viewBox.baseVal.width  || 100;
   const rect = wf.querySelector(`#wf-progress-${uid}`);
   if (rect) rect.setAttribute('width', Math.max(0, Math.min(1, percent))*W);
@@ -250,18 +250,16 @@ function onYTState(e) {
     case YT.PlayerState.PLAYING:
       state.playing = true;
       setToggleUI(true);
-      // progress loop
       clearInterval(progressTimer);
       progressTimer = setInterval(()=>{
         const cur = player.getCurrentTime?.() || 0;
         const dur = player.getDuration?.() || 0;
         if (dur > 0) setWaveProgress(cur/dur);
-        updateTimeUI(cur, dur); // facoltativo: per 0:00 / 0:00
+        updateTimeUI(cur, dur);
       }, 250);
       break;
     case YT.PlayerState.PAUSED:
     case YT.PlayerState.BUFFERING:
-      // pausa: ferma il timer ma non azzera
       clearInterval(progressTimer); progressTimer = null;
       break;
     case YT.PlayerState.ENDED:
@@ -274,7 +272,6 @@ function onYTState(e) {
   }
 }
 
-
 // ---------- Controllo riproduzione ----------
 async function playAt(index) {
   if (index < 0 || index >= state.queue.length) return;
@@ -286,21 +283,21 @@ async function playAt(index) {
 
   await ensurePlayer();  // API + player onReady
   updateMetaUI(rel);
-  // se ho un previewAudio genero la waveform (una sola volta, poi cache)
-if (rel.previewAudio){
-  getPeaksFromPreview(rel.previewAudio)
-    .then(renderWave)
-    .catch(()=>{ /* fallback: resta la barra piatta */ });
-} else {
-  // niente preview -> waveform piatta
-  renderWave(new Array(120).fill(0.3));
-}
+
+  // waveform reale (previewAudio -> calcola una volta, poi cache)
+  if (rel.previewAudio){
+    getPeaksFromPreview(rel.previewAudio)
+      .then(renderWave)
+      .catch(()=>{ renderWave(new Array(120).fill(0.3)); });
+  } else {
+    renderWave(new Array(120).fill(0.3));
+  }
 
   enableControls(true);
 
   // carica e riproduci
   player.loadVideoById(id);
-  if (player.playVideo) player.playVideo();
+  player.playVideo?.();
   setToggleUI(true);
   state.playing = true;
 }
@@ -308,7 +305,6 @@ if (rel.previewAudio){
 // API pubbliche usate da app.js
 export async function playReleaseNow(rel) {
   if (!rel || !rel.slug) return;
-  // se già in queue, vai a quell'indice; altrimenti push & play
   const idxInQ = state.queue.indexOf(rel.slug);
   if (idxInQ === -1) state.queue.push(rel.slug);
   await playAt(idxInQ === -1 ? state.queue.length - 1 : idxInQ);
@@ -319,8 +315,7 @@ export function addToQueue(rel) {
   if (!state.queue.includes(rel.slug)) {
     state.queue.push(rel.slug);
   }
-  // non parte subito
-  enableControls(true);
+  enableControls(true); // non parte subito
 }
 
 export function toggle() {
@@ -343,7 +338,6 @@ export function next() {
   if (nextIndex < state.queue.length) {
     playAt(nextIndex);
   } else {
-    // fine coda: ferma e non loopa
     state.playing = false;
     setToggleUI(false);
   }
@@ -361,6 +355,5 @@ export function wireFooterControls() {
   q('.btn-ctl.prev', bar)?.addEventListener('click', prev);
   q('.btn-ctl.next', bar)?.addEventListener('click', next);
   q('.btn-ctl.toggle', bar)?.addEventListener('click', toggle);
-  // di default disabilitati finché non carichi qualcosa
   enableControls(false);
 }
