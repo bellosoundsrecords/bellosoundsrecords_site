@@ -19,38 +19,29 @@ renderHeaderFooter(settings);
   const bar = document.createElement('div');
   bar.id = 'audio-footer';
   bar.innerHTML = `
-    <div class="wrap">
-      <div class="cover"></div>
-      <div class="right">
-        <div class="top">
-          <div class="wave">
-            <div class="wf">
-              <svg class="wf-bg" viewBox="0 0 100 36">
-                <rect x="0" y="10" width="100" height="16" rx="4" ry="4"/>
-              </svg>
-              <div class="wf-played">
-                <svg class="wf-fg" viewBox="0 0 100 36">
-                  <rect x="0" y="10" width="100" height="16" rx="4" ry="4"/>
-                </svg>
-              </div>
-            </div>
-          </div>
-          <div class="time"><span class="t0">0:00</span> / <span class="ttot">0:00</span></div>
+  <div class="wrap">
+    <div class="cover"></div>
+    <div class="right">
+      <div class="top">
+        <div class="wave">
+          <div class="wf"><!-- waveform SVG injected by JS --></div>
         </div>
-        <div class="bottom">
-          <div class="meta">
-            <span class="title">—</span>
-            <span class="artist">—</span>
-            <span class="cat">—</span>
-          </div>
-          <div class="controls">
-            <button class="btn-ctl prev" aria-label="Previous">‹</button>
-            <button class="btn-ctl toggle" aria-label="Play/Pause">⏯</button>
-            <button class="btn-ctl next" aria-label="Next">›</button>
-          </div>
+        <div class="time"><span class="t0">0:00</span> / <span class="ttot">0:00</span></div>
+      </div>
+      <div class="bottom">
+        <div class="meta">
+          <span class="title">—</span>
+          <span class="artist">—</span>
+          <span class="cat">—</span>
+        </div>
+        <div class="controls">
+          <button class="btn-ctl prev" aria-label="Previous">‹</button>
+          <button class="btn-ctl toggle" aria-label="Play/Pause">⏯</button>
+          <button class="btn-ctl next" aria-label="Next">›</button>
         </div>
       </div>
-    </div>`;
+    </div>
+  </div>`;
   document.body.appendChild(bar);
   // Mostralo solo quando parte una traccia
   bar.style.display = 'block';
