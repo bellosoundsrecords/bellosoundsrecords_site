@@ -164,47 +164,76 @@ async function getPeaksFromPreview(url){
   return norm;
 }
 
+let WF_UID = 0; // per id unici nel DOM
+
+function buildWavePath(peaks, W=100, H=36){
+  // genera un profilo “specchiato” (sopra e sotto) in un unico path chiuso
+  const top = [];
+  const bot = [];
+  const n = peaks.length;
+  for (let i=0;i<n;i++){
+    const x = (i/(n-1))*W;
+    const amp = 4 + peaks[i]* (H*0.45);     // min 4px, max ~80% di H
+    const yTop = (H/2) - amp;
+    top.push(`${i===0?'M':'L'}${x.toFixed(2)},${yTop.toFixed(2)}`);
+  }
+  for (let i=n-1;i>=0;i--){
+    const x = (i/(n-1))*W;
+    const amp = 4 + peaks[i]* (H*0.45);
+    const yBot = (H/2) + amp;
+    bot.push(`L${x.toFixed(2)},${yBot.toFixed(2)}`);
+  }
+  return `${top.join(' ')} ${bot.join(' ')} Z`;
+}
+
 function renderWave(peaks){
-  // genera il rettangolo “piatto” già presente + sostituisci con barrette
   const bar = document.getElementById('audio-footer');
-  if (!bar) return;
-  const wf = bar.querySelector('.wf');
+  const wf  = bar?.querySelector('.wf');
   if (!wf) return;
 
-  // SVG a barrette sottili
-  const W = 100, H = 36; // viewBox coerente con CSS esistente
-  const col = getComputedStyle(document.documentElement)
-              .getPropertyValue('--accent') || '#ff8a3d';
+  const uid = ++WF_UID;
+  const W = 100, H = wf.clientHeight || 36;       // usa altezza reale box
+  const pathD = buildWavePath(peaks, W, H);
 
-  const makeBars = (color) => {
-    const gap = 0.4; // spazio tra barrette
-    const bw  = (W / WF_BUCKETS) - gap;
-    let d = '';
-    for (let i = 0; i < peaks.length; i++){
-      const h = 6 + peaks[i] * 24; // min 6, max 30
-      const x = i*(bw+gap);
-      const y = (H - h) * 0.5;
-      d += `<rect x="${x.toFixed(2)}" y="${y.toFixed(2)}" width="${bw.toFixed(2)}" height="${h.toFixed(2)}" rx="1" ry="1"/>`;
-    }
-    return `<svg viewBox="0 0 ${W} ${H}" class="wf-svg" preserveAspectRatio="none">
-      <g fill="${color}">${d}</g>
-    </svg>`;
-  };
+  // colori da CSS
+  const accent = getComputedStyle(document.documentElement).getPropertyValue('--accent') || '#ff8a3d';
 
-  // sfondo grigio (bg) + maschera per la parte “played”
   wf.innerHTML = `
-    <div class="wf-bg-svg">${makeBars('#202027')}</div>
-    <div class="wf-played" style="width:0%">${makeBars(col)}</div>
-  `;
+  <svg viewBox="0 0 ${W} ${H}" preserveAspectRatio="none" class="wf-svg">
+    <defs>
+      <clipPath id="wf-clip-${uid}">
+        <path d="${pathD}"/>
+      </clipPath>
+    </defs>
+
+    <!-- fondo onda -->
+    <path d="${pathD}" fill="#202027"></path>
+
+    <!-- barretta di avanzamento che colora SOLO dentro la forma -->
+    <g clip-path="url(#wf-clip-${uid})">
+      <rect id="wf-progress-${uid}" x="0" y="0" width="0" height="${H}" fill="${accent}"></rect>
+    </g>
+  </svg>`;
+  
+  // salva l'id sul nodo per update rapidi
+  wf.dataset.wfId = String(uid);
+
+  // blocca la larghezza per evitare “respiro”
+  requestAnimationFrame(lockWaveWidth);
 }
 
 function setWaveProgress(percent){
-  // percent = 0..1
   const bar = document.getElementById('audio-footer');
-  const played = bar?.querySelector('.wf-played');
-  if (played) played.style.width = (percent*100).toFixed(3) + '%';
+  const wf  = bar?.querySelector('.wf');
+  if (!wf) return;
+  const uid = wf.dataset.wfId;
+  const svg = wf.querySelector('svg');
+  if (!uid || !svg) return;
+  const H = svg.viewBox.baseVal.height || 36;
+  const W = svg.viewBox.baseVal.width  || 100;
+  const rect = wf.querySelector(`#wf-progress-${uid}`);
+  if (rect) rect.setAttribute('width', Math.max(0, Math.min(1, percent))*W);
 }
-
 
 // ---------- Stato coda ----------
 function getReleaseBySlug(slug) {
