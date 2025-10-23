@@ -286,3 +286,20 @@ body{
 @media (max-width:640px){
   #audio-footer .btn-ctl{ width:42px; height:42px; border-radius:10px; }
 }
+
+/* layout righe del player */
+#audio-footer .right{ display:grid; grid-template-rows:auto auto; min-width:0; }
+#audio-footer .top{ display:grid; grid-template-columns:1fr auto; align-items:center; gap:10px; }
+#audio-footer .bottom{ position:relative; z-index:2; display:flex; gap:12px; align-items:center; }
+
+/* contenitore waveform (solo riga alta) */
+#audio-footer .wave{ overflow:hidden; }
+#audio-footer .wf{ position:relative; width:100%; height:22px; }   /* ← altezza riga alta */
+.wf-bg-svg{ opacity:.35; }
+.wf svg{ width:100%; height:100%; display:block; }
+.wf-played{ position:absolute; inset:0; width:0%; overflow:hidden; transition:width .12s linear; }
+
+/* meta e controlli */
+#audio-footer .meta{ display:flex; gap:10px; flex-wrap:wrap; min-width:0; }
+#audio-footer .title{ font-weight:700; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+
