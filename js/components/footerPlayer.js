@@ -115,42 +115,47 @@ function updateTimeUI(cur, dur){
 
 
 // ---------- Waveform from low-quality MP3 (Web Audio API) ----------
-const WF_BUCKETS = 120; // quante “barrette”
-const WF_CACHE_NS = 'bsr_wf_v1:'; // key per localStorage
+const WF_BUCKETS = 800; // quante “barrette”
+const WF_CACHE_NS = 'bsr_wf_v2:'; // key per localStorage
 
 async function getPeaksFromPreview(url){
-  // cache locale per non ricalcolare
   const k = WF_CACHE_NS + url;
   const cached = localStorage.getItem(k);
   if (cached) return JSON.parse(cached);
 
-  // scarica e decodifica
   const resp = await fetch(url);
   const arr  = await resp.arrayBuffer();
-  const ctx  = new (window.AudioContext || window.webkitAudioContext)();
+  const ctx  = new (window.AudioContext || window.webkitAudioContext)({ sampleRate: 44100 });
   const buf  = await ctx.decodeAudioData(arr);
 
-  // mono mix (se stereo)
+  // downmix mono + subsampling
   const ch0 = buf.getChannelData(0);
   const ch1 = buf.numberOfChannels > 1 ? buf.getChannelData(1) : null;
+  const len = ch0.length;
+  const step = Math.floor(len / WF_BUCKETS);
 
-  // suddividi in WF_BUCKETS finestre e calcola RMS/peak
-  const step = Math.floor(ch0.length / WF_BUCKETS);
-  const peaks = [];
-  for (let i=0; i<WF_BUCKETS; i++){
-    const start = i * step;
-    const end   = i === WF_BUCKETS-1 ? ch0.length : start + step;
-    let sum = 0, count = 0;
-    for (let j=start; j<end; j++){
-      const sL = ch0[j];
-      const sR = ch1 ? ch1[j] : sL;
-      const s  = (sL + sR) * 0.5; // mono mix
-      sum += s*s; count++;
+  const peaks = new Array(WF_BUCKETS).fill(0);
+  for (let i=0;i<WF_BUCKETS;i++){
+    const start = i*step;
+    const end   = i===WF_BUCKETS-1 ? len : start+step;
+    let max = 0;
+    for (let j=start;j<end;j+=4){         // stride piccolo = più veloce
+      const sL = ch0[j]; const sR = ch1 ? ch1[j] : sL;
+      const m  = Math.abs((sL+sR)*0.5);
+      if (m>max) max=m;
     }
-    const rms = Math.sqrt(sum / Math.max(1,count));
-    peaks.push(rms);
+    peaks[i]=max;
   }
+  // smooth leggero
+  for (let i=1;i<WF_BUCKETS-1;i++){
+    peaks[i] = (peaks[i-1]+peaks[i]*2+peaks[i+1]) / 4;
+  }
+  const mx = Math.max(...peaks)||1;
+  const norm = peaks.map(v => Math.min(1, v/mx));
 
+  localStorage.setItem(k, JSON.stringify(norm));
+  return norm;
+}
   // normalizza 0..1
   const max = Math.max(...peaks) || 1;
   const norm = peaks.map(v => v / max);
