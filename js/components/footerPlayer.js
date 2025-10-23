@@ -3,6 +3,29 @@
 // STEP 2: audio + queue + controlli base + waveform reale (clipPath).
 let progressTimer = null;
 import { releases } from '../../content/releases.js';
+const STORAGE_KEY = 'bsr_player_v1';
+
+function saveState(extra = {}) {
+  try {
+    const cur = player?.getCurrentTime ? player.getCurrentTime() : 0;
+    const data = {
+      queue: state.queue,
+      index: state.index,
+      playing: state.playing,
+      time: cur,
+      ...extra
+    };
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+  } catch {}
+}
+
+function loadState() {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    return raw ? JSON.parse(raw) : null;
+  } catch { return null; }
+}
+
 
 // --- Estrattore ID YouTube interno (accetta ID, youtu.be, watch?v=, embed/...) ---
 function extractYouTubeId(input){
@@ -67,7 +90,26 @@ async function ensurePlayer() {
     });
   });
   await playerReady; // aspetta che il player sia pronto
-  return player;
+    const saved = loadState();
+  if (saved && Array.isArray(saved.queue) && saved.queue.length) {
+    state.queue = saved.queue.slice();
+    state.index = Math.min(
+      Math.max(0, saved.index ?? 0),
+      state.queue.length - 1
+    );
+    // carica il brano senza far partire l'audio finché non decidiamo
+    const rel = releases.find(r => r.slug === state.queue[state.index]);
+    if (rel?.embeds?.youtube) {
+      const id = extractYouTubeId(rel.embeds.youtube);
+      updateMetaUI(rel);
+      enableControls(true);
+      player.cueVideoById?.(id);
+      if (saved.time > 0) player.seekTo?.(saved.time, true);
+      if (saved.playing) { player.playVideo?.(); setToggleUI(true); }
+      else { setToggleUI(false); }
+    }
+  }
+   return player;
 }
 
 // ---------- UI helpers ----------
@@ -256,15 +298,19 @@ function onYTState(e) {
         const dur = player.getDuration?.() || 0;
         if (dur > 0) setWaveProgress(cur/dur);
         updateTimeUI(cur, dur);
+        saveState(); // aggiorna solo il time
       }, 250);
       break;
     case YT.PlayerState.PAUSED:
     case YT.PlayerState.BUFFERING:
       clearInterval(progressTimer); progressTimer = null;
+      saveState({ playing: false });   // in PAUSED
       break;
+      saveState({ playing: false });   // in PAUSED
     case YT.PlayerState.ENDED:
       clearInterval(progressTimer); progressTimer = null;
       setWaveProgress(1);
+      saveState({ playing: false, time: 0 });  // in ENDED
       next();
       break;
     default:
@@ -300,6 +346,8 @@ async function playAt(index) {
   player.playVideo?.();
   setToggleUI(true);
   state.playing = true;
+  saveState({ playing: true });
+
 }
 
 // API pubbliche usate da app.js
@@ -316,12 +364,14 @@ export function addToQueue(rel) {
     state.queue.push(rel.slug);
   }
   enableControls(true); // non parte subito
+  saveState({ playing: state.playing });
+
 }
 
 export function toggle() {
   if (!player) return;
   const st = player.getPlayerState ? player.getPlayerState() : -1;
-  if (st === YT.PlayerState.PLAYING) {
+      if (st === YT.PlayerState.PLAYING) {
     player.pauseVideo?.();
     setToggleUI(false);
     state.playing = false;
@@ -330,6 +380,8 @@ export function toggle() {
     setToggleUI(true);
     state.playing = true;
   }
+    saveState({ playing: state.playing });
+
 }
 
 export function next() {
@@ -337,6 +389,7 @@ export function next() {
   const nextIndex = state.index + 1;
   if (nextIndex < state.queue.length) {
     playAt(nextIndex);
+    saveState({ playing: true });
   } else {
     state.playing = false;
     setToggleUI(false);
@@ -347,6 +400,8 @@ export function prev() {
   if (!state.queue.length) return;
   const prevIndex = state.index - 1;
   if (prevIndex >= 0) playAt(prevIndex);
+  saveState({ playing: true });
+
 }
 
 // ---------- Wire dei bottoni nel footer ----------
