@@ -13,7 +13,7 @@ main{max-width:var(--maxw);margin:0 auto;padding:24px}
 header, footer{max-width:var(--maxw);margin:0 auto;padding:16px 24px}
 header{display:flex;align-items:center;justify-content:space-between;gap:12px}
 .site-brand{display:flex;align-items:center;gap:10px;text-decoration:none}
-.site-brand .logo{width:28px;height:28px;border-radius:6px;background:linear-gradient(135deg,var(--accent),#ffd2b1)}
+/*.site-brand .logo{width:28px;height:28px;border-radius:6px;background:linear-gradient(135deg,var(--accent),#ffd2b1)} */
 nav a{margin:0 10px;text-decoration:none;font-weight:600;opacity:.9}
 nav a:hover, nav a:focus{opacity:1;text-decoration:underline}
 .notice-bar{background:#141419;border-block:1px solid #1f1f28}
@@ -217,46 +217,50 @@ body{
   border:1px solid #2a2a32; background:#17171c; color:#fff;
   font-size:16px; cursor:not-allowed; opacity:.5;
 }
+/* --- Brand bar full-width + logo “nudo” --- */
 :root{
   --brand-grad: linear-gradient(to bottom, #ff9b55 0%, #ff7a2e 100%);
 }
 
-/* HEADER brandato */
+/* Header a tutta larghezza (nessun max-width) */
 header{
+  max-width:none;            /* override del container */
+  width:100%;
+  margin:0;                  /* niente centratura container */
+  padding:12px 24px;
   background: var(--brand-grad);
   box-shadow: 0 2px 8px rgba(0,0,0,.25);
 }
 
-/* Link/menu in alto su desktop */
-nav.nav a{
-  color:#111;
-  font-weight:600;
+/* Contenuto del header: tieni il flex già esistente */
+header .site-brand{ gap:10px; }
+
+/* Logo: solo l’immagine, senza fondo */
+.site-brand .logo{
+  background:none !important;
+  border-radius:0 !important;
+  width:auto;
+  height:48px;               /* 42–50 ok; regola se vuoi */
+  object-fit:contain;
+  display:block;
 }
-nav.nav a:hover{
-  text-decoration:underline;
-  color:#000;
+@media (min-width:899px){
+  .site-brand .logo{ height:56px; }
 }
 
-/* Hamburger nero su sfondo arancio */
-.menu-toggle .bars,
-.menu-toggle .bars::before,
-.menu-toggle .bars::after { background:#111; }
+/* Link del menu su header arancione (desktop) */
+nav.nav a{ color:#111; font-weight:600; }
+nav.nav a:hover{ color:#000; text-decoration:underline; }
 
-/* MENU MOBILE dark */
+/* Menu mobile: fondo scuro coerente */
 @media (max-width:899px){
   nav.nav{
     background:#0f0f15;
     border-top:2px solid #ff7a2e;
-    transform:translateY(-120%);
-    transition:transform .25s ease;
   }
-  nav.nav.open{ transform:translateY(0); }
-  nav.nav a{
-    color:#f5f1eb;
-    font-weight:600;
-  }
-  nav.nav a:hover{
-    color:#ff9b55;
-  }
+  nav.nav a{ color:#f5f1eb; }
+  nav.nav a:hover{ color:#ff9b55; }
+  .menu-toggle .bars,
+  .menu-toggle .bars::before,
+  .menu-toggle .bars::after{ background:#111; }
 }
-@media (max-width:640px){ #audio-footer .btn-ctl{ width:42px; height:42px; border-radius:10px; } }
