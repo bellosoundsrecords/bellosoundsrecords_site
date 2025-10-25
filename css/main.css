@@ -231,7 +231,7 @@ header{
   max-width:none;            /* override del container */
   width:100%;
   margin:0;                  /* niente centratura container */
-  padding:6px 8px;
+  padding:4px 6px;
   background: var(--brand-grad);
   box-shadow: 0 2px 8px rgba(0,0,0,.25);
 }
