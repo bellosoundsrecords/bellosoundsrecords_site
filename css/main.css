@@ -217,4 +217,46 @@ body{
   border:1px solid #2a2a32; background:#17171c; color:#fff;
   font-size:16px; cursor:not-allowed; opacity:.5;
 }
+:root{
+  --brand-grad: linear-gradient(to bottom, #ff9b55 0%, #ff7a2e 100%);
+}
+
+/* HEADER brandato */
+header{
+  background: var(--brand-grad);
+  box-shadow: 0 2px 8px rgba(0,0,0,.25);
+}
+
+/* Link/menu in alto su desktop */
+nav.nav a{
+  color:#111;
+  font-weight:600;
+}
+nav.nav a:hover{
+  text-decoration:underline;
+  color:#000;
+}
+
+/* Hamburger nero su sfondo arancio */
+.menu-toggle .bars,
+.menu-toggle .bars::before,
+.menu-toggle .bars::after { background:#111; }
+
+/* MENU MOBILE dark */
+@media (max-width:899px){
+  nav.nav{
+    background:#0f0f15;
+    border-top:2px solid #ff7a2e;
+    transform:translateY(-120%);
+    transition:transform .25s ease;
+  }
+  nav.nav.open{ transform:translateY(0); }
+  nav.nav a{
+    color:#f5f1eb;
+    font-weight:600;
+  }
+  nav.nav a:hover{
+    color:#ff9b55;
+  }
+}
 @media (max-width:640px){ #audio-footer .btn-ctl{ width:42px; height:42px; border-radius:10px; } }
