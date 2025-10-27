@@ -33,6 +33,7 @@ renderHeaderFooter(settings);
   bar.style.display = 'block';
 })();
 wireFooterControls();
+mountCookieBar();
 
 // 1) Azioni globali: play / queue
 document.addEventListener('click', (e)=>{
