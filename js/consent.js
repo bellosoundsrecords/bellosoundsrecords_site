@@ -46,20 +46,24 @@ export function mountCookieBar({measurementId, legalUrl='/legal.html'}={}){
   const bar = document.createElement('div');
   bar.className = 'cookie-bar';
   bar.innerHTML = `
-    <h4>Cookies & privacy</h4>
-    <p>Usiamo solo cookie essenziali. Facoltativi: <strong>Analytics</strong> (GA4) e <strong>Media</strong> (YouTube/Spotify).
-       Leggi <a class="cookie-link" href="${legalUrl}">informativa</a>.</p>
-    <div class="cookie-actions">
-      <button class="cookie-btn" data-act="essentials">Solo essenziali</button>
-      <button class="cookie-btn" data-act="prefs">Preferenze</button>
-      <button class="cookie-btn primary" data-act="accept">Accetta tutti</button>
-    </div>
-    <div class="cookie-actions" style="display:none" id="cookie-prefs">
-      <label><input type="checkbox" id="ck-analytics" checked> Analytics</label>
-      <label><input type="checkbox" id="ck-media" checked> Media (YT/Spotify)</label>
-      <button class="cookie-btn primary" data-act="save-prefs">Salva</button>
-    </div>
-  `;
+  <h4>Cookies & Privacy</h4>
+  <p>We use only essential cookies. Optional: 
+    <strong>Analytics</strong> (GA4) and <strong>Media</strong> (YouTube/Spotify).
+    Read our <a class="cookie-link" href="{legalURL}">privacy policy</a>.
+  </p>
+
+  <div class="cookie-actions">
+    <button class="cookie-btn" data-act="essentials">Essential only</button>
+    <button class="cookie-btn" data-act="prefs">Preferences</button>
+    <button class="cookie-btn primary" data-act="accept">Accept all</button>
+  </div>
+
+  <div class="cookie-actions" style="display:none" id="cookie-prefs">
+    <label><input type="checkbox" id="ck-analytics" checked> Analytics</label>
+    <label><input type="checkbox" id="ck-media" checked> Media (YouTube/Spotify)</label>
+    <button class="cookie-btn primary" data-act="save-prefs">Save</button>
+  </div>
+`;
   document.body.appendChild(bar);
   bar.style.display = 'block';
 
