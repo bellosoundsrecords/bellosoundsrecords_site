@@ -268,3 +268,20 @@ nav.nav a:hover{ color:#000; text-decoration:underline; }
   .menu-toggle .bars::before,
   .menu-toggle .bars::after{ background:#111; }
 }
+/* Cookie bar */
+.cookie-bar{
+  position:fixed; left:16px; right:16px; bottom:16px; z-index:1100;
+  background:#111; border:1px solid #242428; border-radius:14px;
+  box-shadow:0 10px 30px rgba(0,0,0,.45);
+  color:var(--fg); padding:16px; display:none;
+}
+.cookie-bar h4{ margin:0 0 6px 0; font-size:16px; }
+.cookie-bar p{ margin:0 0 12px 0; color:var(--muted); font-size:14px; }
+.cookie-actions{ display:flex; gap:8px; flex-wrap:wrap; }
+.cookie-btn{
+  padding:8px 12px; border-radius:999px; border:1px solid #2a2a32;
+  background:#17171c; color:#fff; cursor:pointer;
+}
+.cookie-btn.primary{ background:var(--accent); color:#000; border-color:transparent; }
+.cookie-link{ text-decoration:underline; color:var(--fg); }
+@media(min-width:900px){ .cookie-bar{ left:calc(50% - 420px); right:auto; width:840px; } }
