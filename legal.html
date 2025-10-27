@@ -1,30 +1,92 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <title>Legal — BelloSounds Records</title>
-  <meta name="description" content="Privacy, Terms & Cookies."/>
-  <link rel="stylesheet" href="./css/main.css?v=9">
-<script type="module" src="./js/app.js?v=9"></script>
+  <meta charset="utf-8" />
+  <title>Legal & Privacy — BelloSounds Records</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <!-- carica i tuoi CSS e JS principali come nelle altre pagine -->
+  <link rel="stylesheet" href="./css/main.css" />
+  <script type="module" src="./js/app.js"></script>
 </head>
-  <div id="sticky-player" aria-live="polite"></div>
-<body>
-  <header id="site-header"></header>
+<body data-page="legal">
+  <header id="site-header"><!-- filled by renderHeaderFooter --></header>
+
   <main id="app">
-    <h1>Legal</h1>
-    <h2>Privacy</h2>
-    <p>No invasive tracking. Embeds from YouTube/Spotify may set their own cookies.</p>
-    <h2>Terms</h2>
-    <p>All content © 2025 BelloSounds Records.</p>
-    <h2>Cookies</h2>
-    <p>We only use essential cookies. No banner is shown unless third‑party tools are added.</p>
+    <section class="detail info" style="margin-top:8px">
+      <h1>Legal &amp; Privacy Notice</h1>
+      <p class="muted" style="color:var(--muted)">Last updated: 27 Oct 2025</p>
+
+      <h2 id="disclaimer">1. General Disclaimer</h2>
+      <p>
+        BelloSounds Records has made every effort to ensure that all information on this website is accurate and up to date.
+        We accept no responsibility for any errors or omissions and reserve the right to modify content at any time without prior notice.
+        All content is provided “as is,” without warranty of any kind. Use of this site is at your own risk.
+      </p>
+
+      <h2 id="copyright">2. Copyright &amp; Ownership</h2>
+      <p>
+        All music, artworks, logos, and written content on this site are the exclusive property of <strong>BelloSounds Records</strong>, unless otherwise stated.
+        No part of this website may be reproduced, stored, or transmitted in any form or by any means without prior written permission.
+        Unauthorized use may violate copyright, trademark, and other applicable laws.
+      </p>
+
+      <h2 id="third-parties">3. Third-Party Services</h2>
+      <p>
+        This site may include embeds or links from third-party services, including but not limited to:
+      </p>
+      <ul>
+        <li><strong>YouTube</strong> (audio-visual content)</li>
+        <li><strong>Spotify</strong> (streaming previews and playlists)</li>
+        <li><strong>Google Analytics 4</strong> (aggregated traffic insights)</li>
+      </ul>
+      <p>
+        These services operate under their own privacy and cookie policies. Please review:
+        <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">YouTube / Google Privacy Policy</a> ·
+        <a href="https://www.spotify.com/legal/privacy-policy/" target="_blank" rel="noopener">Spotify Privacy Policy</a> ·
+        <a href="https://policies.google.com/technologies/partner-sites" target="_blank" rel="noopener">How Google uses data</a>.
+      </p>
+
+      <h2 id="privacy">4. Privacy &amp; Data Collection</h2>
+      <p>
+        We do not collect personally identifiable information from casual visitors.
+        We use <strong>Google Analytics (GA4)</strong> to obtain anonymized, aggregate insights about visits and interactions,
+        solely to improve performance and user experience. We do not sell data and we do not share it with third parties for advertising.
+      </p>
+
+      <h3>4.1 Lawful Basis (GDPR)</h3>
+      <p>
+        For EU/EEA visitors, processing via GA4 occurs on the basis of <em>legitimate interests</em> (Art. 6(1)(f) GDPR), limited to measurement and security.
+        You may opt out of analytics via your browser settings, ad settings, or appropriate consent controls where presented.
+      </p>
+
+      <h3>4.2 Your Rights</h3>
+      <p>
+        Where applicable, you have rights of access, rectification, erasure, restriction, objection, and data portability.
+        Requests can be sent to <a href="mailto:connect@bellosoundsrecords.place">connect@bellosoundsrecords.place</a>.
+      </p>
+
+      <h2 id="cookies">5. Cookies</h2>
+      <p>
+        We use only essential cookies for site functionality. Third-party embeds (e.g., YouTube, Spotify) may set their own cookies per their policies.
+        We do not use our own marketing or profiling cookies.
+      </p>
+
+      <h2 id="contact">6. Contact</h2>
+      <p>
+        For any inquiries about this website, please contact:<br/>
+        📧 <a href="mailto:connect@bellosoundsrecords.place">connect@bellosoundsrecords.place</a>
+      </p>
+
+      <h2 id="entity">7. Legal Entity</h2>
+      <p>
+        <strong>BelloSounds Records</strong><br/>
+        Independent creative label · Digital presence: <a href="https://bellosoundsrecords.place">bellosoundsrecords.place</a><br/>
+        &copy; 2025 BelloSounds Records. All rights reserved.<br/>
+        <em>“Two sides, one vision.”</em>
+      </p>
+    </section>
   </main>
-  <footer id="site-footer"></footer>
-  <script type="module">
-    import { settings } from './content/settings.js';
-    import { renderHeaderFooter } from './js/utils.js';
-    renderHeaderFooter(settings);
-  </script>
+
+  <footer id="site-footer"><!-- filled by renderHeaderFooter --></footer>
 </body>
 </html>
