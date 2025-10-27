@@ -3,6 +3,7 @@ import { settings } from '../content/settings.js';
 import { releases } from '../content/releases.js';
 import { renderHeaderFooter } from './utils.js';
 import { playReleaseNow, addToQueue, wireFooterControls } from './components/footerPlayer.js';
+import { mountCookieBar } from './consent.js';
 
 // 0) Header/Footer + footer player shell (una volta sola)
 renderHeaderFooter(settings);
