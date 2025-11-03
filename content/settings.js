@@ -1,6 +1,6 @@
 // content/settings.js
 export const settings = {
-  brand: "BelloSounds Records&trade;",
+  brand: "BelloSounds Records™",
   tagline: "Two sides, one vision.",
   hashtags: ["#deephouse", "#soulfulhouse", "#deepgarage", "#bellosoundsrecords"],
   socials: {
