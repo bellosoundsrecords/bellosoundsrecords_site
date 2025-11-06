@@ -232,19 +232,33 @@ function seekToPercent(p){
   if (!player) return;
   const dur = player.getDuration?.() || 0;
   if (dur > 0){
-    const pos = dur * clamp01(p);
+    let pos = dur * clamp01(p);
+    // evita di “toccare” la fine: altrimenti YT può emettere ENDED
+    const EPS = 0.30; // 300 ms
+    if (pos > dur - EPS) pos = Math.max(0, dur - EPS);
+
     player.seekTo?.(pos, true);
     setWaveProgress(pos / dur);
     updateMediaSessionState();
   }
 }
 
+let waveAbort = null;
+
 function wireWaveSeek(){
   const wf = document.querySelector('#audio-footer .wf');
   if (!wf) return;
 
+  // pulizia vecchi listener
+  if (waveAbort) { waveAbort.abort(); }
+  waveAbort = new AbortController();
+  const { signal } = waveAbort;
+
+  // preferiamo misurare l'SVG interno (evita padding del contenitore)
+  const svg = wf.querySelector('svg') || wf;
+
   const getP = (evt)=>{
-    const r = wf.getBoundingClientRect();
+    const r = svg.getBoundingClientRect();
     const clientX = (evt.touches && evt.touches[0]?.clientX) ?? evt.clientX;
     return clamp01((clientX - r.left) / r.width);
   };
@@ -256,17 +270,15 @@ function wireWaveSeek(){
   const onMove  = (evt)=>{ if (dragging) { seekToPercent(getP(evt)); evt.preventDefault(); } };
   const onEnd   = ()=>{ dragging = false; wf.classList.remove('seeking'); };
 
-  // pulizia e bind
-  wf.replaceWith(wf.cloneNode(true));
-  const wf2 = document.querySelector('#audio-footer .wf');
-  wf2.addEventListener('click', onClick);
-  wf2.addEventListener('mousedown', onStart);
-  window.addEventListener('mousemove', onMove, { passive:false });
-  window.addEventListener('mouseup', onEnd);
-  wf2.addEventListener('touchstart', onStart, { passive:true });
-  window.addEventListener('touchmove', onMove, { passive:false });
-  window.addEventListener('touchend', onEnd);
-}
+  wf.addEventListener('click', onClick, { signal });
+  wf.addEventListener('mousedown', onStart, { signal });
+  window.addEventListener('mousemove', onMove, { passive:false, signal });
+  window.addEventListener('mouseup', onEnd, { signal });
+  wf.addEventListener('touchstart', onStart, { passive:true, signal });
+  window.addEventListener('touchmove', onMove, { passive:false, signal });
+  window.addEventListener('touchend', onEnd, { signal });
+} wireWaveSeek(){
+  
 
 function renderWave(peaks){
   const bar = document.getElementById('audio-footer');
