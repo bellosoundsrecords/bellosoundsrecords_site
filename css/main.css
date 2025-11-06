@@ -67,10 +67,35 @@ footer .social a{display:inline-flex;align-items:center;justify-content:center;w
 .tracklist, .credits, .links{margin-top:12px}
 .links a{display:inline-block;margin-right:10px;margin-bottom:6px}
 
-/* Playlist card */
-.playlist-highlight{display:grid;grid-template-columns:1fr;gap:var(--gap);margin-top:24px}
-.playlist-highlight .card{display:grid;grid-template-columns:1fr 1fr;gap:var(--gap);padding:12px}
-.playlist-highlight .card figure{aspect-ratio:1/1;border-radius:12px;overflow:hidden}
+/* Playlist highlight – uniform to hero layout */
+.playlist-highlight {
+  margin-top: 24px;
+}
+
+.playlist-highlight .card {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--gap);
+  align-items: center;
+}
+
+.playlist-highlight .card figure img {
+  width: 100%;
+  border-radius: var(--radius);
+  object-fit: cover;
+  border: 1px solid #1a1a22;
+}
+
+/* Desktop: invert image/text order */
+@media (min-width:900px) {
+  .playlist-highlight .card {
+    grid-template-columns: 1fr 1fr;
+    direction: rtl;                 /* ← sposta immagine a destra */
+  }
+  .playlist-highlight .card > * {
+    direction: ltr;                 /* ← testo normale */
+  }
+}
 
 /* Responsive */
 @media (min-width:900px){
