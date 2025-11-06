@@ -67,7 +67,7 @@ footer .social a{display:inline-flex;align-items:center;justify-content:center;w
 .tracklist, .credits, .links{margin-top:12px}
 .links a{display:inline-block;margin-right:10px;margin-bottom:6px}
 
-//* Playlist card (home highlight) */
+/* Playlist card (home highlight) */
 .playlist-card{
   display:grid;
   grid-template-columns:1fr;
