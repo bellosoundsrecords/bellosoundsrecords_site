@@ -2,7 +2,7 @@
 export const playlists = [
   {
     slug: "release-2025",
-    title: "Release 2025",
+    title: "Releases 2025",
     description: "All BelloSounds Records releases for 2025. Two sides, one vision: Nick Evan & Neel Miles. Deep, soulful, raw.",
     cover: "./images/playlists/release-2025.jpg",
     items: [
