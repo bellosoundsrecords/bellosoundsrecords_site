@@ -73,25 +73,38 @@ footer .social a{display:inline-flex;align-items:center;justify-content:center;w
   grid-template-columns:1fr;
   gap:var(--gap);
   margin-top:24px;
+  background:#121217;
+  border-radius:12px;
+  padding:12px;
+}
+
+/* Cover quadrata */
+.playlist-card .cover{
+  border-radius:12px;
+  overflow:hidden;
+  aspect-ratio:1/1;
 }
 .playlist-card .cover img{
   width:100%;
-  height:auto;
-  aspect-ratio: 16 / 9;   /* evita “poster” troppo alti */
-  object-fit: cover;
-  border-radius:12px;
+  height:100%;
+  object-fit:cover;
   display:block;
 }
-.playlist-card .body{ display:flex; flex-direction:column; gap:10px; }
 
-/* Desktop: due colonne con immagine a destra */
+.playlist-card .body{
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+}
+
+/* Desktop: 2 colonne, immagine a destra */
 @media (min-width:900px){
   .playlist-card{
     grid-template-columns:1fr 1fr;
     align-items:center;
   }
   .playlist-card .cover{ order:2; }
-  .playlist-card .body{  order:1; }
+  .playlist-card .body{ order:1; }
 }
 
 /* Responsive */
