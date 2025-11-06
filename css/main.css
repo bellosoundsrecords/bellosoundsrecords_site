@@ -73,7 +73,7 @@ footer .social a{display:inline-flex;align-items:center;justify-content:center;w
   grid-template-columns:1fr;
   gap:var(--gap);
   margin-top:24px;
-  background:#000000;
+  background:#111;
   border-radius:12px;
   padding:12px;
 }
