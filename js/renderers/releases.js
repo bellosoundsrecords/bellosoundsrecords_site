@@ -68,7 +68,7 @@ function renderPlaylistHighlight(slug){
     <article class="playlist-card">
       <div class="cover"><img src="${pl.cover}" alt="${pl.title} cover" loading="lazy"></div>
       <div class="body">
-        <h3>${pl.title}</h3>
+        <h2>${pl.title}</h2>
         <p>${pl.description||''}</p>
         ${yt || sp || ''}
         <p><a class="btn outline" href="/playlist.html?slug=${pl.slug}">Open playlist</a></p>
