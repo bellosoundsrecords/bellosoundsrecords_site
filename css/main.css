@@ -34,7 +34,7 @@ footer .social a{display:inline-flex;align-items:center;justify-content:center;w
 /* Grids & Cards */
 .grid.releases{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:var(--gap);margin-top:24px}
 .grid.artists{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:var(--gap)}
-.card{background:#121217;border-radius:var(--radius);overflow:hidden;border:1px solid #1a1a22}
+.card{background:#111;border-radius:var(--radius);overflow:hidden;border:1px solid #1a1a22}
 .card .meta{padding:10px}
 .card .meta h3{margin:4px 0 2px 0}
 .card .meta .catalog{color:var(--accent);font-weight:700;font-size:12px}
@@ -73,7 +73,7 @@ footer .social a{display:inline-flex;align-items:center;justify-content:center;w
   grid-template-columns:1fr;
   gap:var(--gap);
   margin-top:24px;
-  background:#121217;
+  background:#000000;
   border-radius:12px;
   padding:12px;
 }
