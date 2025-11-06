@@ -59,7 +59,7 @@ export function renderSocial(socials){
   if(socials.youtube) out.push(`<a href="${socials.youtube}" target="_blank" rel="noopener">${icon('youtube')}</a>`);
   if(socials.soundcloud) out.push(`<a href="${socials.soundcloud}" target="_blank" rel="noopener">${icon('soundcloud')}</a>`);
   if(socials.spotify) out.push(`<a href="${socials.spotify}" target="_blank" rel="noopener">${icon('spotify')}</a>`);
-  if(socials.instagram) out.push(`<a href="${socials.instagram}" target="_blank" rel="noopener">${icon('instagram')}</a>`);
+  if(socials.discogs) out.push(`<a href="${socials.discogs}" target="_blank" rel="noopener">${icon('discogs')}</a>`);
   return out.join('');
 }
 
