@@ -277,7 +277,7 @@ function wireWaveSeek(){
   wf.addEventListener('touchstart', onStart, { passive:true, signal });
   window.addEventListener('touchmove', onMove, { passive:false, signal });
   window.addEventListener('touchend', onEnd, { signal });
-} wireWaveSeek(){
+} 
   
 
 function renderWave(peaks){
