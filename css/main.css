@@ -67,34 +67,31 @@ footer .social a{display:inline-flex;align-items:center;justify-content:center;w
 .tracklist, .credits, .links{margin-top:12px}
 .links a{display:inline-block;margin-right:10px;margin-bottom:6px}
 
-/* Playlist highlight – uniform to hero layout */
-.playlist-highlight {
-  margin-top: 24px;
+//* Playlist card (home highlight) */
+.playlist-card{
+  display:grid;
+  grid-template-columns:1fr;
+  gap:var(--gap);
+  margin-top:24px;
 }
-
-.playlist-highlight .card {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: var(--gap);
-  align-items: center;
-}
-
-.playlist-highlight .card figure img {
-  width: 100%;
-  border-radius: var(--radius);
+.playlist-card .cover img{
+  width:100%;
+  height:auto;
+  aspect-ratio: 16 / 9;   /* evita “poster” troppo alti */
   object-fit: cover;
-  border: 1px solid #1a1a22;
+  border-radius:12px;
+  display:block;
 }
+.playlist-card .body{ display:flex; flex-direction:column; gap:10px; }
 
-/* Desktop: invert image/text order */
-@media (min-width:900px) {
-  .playlist-highlight .card {
-    grid-template-columns: 1fr 1fr;
-    direction: rtl;                 /* ← sposta immagine a destra */
+/* Desktop: due colonne con immagine a destra */
+@media (min-width:900px){
+  .playlist-card{
+    grid-template-columns:1fr 1fr;
+    align-items:center;
   }
-  .playlist-highlight .card > * {
-    direction: ltr;                 /* ← testo normale */
-  }
+  .playlist-card .cover{ order:2; }
+  .playlist-card .body{  order:1; }
 }
 
 /* Responsive */
