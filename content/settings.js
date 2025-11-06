@@ -5,8 +5,8 @@ export const settings = {
   hashtags: ["#deephouse", "#soulfulhouse", "#deepgarage", "#bellosoundsrecords"],
   socials: {
     youtube: "https://youtube.com/@BelloSoundsRecords",
-    soundcloud: "https://soundcloud.com/",
+    soundcloud:"https://soundcloud.com/bellosoundsrecords",
     spotify: "https://open.spotify.com/",
-    instagram: "https://instagram.com/"
+    discogs: "https://www.discogs.com/label/4322125-BelloSounds-Records"
   }
 };
