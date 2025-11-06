@@ -226,6 +226,48 @@ function buildWavePath(peaks, W=100, H=36){
   return `${top.join(' ')} ${bot.join(' ')} Z`;
 }
 
+function clamp01(x){ return Math.min(1, Math.max(0, x)); }
+
+function seekToPercent(p){
+  if (!player) return;
+  const dur = player.getDuration?.() || 0;
+  if (dur > 0){
+    const pos = dur * clamp01(p);
+    player.seekTo?.(pos, true);
+    setWaveProgress(pos / dur);
+    updateMediaSessionState();
+  }
+}
+
+function wireWaveSeek(){
+  const wf = document.querySelector('#audio-footer .wf');
+  if (!wf) return;
+
+  const getP = (evt)=>{
+    const r = wf.getBoundingClientRect();
+    const clientX = (evt.touches && evt.touches[0]?.clientX) ?? evt.clientX;
+    return clamp01((clientX - r.left) / r.width);
+  };
+
+  const onClick = (evt)=>{ seekToPercent(getP(evt)); };
+
+  let dragging = false;
+  const onStart = (evt)=>{ dragging = true; wf.classList.add('seeking'); seekToPercent(getP(evt)); };
+  const onMove  = (evt)=>{ if (dragging) { seekToPercent(getP(evt)); evt.preventDefault(); } };
+  const onEnd   = ()=>{ dragging = false; wf.classList.remove('seeking'); };
+
+  // pulizia e bind
+  wf.replaceWith(wf.cloneNode(true));
+  const wf2 = document.querySelector('#audio-footer .wf');
+  wf2.addEventListener('click', onClick);
+  wf2.addEventListener('mousedown', onStart);
+  window.addEventListener('mousemove', onMove, { passive:false });
+  window.addEventListener('mouseup', onEnd);
+  wf2.addEventListener('touchstart', onStart, { passive:true });
+  window.addEventListener('touchmove', onMove, { passive:false });
+  window.addEventListener('touchend', onEnd);
+}
+
 function renderWave(peaks){
   const bar = document.getElementById('audio-footer');
   const wf  = bar?.querySelector('.wf');
@@ -256,6 +298,7 @@ function renderWave(peaks){
 
   wf.dataset.wfId = String(uid);
   requestAnimationFrame(lockWaveWidth); // blocca larghezza per evitare “respiro”
+  wireWaveSeek();
 }
 
 function setWaveProgress(percent){
