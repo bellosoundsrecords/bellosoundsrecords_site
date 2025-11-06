@@ -3,6 +3,58 @@
 // STEP 2: audio + queue + controlli base + waveform reale (clipPath).
 let progressTimer = null;
 import { releases } from '../../content/releases.js';
+// --- Media Session (BT / lockscreen / car) ---
+let mediaSessionWired = false;
+
+function wireMediaSessionHandlers(){
+  if (!('mediaSession' in navigator) || mediaSessionWired) return;
+  mediaSessionWired = true;
+
+  try {
+    navigator.mediaSession.setActionHandler('play',  () => toggle());
+    navigator.mediaSession.setActionHandler('pause', () => toggle());
+    navigator.mediaSession.setActionHandler('previoustrack', () => prev());
+    navigator.mediaSession.setActionHandler('nexttrack',     () => next());
+    // opzionali:
+    navigator.mediaSession.setActionHandler('stop',  () => { player?.stopVideo?.(); });
+    navigator.mediaSession.setActionHandler('seekbackward',  (d)=>{ try{ player.seekTo(Math.max(0, player.getCurrentTime()- (d?.seekOffset||10)), true);}catch{} });
+    navigator.mediaSession.setActionHandler('seekforward',   (d)=>{ try{ player.seekTo(Math.min(player.getDuration()||0, player.getCurrentTime()+ (d?.seekOffset||10)), true);}catch{} });
+  } catch {}
+}
+
+function updateMediaSessionMeta(rel){
+  if (!('mediaSession' in navigator) || !rel) return;
+
+  navigator.mediaSession.metadata = new MediaMetadata({
+    title:  rel.title || '—',
+    artist: (rel.artists && rel.artists.join(', ')) || 'BelloSounds Records',
+    album:  rel.catalog || '—',
+    artwork: rel.cover ? [
+      { src: rel.cover, sizes: '512x512', type: 'image/jpeg' },
+    ] : []
+  });
+}
+
+function updateMediaSessionState(){
+  if (!('mediaSession' in navigator) || !player) return;
+  // playback state
+  const st = player.getPlayerState ? player.getPlayerState() : -1;
+  navigator.mediaSession.playbackState =
+    (st === YT.PlayerState.PLAYING) ? 'playing' :
+    (st === YT.PlayerState.PAUSED)  ? 'paused'  : 'none';
+  // posizione (se disponibile)
+  try {
+    const dur = player.getDuration?.() || 0;
+    const cur = player.getCurrentTime?.() || 0;
+    if (dur > 0) {
+      navigator.mediaSession.setPositionState({
+        duration: dur,
+        playbackRate: 1.0,
+        position: cur
+      });
+    }
+  } catch {}
+}
 
 // --- Estrattore ID YouTube interno (accetta ID, youtu.be, watch?v=, embed/...) ---
 function extractYouTubeId(input){
@@ -256,20 +308,41 @@ function onYTState(e) {
         const dur = player.getDuration?.() || 0;
         if (dur > 0) setWaveProgress(cur/dur);
         updateTimeUI(cur, dur);
+        updateMediaSessionState();
       }, 250);
+      updateMediaSessionState();
       break;
     case YT.PlayerState.PAUSED:
     case YT.PlayerState.BUFFERING:
       clearInterval(progressTimer); progressTimer = null;
+      updateMediaSessionState();
       break;
     case YT.PlayerState.ENDED:
       clearInterval(progressTimer); progressTimer = null;
       setWaveProgress(1);
+      updateMediaSessionState();
       next();
       break;
     default:
       break;
   }
+}
+
+async function ensurePlayer() {
+  await ensureYTApi();
+  if (player) return player;
+  playerReady = new Promise((resolve) => {
+    player = new YT.Player(ensureHiddenHost(), {
+      height: '0', width: '0',
+      playerVars: { playsinline: 1 },
+      events: {
+        onReady: () => { wireMediaSessionHandlers(); resolve(); },
+        onStateChange: onYTState
+      }
+    });
+  });
+  await playerReady;
+  return player;
 }
 
 // ---------- Controllo riproduzione ----------
@@ -283,6 +356,8 @@ async function playAt(index) {
 
   await ensurePlayer();  // API + player onReady
   updateMetaUI(rel);
+  updateMediaSessionMeta(rel);
+updateMediaSessionState();
 
   // waveform reale (previewAudio -> calcola una volta, poi cache)
   if (rel.previewAudio){
