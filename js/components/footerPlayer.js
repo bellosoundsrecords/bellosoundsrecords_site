@@ -2,9 +2,9 @@
 // Player a tutta larghezza (footer) con coda semplice, basato su YouTube Iframe API.
 // STEP 2: audio + queue + controlli base + waveform reale (clipPath).
 let progressTimer = null;
-import { releases } from '../../content/releases.js';
 // --- Media Session (BT / lockscreen / car) ---
 let mediaSessionWired = false;
+import { releases } from '../../content/releases.js';
 
 function wireMediaSessionHandlers(){
   if (!('mediaSession' in navigator) || mediaSessionWired) return;
@@ -103,24 +103,6 @@ function ensureHiddenHost() {
   return host;
 }
 
-async function ensurePlayer() {
-  await ensureYTApi();
-  if (player) return player;
-  // promessa "onReady"
-  playerReady = new Promise((resolve) => {
-    player = new YT.Player(ensureHiddenHost(), {
-      height: '0',
-      width: '0',
-      playerVars: { playsinline: 1 },
-      events: {
-        onReady: () => resolve(),
-        onStateChange: onYTState
-      }
-    });
-  });
-  await playerReady; // aspetta che il player sia pronto
-  return player;
-}
 
 // ---------- UI helpers ----------
 function getBar() { return document.getElementById('audio-footer'); }
@@ -405,6 +387,7 @@ export function toggle() {
     setToggleUI(true);
     state.playing = true;
   }
+  updateMediaSessionState();
 }
 
 export function next() {
