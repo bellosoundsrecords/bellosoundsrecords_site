@@ -21,7 +21,7 @@ export function bootHome(){
     <section class="hero">${renderHero(hero)}</section>
     <h2>Latest Releases</h2>
     <section class="grid releases">${latest.map(cardRelease).join('')}</section>
-    <h2>Release 2025</h2>
+    <h2>Highlight</h2>
     <section class="playlist-highlight">${renderPlaylistHighlight('release-2025')}</section>
     <section class="split-hero">${renderTwoSides()}</section>
   `;
@@ -68,7 +68,7 @@ function renderPlaylistHighlight(slug){
     <article class="playlist-card">
       <div class="cover"><img src="${pl.cover}" alt="${pl.title} cover" loading="lazy"></div>
       <div class="body">
-        <h2>${pl.title}</h2>
+        <h1>${pl.title}</h1>
         <p>${pl.description||''}</p>
         ${yt || sp || ''}
         <p><a class="btn outline" href="/playlist.html?slug=${pl.slug}">Open playlist</a></p>
