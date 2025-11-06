@@ -21,7 +21,7 @@ export function bootHome(){
     <section class="hero">${renderHero(hero)}</section>
     <h2>Latest Releases</h2>
     <section class="grid releases">${latest.map(cardRelease).join('')}</section>
-    <h2>Highlight</h2>
+    <h2>Latest Vibes</h2>
     <section class="playlist-highlight">${renderPlaylistHighlight('release-2025')}</section>
     <section class="split-hero">${renderTwoSides()}</section>
   `;
