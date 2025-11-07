@@ -470,24 +470,38 @@ function doStop(){
 }
 
 export function next() {
-  if (!state.queue.length) return;
-  const nextIndex = state.index + 1;
-  if (nextIndex < state.queue.length) {
-    playAt(nextIndex);             // playAt gestisce meta/wave ecc.
+  const cur = current();
+  if (!cur) return;
+
+  // se la coda ha 0/1 elementi, popolala con tutti i releases
+  if (state.queue.length <= 1) {
+    state.queue = releases.map(r => r.slug);
+    state.index = state.queue.indexOf(cur.slug);
+  }
+
+  const ni = state.index + 1;
+  if (ni < state.queue.length) {
+    playAt(ni);
   } else {
-    // fine coda: fermo pulito
-    doStop();
+    doStop(); // fine coda
   }
 }
 
 export function prev() {
-  if (!state.queue.length) return;
-  const prevIndex = state.index - 1;
-  if (prevIndex >= 0) {
-    playAt(prevIndex);
+  const cur = current();
+  if (!cur) return;
+
+  // se la coda ha 0/1 elementi, popolala con tutti i releases
+  if (state.queue.length <= 1) {
+    state.queue = releases.map(r => r.slug);
+    state.index = state.queue.indexOf(cur.slug);
+  }
+
+  const pi = state.index - 1;
+  if (pi >= 0) {
+    playAt(pi);
   } else {
-    // opzionale: ricomincia dall’inizio coda
-    playAt(0);
+    playAt(0); // opzionale: vai all'inizio
   }
 }
 
