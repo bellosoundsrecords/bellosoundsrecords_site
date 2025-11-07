@@ -11,15 +11,12 @@ function wireMediaSessionHandlers(){
   mediaSessionWired = true;
 
   try {
-    navigator.mediaSession.setActionHandler('play',  () => toggle());
-    navigator.mediaSession.setActionHandler('pause', () => toggle());
-    navigator.mediaSession.setActionHandler('previoustrack', () => prev());
-    navigator.mediaSession.setActionHandler('nexttrack',     () => next());
-    // opzionali:
-    navigator.mediaSession.setActionHandler('stop',  () => { player?.stopVideo?.(); });
-    navigator.mediaSession.setActionHandler('seekbackward',  (d)=>{ try{ player.seekTo(Math.max(0, player.getCurrentTime()- (d?.seekOffset||10)), true);}catch{} });
-    navigator.mediaSession.setActionHandler('seekforward',   (d)=>{ try{ player.seekTo(Math.min(player.getDuration()||0, player.getCurrentTime()+ (d?.seekOffset||10)), true);}catch{} });
-  } catch {}
+    navigator.mediaSession.setActionHandler('play',  () => doPlay());
+navigator.mediaSession.setActionHandler('pause', () => doPause());
+navigator.mediaSession.setActionHandler('stop',  () => doStop()); // prima era opzionale
+navigator.mediaSession.setActionHandler('previoustrack', () => prev());
+navigator.mediaSession.setActionHandler('nexttrack',     () => next()); 
+  catch {}
 }
 
 function updateMediaSessionMeta(rel){
@@ -408,10 +405,10 @@ updateMediaSessionState();
   enableControls(true);
 
   // carica e riproduci
+  state.playing = true; // lo prepariamo “in playing” prima del load
   player.loadVideoById(id);
   player.playVideo?.();
   setToggleUI(true);
-  state.playing = true;
 }
 
 // API pubbliche usate da app.js
@@ -445,21 +442,52 @@ export function toggle() {
   updateMediaSessionState();
 }
 
+function doPlay(){
+  if (!player) return;
+  player.playVideo?.();
+  state.playing = true;
+  setToggleUI(true);
+  updateMediaSessionState();
+}
+
+function doPause(){
+  if (!player) return;
+  player.pauseVideo?.();
+  state.playing = false;
+  setToggleUI(false);
+  updateMediaSessionState();
+}
+
+function doStop(){
+  if (!player) return;
+  try { player.stopVideo?.(); } catch {}
+  state.playing = false;
+  setWaveProgress(0);
+  updateTimeUI(0, player.getDuration?.() || 0);
+  setToggleUI(false);
+  updateMediaSessionState();
+}
+
 export function next() {
   if (!state.queue.length) return;
   const nextIndex = state.index + 1;
   if (nextIndex < state.queue.length) {
-    playAt(nextIndex);
+    playAt(nextIndex);             // playAt gestisce meta/wave ecc.
   } else {
-    state.playing = false;
-    setToggleUI(false);
+    // fine coda: fermo pulito
+    doStop();
   }
 }
 
 export function prev() {
   if (!state.queue.length) return;
   const prevIndex = state.index - 1;
-  if (prevIndex >= 0) playAt(prevIndex);
+  if (prevIndex >= 0) {
+    playAt(prevIndex);
+  } else {
+    // opzionale: ricomincia dall’inizio coda
+    playAt(0);
+  }
 }
 
 // ---------- Wire dei bottoni nel footer ----------
