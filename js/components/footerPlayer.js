@@ -16,6 +16,7 @@ navigator.mediaSession.setActionHandler('pause', () => doPause());
 navigator.mediaSession.setActionHandler('stop',  () => doStop()); // prima era opzionale
 navigator.mediaSession.setActionHandler('previoustrack', () => prev());
 navigator.mediaSession.setActionHandler('nexttrack',     () => next()); 
+  }
   catch {}
 }
 
