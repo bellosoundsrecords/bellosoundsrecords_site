@@ -271,6 +271,7 @@ function seekToPercent(p){
 let waveAbort = null;
 
 function wireWaveSeek(){
+  let dragging = false;
   const wf = document.querySelector('#audio-footer .wf');
   if (!wf) return;
 
@@ -290,7 +291,7 @@ function wireWaveSeek(){
 
   const onClick = (evt)=>{ markScreen(); seekToPercent(getP(evt)); };
 const onStart = (evt)=>{ dragging = true; wf.classList.add('seeking'); markScreen(); seekToPercent(getP(evt)); };
-  let dragging = false;
+  
   
   const onMove  = (evt)=>{ if (dragging) { seekToPercent(getP(evt)); evt.preventDefault(); } };
   const onEnd   = ()=>{ dragging = false; wf.classList.remove('seeking'); };
@@ -362,20 +363,14 @@ function onYTState(e) {
   if (!player) return;
   switch (e.data) {
     case YT.PlayerState.PLAYING:
-      state.playing = true;
-      updateMediaSessionMeta(current());
-      setToggleUI(true);
-      clearInterval(progressTimer);
-progressTimer = setInterval(progressTick, getTickMs());=>{
-        const cur = player.getCurrentTime?.() || 0;
-        const dur = player.getDuration?.() || 0;
-        if (dur > 0) setWaveProgress(cur/dur);
-        updateTimeUI(cur, dur);
-        updateMediaSessionState();
-        
-      }, 250);
-      updateMediaSessionState();
-      break;
+      case YT.PlayerState.PLAYING:
+  state.playing = true;
+  updateMediaSessionMeta(current());
+  setToggleUI(true);
+  clearInterval(progressTimer);
+  progressTimer = setInterval(progressTick, getTickMs());
+  updateMediaSessionState();
+  break;
     case YT.PlayerState.PAUSED:
     case YT.PlayerState.BUFFERING:
       clearInterval(progressTimer); progressTimer = null;
