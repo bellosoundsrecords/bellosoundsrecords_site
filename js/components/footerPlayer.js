@@ -444,7 +444,7 @@ export async function playReleaseNow(rel) {
   await playAt(idxInQ === -1 ? state.queue.length - 1 : idxInQ);
 }
 
-export functiasync function playAt(index) {
+async function playAt(index) {
   // cerca la prossima release valida (con youtube id)
   let i = index;
   while (i >= 0 && i < state.queue.length) {
@@ -481,7 +481,7 @@ export functiasync function playAt(index) {
   }
   // nessuna trovata -> stop
   doStop();
-}on addToQueue(rel) {
+export function addToQueue(rel) {
   if (!rel || !rel.slug) return;
   if (!state.queue.includes(rel.slug)) {
     state.queue.push(rel.slug);
