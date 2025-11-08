@@ -37,14 +37,41 @@ function wireMediaSessionHandlers(){
   if (!('mediaSession' in navigator) || mediaSessionWired) return;
   mediaSessionWired = true;
 
+  const safeSeek = (delta) => {
+    try {
+      const cur = player.getCurrentTime?.() || 0;
+      const dur = player.getDuration?.() || 0;
+      const pos = Math.max(0, Math.min(dur, cur + delta));
+      player.seekTo?.(pos, true);
+    } catch {}
+  };
+
   try {
     navigator.mediaSession.setActionHandler('play',  () => { markRemote(); doPlay(); });
-navigator.mediaSession.setActionHandler('pause', () => { markRemote(); doPause(); });
-navigator.mediaSession.setActionHandler('stop',  () => { markRemote(); doStop(); });
-navigator.mediaSession.setActionHandler('previoustrack', () => { markRemote(); prev(); });
-navigator.mediaSession.setActionHandler('nexttrack',     () => { markRemote(); next(); });
-  }
-  catch {}
+    navigator.mediaSession.setActionHandler('pause', () => { markRemote(); doPause(); });
+    navigator.mediaSession.setActionHandler('stop',  () => { markRemote(); doStop(); });
+
+    // next/prev canonici
+    navigator.mediaSession.setActionHandler('nexttrack',     () => { markRemote(); next(); });
+    navigator.mediaSession.setActionHandler('previoustrack', () => { markRemote(); prev(); });
+
+    // molti headset mandano seek invece di next/prev:
+    navigator.mediaSession.setActionHandler('seekforward', (d) => {
+      markRemote();
+      const off = d?.seekOffset ?? 10;
+      // se è un "salto grosso" (>= 60s) lo interpretiamo come NEXT
+      if (off >= 60) { next(); return; }
+      safeSeek(off);
+    });
+    navigator.mediaSession.setActionHandler('seekbackward', (d) => {
+      markRemote();
+      const off = d?.seekOffset ?? 10;
+      // salto grosso = PREV
+      if (off >= 60) { prev(); return; }
+      safeSeek(-off);
+    });
+
+  } catch {}
 }
 
 function updateMediaSessionMeta(rel){
