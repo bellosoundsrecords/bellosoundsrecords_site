@@ -433,16 +433,6 @@ async function ensurePlayer() {
   return player;
 }
 
-// ---------- Controllo riproduzione ----------
-
-
-// API pubbliche usate da app.js
-export async function playReleaseNow(rel) {
-  if (!rel || !rel.slug) return;
-  const idxInQ = state.queue.indexOf(rel.slug);
-  if (idxInQ === -1) state.queue.push(rel.slug);
-  await playAt(idxInQ === -1 ? state.queue.length - 1 : idxInQ);
-}
 
 // ---------- Controllo riproduzione ----------
 
