@@ -5,17 +5,44 @@ let progressTimer = null;
 // --- Media Session (BT / lockscreen / car) ---
 let mediaSessionWired = false;
 import { releases } from '../../content/releases.js';
+// --- Heuristics BT / Screen & tick adattivo ---
+let btDeviceClass = 'unknown'; // 'screen' | 'controller' | 'unknown'
+
+function getTickMs(){
+  return btDeviceClass === 'screen' ? 250 :
+         btDeviceClass === 'controller' ? 500 : 750;
+}
+
+function markScreen(){ btDeviceClass = 'screen'; refreshProgressTimer(); }
+function markRemote(){ if (btDeviceClass !== 'screen') { btDeviceClass = 'controller'; refreshProgressTimer(); } }
+
+function progressTick(){
+  const cur = player?.getCurrentTime?.() || 0;
+  const dur = player?.getDuration?.() || 0;
+  if (dur > 0) setWaveProgress(cur/dur);
+  updateTimeUI(cur, dur);
+  updateMediaSessionState();
+}
+
+function refreshProgressTimer(){
+  if (!player) return;
+  if (progressTimer){ clearInterval(progressTimer); progressTimer = null; }
+  const st = player.getPlayerState ? player.getPlayerState() : -1;
+  if (st === YT.PlayerState.PLAYING){
+    progressTimer = setInterval(progressTick, getTickMs());
+  }
+}
 
 function wireMediaSessionHandlers(){
   if (!('mediaSession' in navigator) || mediaSessionWired) return;
   mediaSessionWired = true;
 
   try {
-    navigator.mediaSession.setActionHandler('play',  () => doPlay());
-navigator.mediaSession.setActionHandler('pause', () => doPause());
-navigator.mediaSession.setActionHandler('stop',  () => doStop()); // prima era opzionale
-navigator.mediaSession.setActionHandler('previoustrack', () => prev());
-navigator.mediaSession.setActionHandler('nexttrack',     () => next()); 
+    navigator.mediaSession.setActionHandler('play',  () => { markRemote(); doPlay(); });
+navigator.mediaSession.setActionHandler('pause', () => { markRemote(); doPause(); });
+navigator.mediaSession.setActionHandler('stop',  () => { markRemote(); doStop(); });
+navigator.mediaSession.setActionHandler('previoustrack', () => { markRemote(); prev(); });
+navigator.mediaSession.setActionHandler('nexttrack',     () => { markRemote(); next(); });
   }
   catch {}
 }
@@ -261,10 +288,10 @@ function wireWaveSeek(){
     return clamp01((clientX - r.left) / r.width);
   };
 
-  const onClick = (evt)=>{ seekToPercent(getP(evt)); };
-
+  const onClick = (evt)=>{ markScreen(); seekToPercent(getP(evt)); };
+const onStart = (evt)=>{ dragging = true; wf.classList.add('seeking'); markScreen(); seekToPercent(getP(evt)); };
   let dragging = false;
-  const onStart = (evt)=>{ dragging = true; wf.classList.add('seeking'); seekToPercent(getP(evt)); };
+  
   const onMove  = (evt)=>{ if (dragging) { seekToPercent(getP(evt)); evt.preventDefault(); } };
   const onEnd   = ()=>{ dragging = false; wf.classList.remove('seeking'); };
 
@@ -339,7 +366,7 @@ function onYTState(e) {
       updateMediaSessionMeta(current());
       setToggleUI(true);
       clearInterval(progressTimer);
-      progressTimer = setInterval(()=>{
+progressTimer = setInterval(progressTick, getTickMs());=>{
         const cur = player.getCurrentTime?.() || 0;
         const dur = player.getDuration?.() || 0;
         if (dur > 0) setWaveProgress(cur/dur);
@@ -444,18 +471,21 @@ export function toggle() {
 
 function doPlay(){
   if (!player) return;
+  markScreen();
   player.playVideo?.();
   state.playing = true;
   setToggleUI(true);
   updateMediaSessionState();
+  refreshProgressTimer();
 }
-
 function doPause(){
   if (!player) return;
+  markScreen();
   player.pauseVideo?.();
   state.playing = false;
   setToggleUI(false);
   updateMediaSessionState();
+  refreshProgressTimer();
 }
 
 function doStop(){
