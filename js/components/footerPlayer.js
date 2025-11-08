@@ -434,38 +434,7 @@ async function ensurePlayer() {
 }
 
 // ---------- Controllo riproduzione ----------
-async function playAt(index) {
-  if (index < 0 || index >= state.queue.length) return;
-  state.index = index;
-  const rel = current();
-  if (!rel?.embeds?.youtube) { console.warn('No youtube in release', rel); return; }
-  const id = extractYouTubeId(rel.embeds.youtube);
-  if (!id) { console.warn('Invalid YouTube id/url in', rel.embeds.youtube); return; }
 
-  await ensurePlayer();  // API + player onReady
-  updateMetaUI(rel);
-  updateMediaSessionMeta(rel);
-updateMediaSessionState();
-
-  // waveform reale (previewAudio -> calcola una volta, poi cache)
-  if (rel.previewAudio){
-    getPeaksFromPreview(rel.previewAudio)
-      .then(renderWave)
-      .catch(()=>{ renderWave(new Array(120).fill(0.3)); });
-  } else {
-    renderWave(new Array(120).fill(0.3));
-  }
-
-  enableControls(true);
-
-  // carica e riproduci
-  state.playing = true; // lo prepariamo “in playing” prima del load
-  setWaveProgress(0);
-  updateTimeUI(0, 0);
-  player.loadVideoById(id);
-  player.playVideo?.();
-  setToggleUI(true);
-}
 
 // API pubbliche usate da app.js
 export async function playReleaseNow(rel) {
@@ -475,7 +444,44 @@ export async function playReleaseNow(rel) {
   await playAt(idxInQ === -1 ? state.queue.length - 1 : idxInQ);
 }
 
-export function addToQueue(rel) {
+export functiasync function playAt(index) {
+  // cerca la prossima release valida (con youtube id)
+  let i = index;
+  while (i >= 0 && i < state.queue.length) {
+    const relTry = releases.find(r => r.slug === state.queue[i]);
+    const idTry  = extractYouTubeId(relTry?.embeds?.youtube);
+    if (idTry) {
+      // valida: ora aggiorno lo state.index
+      state.index = i;
+      const rel = relTry;
+      const id  = idTry;
+
+      await ensurePlayer();
+      updateMetaUI(rel);
+      updateMediaSessionMeta(rel);
+      updateMediaSessionState();
+
+      if (rel.previewAudio){
+        getPeaksFromPreview(rel.previewAudio).then(renderWave).catch(()=>{ renderWave(new Array(120).fill(0.3)); });
+      } else {
+        renderWave(new Array(120).fill(0.3));
+      }
+      enableControls(true);
+
+      state.playing = true;
+      setWaveProgress(0);
+      updateTimeUI(0, 0);
+      player.loadVideoById(id);
+      player.playVideo?.();
+      setToggleUI(true);
+      return;
+    }
+    // non valida: prova la successiva
+    i += (index > state.index ? 1 : 1); // avanti
+  }
+  // nessuna trovata -> stop
+  doStop();
+}on addToQueue(rel) {
   if (!rel || !rel.slug) return;
   if (!state.queue.includes(rel.slug)) {
     state.queue.push(rel.slug);
