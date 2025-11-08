@@ -336,6 +336,7 @@ function onYTState(e) {
   switch (e.data) {
     case YT.PlayerState.PLAYING:
       state.playing = true;
+      updateMediaSessionMeta(current());
       setToggleUI(true);
       clearInterval(progressTimer);
       progressTimer = setInterval(()=>{
@@ -344,6 +345,7 @@ function onYTState(e) {
         if (dur > 0) setWaveProgress(cur/dur);
         updateTimeUI(cur, dur);
         updateMediaSessionState();
+        
       }, 250);
       updateMediaSessionState();
       break;
@@ -369,7 +371,7 @@ async function ensurePlayer() {
   playerReady = new Promise((resolve) => {
     player = new YT.Player(ensureHiddenHost(), {
       height: '0', width: '0',
-      playerVars: { playsinline: 1 },
+      playerVars: { playsinline: 1, rel: 0 },
       events: {
         onReady: () => { wireMediaSessionHandlers(); resolve(); },
         onStateChange: onYTState
@@ -407,6 +409,8 @@ updateMediaSessionState();
 
   // carica e riproduci
   state.playing = true; // lo prepariamo “in playing” prima del load
+  setWaveProgress(0);
+  updateTimeUI(0, 0);
   player.loadVideoById(id);
   player.playVideo?.();
   setToggleUI(true);
@@ -432,15 +436,10 @@ export function toggle() {
   if (!player) return;
   const st = player.getPlayerState ? player.getPlayerState() : -1;
   if (st === YT.PlayerState.PLAYING) {
-    player.pauseVideo?.();
-    setToggleUI(false);
-    state.playing = false;
+    doPause();
   } else {
-    player.playVideo?.();
-    setToggleUI(true);
-    state.playing = true;
+    doPlay();
   }
-  updateMediaSessionState();
 }
 
 function doPlay(){
