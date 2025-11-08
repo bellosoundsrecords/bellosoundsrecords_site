@@ -445,29 +445,41 @@ export async function playReleaseNow(rel) {
 }
 
 async function playAt(index) {
-  // cerca la prossima release valida (con youtube id)
+// ---------- Controllo riproduzione ----------
+
+export async function playReleaseNow(rel) {
+  if (!rel || !rel.slug) return;
+  const idxInQ = state.queue.indexOf(rel.slug);
+  if (idxInQ === -1) state.queue.push(rel.slug);
+  await playAt(idxInQ === -1 ? state.queue.length - 1 : idxInQ);
+}
+
+async function playAt(index) {
+  // cerca la prossima release valida (con youtube id) avanti o indietro
+  const step = (state.index === -1) ? 1 : (index >= state.index ? 1 : -1);
   let i = index;
+
   while (i >= 0 && i < state.queue.length) {
     const relTry = releases.find(r => r.slug === state.queue[i]);
     const idTry  = extractYouTubeId(relTry?.embeds?.youtube);
     if (idTry) {
-      // valida: ora aggiorno lo state.index
       state.index = i;
-      const rel = relTry;
-      const id  = idTry;
+      const rel = relTry, id = idTry;
 
       await ensurePlayer();
       updateMetaUI(rel);
       updateMediaSessionMeta(rel);
       updateMediaSessionState();
 
-      if (rel.previewAudio){
-        getPeaksFromPreview(rel.previewAudio).then(renderWave).catch(()=>{ renderWave(new Array(120).fill(0.3)); });
+      if (rel.previewAudio) {
+        getPeaksFromPreview(rel.previewAudio)
+          .then(renderWave)
+          .catch(()=> renderWave(new Array(120).fill(0.3)));
       } else {
         renderWave(new Array(120).fill(0.3));
       }
-      enableControls(true);
 
+      enableControls(true);
       state.playing = true;
       setWaveProgress(0);
       updateTimeUI(0, 0);
@@ -476,11 +488,14 @@ async function playAt(index) {
       setToggleUI(true);
       return;
     }
-    // non valida: prova la successiva
-    i += (index > state.index ? 1 : 1); // avanti
+    // non valida: salta alla successiva/precedente
+    i += step;
   }
-  // nessuna trovata -> stop
+
+  // nessuna valida -> stop
   doStop();
+}
+
 export function addToQueue(rel) {
   if (!rel || !rel.slug) return;
   if (!state.queue.includes(rel.slug)) {
@@ -508,6 +523,7 @@ function doPlay(){
   updateMediaSessionState();
   refreshProgressTimer();
 }
+
 function doPause(){
   if (!player) return;
   markScreen();
@@ -521,7 +537,7 @@ function doPause(){
 function doStop(){
   if (!player) return;
   try { player.stopVideo?.(); } catch {}
-  if (progressTimer) { clearInterval(progressTimer); progressTimer = null; } // <—
+  if (progressTimer) { clearInterval(progressTimer); progressTimer = null; }
   state.playing = false;
   setWaveProgress(0);
   updateTimeUI(0, player.getDuration?.() || 0);
@@ -551,7 +567,6 @@ export function prev() {
   const cur = current();
   if (!cur) return;
 
-  // se la coda ha 0/1 elementi, popolala con tutti i releases
   if (state.queue.length <= 1) {
     state.queue = releases.map(r => r.slug);
     state.index = state.queue.indexOf(cur.slug);
@@ -563,6 +578,15 @@ export function prev() {
   } else {
     playAt(0); // opzionale: vai all'inizio
   }
+}
+
+// ---------- Wire dei bottoni nel footer ----------
+export function wireFooterControls() {
+  const bar = getBar(); if (!bar) return;
+  q('.btn-ctl.prev', bar)?.addEventListener('click', prev);
+  q('.btn-ctl.next', bar)?.addEventListener('click', next);
+  q('.btn-ctl.toggle', bar)?.addEventListener('click', toggle);
+  enableControls(false);
 }
 
 // ---------- Wire dei bottoni nel footer ----------
