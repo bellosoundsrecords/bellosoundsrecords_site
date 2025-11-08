@@ -444,7 +444,6 @@ export async function playReleaseNow(rel) {
   await playAt(idxInQ === -1 ? state.queue.length - 1 : idxInQ);
 }
 
-async function playAt(index) {
 // ---------- Controllo riproduzione ----------
 
 export async function playReleaseNow(rel) {
@@ -555,6 +554,39 @@ export function next() {
     state.index = state.queue.indexOf(cur.slug);
   }
 
+  const ni = state.index + 1;
+  if (ni < state.queue.length) {
+    playAt(ni);
+  } else {
+    doStop(); // fine coda
+  }
+}
+
+export function prev() {
+  const cur = current();
+  if (!cur) return;
+
+  if (state.queue.length <= 1) {
+    state.queue = releases.map(r => r.slug);
+    state.index = state.queue.indexOf(cur.slug);
+  }
+
+  const pi = state.index - 1;
+  if (pi >= 0) {
+    playAt(pi);
+  } else {
+    playAt(0); // opzionale: vai all'inizio
+  }
+}
+
+// ---------- Wire dei bottoni nel footer ----------
+export function wireFooterControls() {
+  const bar = getBar(); if (!bar) return;
+  q('.btn-ctl.prev', bar)?.addEventListener('click', prev);
+  q('.btn-ctl.next', bar)?.addEventListener('click', next);
+  q('.btn-ctl.toggle', bar)?.addEventListener('click', toggle);
+  enableControls(false);
+}
   const ni = state.index + 1;
   if (ni < state.queue.length) {
     playAt(ni);
