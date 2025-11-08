@@ -361,30 +361,32 @@ function current() {
 
 function onYTState(e) {
   if (!player) return;
-  switch (e.data) {
-    case YT.PlayerState.PLAYING:
-      case YT.PlayerState.PLAYING:
-  state.playing = true;
-  updateMediaSessionMeta(current());
-  setToggleUI(true);
-  clearInterval(progressTimer);
-  progressTimer = setInterval(progressTick, getTickMs());
-  updateMediaSessionState();
-  break;
-    case YT.PlayerState.PAUSED:
-    case YT.PlayerState.BUFFERING:
-      clearInterval(progressTimer); progressTimer = null;
-      updateMediaSessionState();
-      break;
-    case YT.PlayerState.ENDED:
-      clearInterval(progressTimer); progressTimer = null;
-      setWaveProgress(1);
-      updateMediaSessionState();
-      next();
-      break;
-    default:
-      break;
-  }
+switch (e.data) {
+  case YT.PlayerState.PLAYING:
+    state.playing = true;
+    updateMediaSessionMeta(current());
+    setToggleUI(true);
+    clearInterval(progressTimer);
+    progressTimer = setInterval(progressTick, getTickMs());
+    updateMediaSessionState();
+    break;
+
+  case YT.PlayerState.PAUSED:
+  case YT.PlayerState.BUFFERING:
+    clearInterval(progressTimer); progressTimer = null;
+    updateMediaSessionState();
+    break;
+
+  case YT.PlayerState.ENDED:
+    clearInterval(progressTimer); progressTimer = null;
+    setWaveProgress(1);
+    updateMediaSessionState();
+    next();
+    break;
+
+  default:
+    break;
+}
 }
 
 async function ensurePlayer() {
@@ -486,6 +488,7 @@ function doPause(){
 function doStop(){
   if (!player) return;
   try { player.stopVideo?.(); } catch {}
+  if (progressTimer) { clearInterval(progressTimer); progressTimer = null; } // <—
   state.playing = false;
   setWaveProgress(0);
   updateTimeUI(0, player.getDuration?.() || 0);
