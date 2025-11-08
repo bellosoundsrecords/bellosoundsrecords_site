@@ -473,7 +473,7 @@ async function playAt(index) {
       if (rel.previewAudio) {
         getPeaksFromPreview(rel.previewAudio)
           .then(renderWave)
-          .catch(()=> renderWave(new Array(120).fill(0.3)));
+          .catch(() => renderWave(new Array(120).fill(0.3)));
       } else {
         renderWave(new Array(120).fill(0.3));
       }
@@ -497,20 +497,14 @@ async function playAt(index) {
 
 export function addToQueue(rel) {
   if (!rel || !rel.slug) return;
-  if (!state.queue.includes(rel.slug)) {
-    state.queue.push(rel.slug);
-  }
+  if (!state.queue.includes(rel.slug)) state.queue.push(rel.slug);
   enableControls(true); // non parte subito
 }
 
 export function toggle() {
   if (!player) return;
   const st = player.getPlayerState ? player.getPlayerState() : -1;
-  if (st === YT.PlayerState.PLAYING) {
-    doPause();
-  } else {
-    doPlay();
-  }
+  if (st === YT.PlayerState.PLAYING) doPause(); else doPlay();
 }
 
 function doPlay(){
@@ -548,18 +542,14 @@ export function next() {
   const cur = current();
   if (!cur) return;
 
-  // se la coda ha 0/1 elementi, popolala con tutti i releases
   if (state.queue.length <= 1) {
     state.queue = releases.map(r => r.slug);
     state.index = state.queue.indexOf(cur.slug);
   }
 
   const ni = state.index + 1;
-  if (ni < state.queue.length) {
-    playAt(ni);
-  } else {
-    doStop(); // fine coda
-  }
+  if (ni < state.queue.length) playAt(ni);
+  else doStop(); // fine coda
 }
 
 export function prev() {
@@ -572,53 +562,8 @@ export function prev() {
   }
 
   const pi = state.index - 1;
-  if (pi >= 0) {
-    playAt(pi);
-  } else {
-    playAt(0); // opzionale: vai all'inizio
-  }
-}
-
-// ---------- Wire dei bottoni nel footer ----------
-export function wireFooterControls() {
-  const bar = getBar(); if (!bar) return;
-  q('.btn-ctl.prev', bar)?.addEventListener('click', prev);
-  q('.btn-ctl.next', bar)?.addEventListener('click', next);
-  q('.btn-ctl.toggle', bar)?.addEventListener('click', toggle);
-  enableControls(false);
-}
-  const ni = state.index + 1;
-  if (ni < state.queue.length) {
-    playAt(ni);
-  } else {
-    doStop(); // fine coda
-  }
-}
-
-export function prev() {
-  const cur = current();
-  if (!cur) return;
-
-  if (state.queue.length <= 1) {
-    state.queue = releases.map(r => r.slug);
-    state.index = state.queue.indexOf(cur.slug);
-  }
-
-  const pi = state.index - 1;
-  if (pi >= 0) {
-    playAt(pi);
-  } else {
-    playAt(0); // opzionale: vai all'inizio
-  }
-}
-
-// ---------- Wire dei bottoni nel footer ----------
-export function wireFooterControls() {
-  const bar = getBar(); if (!bar) return;
-  q('.btn-ctl.prev', bar)?.addEventListener('click', prev);
-  q('.btn-ctl.next', bar)?.addEventListener('click', next);
-  q('.btn-ctl.toggle', bar)?.addEventListener('click', toggle);
-  enableControls(false);
+  if (pi >= 0) playAt(pi);
+  else playAt(0); // opzionale: vai all'inizio
 }
 
 // ---------- Wire dei bottoni nel footer ----------
