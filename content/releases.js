@@ -131,5 +131,36 @@ export const releases = [
       mixedBy: "Nick Evan",
       masteredBy: "Nick Evan",
       artwork: "BelloSounds Records"
-    }
+    },
+      {
+    slug: "bsr005-feel-it",
+    catalog: "BSR005",
+    title: "Feel It",
+    artists: ["Neel Miles"],
+    alias: "neel-miles",
+    previewAudio: "/audio/previews/BSR005_mono64.mp3",
+    releaseDate: "2025-11-29",
+    cover: "./images/releases/BSR005.jpg",
+    tags: ["deephouse", "soulfulhouse", "neelmiles", "bellosoundsrecords", "feelit", "BSR005"],
+    descriptionShort: "A raw, instinctive groove with a 70’s soul and a Chicago heartbeat. Stream the full track here before the official release. More soon… stay tuned and feel it..",
+    descriptionLong: "A groove born between Chicago’s roots and Pilsen’s lights. “Feel It” blends 70’s drum textures, soulful tension and an instinctive vocal line designed to move the floor. Neel Miles delivers his most physical track to date — direct, warm, alive.",
+    tracks: [
+      { title: "Feel It (Original Mix)", bpm: 126, key: "A minor", isrc: "QT6ET2582214" }
+    ],
+    embeds: {
+      youtube: "XkI3_ORDuNs",
+      
+    },
+    links: {
+      stream: {
+        youtube: "https://www.youtube.com/watch?v=XkI3_ORDuNs",
+        
+    },
+    credits: {
+      writtenBy: "Neel Miles",
+      producedBy: "Neel Miles",
+      mixedBy: "Neel Miles",
+      masteredBy: "Neel Miles",
+      artwork: "BelloSounds Records"
+    },
    }];
