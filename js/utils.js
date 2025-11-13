@@ -2,7 +2,7 @@
 export function qs(selector, root=document){ return root.querySelector(selector); }
 export function qsa(selector, root=document){ return Array.from(root.querySelectorAll(selector)); }
 export function getParam(name){ const url = new URL(window.location.href); return url.searchParams.get(name); }
-export function formatDate(iso){ if(!iso) return ''; try{ return new Date(iso).toLocaleDateString(undefined,{year:'numeric',month:'short',day:'2-digit'});}catch(e){return iso;}}
+export function formatDate(iso){ if(!iso) return ''; try{ return new Date(iso).toLocaleDateString('en-GB',{year:'numeric',month:'short',day:'2-digit'});}catch(e){return iso;}}
 
 export function renderHeaderFooter(settings){
   const header = document.getElementById('site-header');
