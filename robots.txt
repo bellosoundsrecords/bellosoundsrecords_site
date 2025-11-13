@@ -1,23 +1,4 @@
 User-agent: *
-# Consenti l’indicizzazione delle pagine pubbliche
-Allow: /$
-Allow: /index.html
-Allow: /about
-Allow: /releases
-Allow: /artists
-Allow: /nick-evan
-Allow: /neel-miles
+Allow: /
 
-# Blocca contenuti tecnici non utili alla SEO
-Disallow: /js/
-Disallow: /content/
-Disallow: /styles/
-Disallow: /assets/temp/
-Disallow: /components/
-Disallow: /preview/
-Disallow: /*.json
-Disallow: /*.mp3
-Disallow: /*.wav
-
-# Sitemap
 Sitemap: https://bellosoundsrecords.place/sitemap.xml
