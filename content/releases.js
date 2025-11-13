@@ -131,8 +131,9 @@ export const releases = [
       mixedBy: "Nick Evan",
       masteredBy: "Nick Evan",
       artwork: "BelloSounds Records"
+    }
     },
-      {
+    {
     slug: "bsr005-feel-it",
     catalog: "BSR005",
     title: "Feel It",
