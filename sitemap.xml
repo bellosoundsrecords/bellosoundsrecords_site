@@ -1,10 +1,47 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://YOUR_DOMAIN_OR_PAGES_URL/</loc></url>
-  <url><loc>https://YOUR_DOMAIN_OR_PAGES_URL/releases.html</loc></url>
-  <url><loc>https://YOUR_DOMAIN_OR_PAGES_URL/artists.html</loc></url>
-  <url><loc>https://YOUR_DOMAIN_OR_PAGES_URL/playlists.html</loc></url>
-  <url><loc>https://YOUR_DOMAIN_OR_PAGES_URL/about.html</loc></url>
-  <url><loc>https://YOUR_DOMAIN_OR_PAGES_URL/contact.html</loc></url>
-  <url><loc>https://YOUR_DOMAIN_OR_PAGES_URL/legal.html</loc></url>
+
+  <url>
+    <loc>https://bellosoundsrecords.place/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+
+  <url>
+    <loc>https://bellosoundsrecords.place/releases</loc>
+    <changefreq>daily</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <url>
+    <loc>https://bellosoundsrecords.place/artists</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <url>
+    <loc>https://bellosoundsrecords.place/nick-evan</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://bellosoundsrecords.place/neel-miles</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- Se vuoi includere pagine Future -->
+  <!--
+  <url>
+    <loc>https://bellosoundsrecords.place/mark-ellis</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  -->
+
+  <!-- Le release dinamiche -->
+  <!-- Le aggiungiamo automaticamente qui sotto -->
+  <!-- Basterà che tu mi copi i tuoi slug e generiamo tutto -->
+
 </urlset>
