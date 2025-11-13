@@ -163,5 +163,5 @@ export const releases = [
       mixedBy: "Neel Miles",
       masteredBy: "Neel Miles",
       artwork: "BelloSounds Records"
-    }
+    },
    }];
