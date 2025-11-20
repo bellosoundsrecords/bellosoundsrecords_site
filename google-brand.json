@@ -1,0 +1,29 @@
+{
+  "@context": "https://schema.org",
+  "@type": ["Organization", "Brand"],
+  "@id": "https://bellosoundsrecords.place/#brand",
+  "name": "BelloSounds Records",
+  "alternateName": [
+    "BelloSounds",
+    "bellosounds",
+    "Bello Sounds",
+    "BelloSounds Record",
+    "BelloSoundsRecord",
+    "bellosounds records",
+    "bellosoundsrecord",
+  ],
+  "url": "https://bellosoundsrecords.place/",
+  "description": "BelloSounds Records is an independent deep and soulful house creative space and record label, featuring artists like Nick Evan, Neel Miles and Mark Ellis.",
+  "logo": "https://bellosoundsrecords.place/assets/logo-bellosounds-records.png",
+  "image": "https://bellosoundsrecords.place/assets/cover-bellosounds-default.jpg",
+  "foundingDate": "2025",
+  "foundingLocation": "Online",
+  "keywords": "BelloSounds, bellosounds, BelloSounds Records, bellosounds records, BelloSoundsRecord, bellosoundsrecord, Bello Sounds, deep house, soulful house, Nick Evan, Neel Miles, Mark Ellis",
+  "sameAs": [
+    "https://bellosoundsrecords.place/",
+    "https://youtube.com/playlist?list=PLdAdqW9kOD61wSxWqIFd_7dK49z4Rwq3V",
+    "https://soundcloud.com/bellosoundsrecords",
+    "https://open.spotify.com/",
+    "https://www.discogs.com/label/4322125-BelloSounds-Records"
+  ]
+}
