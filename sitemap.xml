@@ -8,25 +8,25 @@
   </url>
 
   <url>
-    <loc>https://bellosoundsrecords.place/releases</loc>
+    <loc>https://bellosoundsrecords.place/releases.html</loc>
     <changefreq>daily</changefreq>
     <priority>0.9</priority>
   </url>
 
   <url>
-    <loc>https://bellosoundsrecords.place/artists</loc>
+    <loc>https://bellosoundsrecords.place/artists.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
 
   <url>
-    <loc>https://bellosoundsrecords.place/nick-evan</loc>
+    <loc>https://bellosoundsrecords.place/artist.html?slug=nick-evan</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
 
   <url>
-    <loc>https://bellosoundsrecords.place/neel-miles</loc>
+    <loc>https://bellosoundsrecords.place/artist.html?slug=neel-miles</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
