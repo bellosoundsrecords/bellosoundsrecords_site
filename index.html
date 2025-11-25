@@ -99,6 +99,47 @@
   ]
 }
   </script>
+  <!-- Release list schema -->
+<script id="releases-schema" type="application/ld+json"></script>
+
+<script type="module">
+  import { releases } from "/content/releases.js";
+
+  const baseUrl = "https://bellosoundsrecords.place";
+
+  const itemListElement = releases.map((release, idx) => ({
+    "@type": "ListItem",
+    "position": idx + 1,
+    "item": {
+      "@type": "MusicRelease",
+      "@id": `${baseUrl}/releases/${release.slug}#release`,
+      "name": release.title,
+      "alternateName": release.catalog,
+      "url": `${baseUrl}/releases/${release.slug}`,
+      "image": `${baseUrl}${release.cover.replace("./", "/")}`,
+      "description": release.descriptionShort || release.descriptionLong,
+      "datePublished": release.releaseDate,
+      "genre": ["House", "Deep House", "Soulful House"],
+      "recordLabel": {
+        "@id": "https://bellosoundsrecords.place/#label"
+      },
+      "byArtist": release.artists.map(name => ({
+        "@type": "MusicGroup",
+        "name": name
+      }))
+    }
+  }));
+
+  const schema = {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    "name": "BelloSounds Records – Full Release Catalog",
+    "itemListElement": itemListElement
+  };
+
+  document.getElementById("releases-schema").textContent =
+    JSON.stringify(schema, null, 2);
+</script>
   <meta name="description" content="Deep House, Soulful and Urban vibes."/>
   <meta property="og:type" content="website"/>
   <meta property="og:title" content="BelloSounds Records — Two sides, one vision"/>
