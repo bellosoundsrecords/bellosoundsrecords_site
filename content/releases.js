@@ -155,5 +155,39 @@ export const releases = [
       masteredBy: "Nick Evan",  
       artwork: "BelloSounds Records"  
     }  
-  }    
+  },
+  {
+  slug: "bsr005-neon-drizzle",
+  catalog: "BSR005",
+  title: "Neon Drizzle",
+  artists: ["Neel Miles"],
+  alias: "neel-miles",
+  previewAudio: "/audio/previews/BSR005_mono64.mp3",
+  releaseDate: "2025-12-14",
+  cover: "/images/releases/BSR005.jpg",
+  tags: ["deephouse", "undergroundhouse", "noirhouse", "neoncity", "neelmiles"],
+  descriptionShort: 
+    "A late-night walk under wet neon. A pulse, a shadow, a breath. Neon Drizzle is the sound the city makes when no one is watching.",
+
+  descriptionLong: 
+    "Past 2 AM, the city changes shape.\n\nNeon Drizzle was born there — in the thin rain that slides down steel beams, in the warm fog rising from the asphalt, in the hum of trains passing above. It’s deep house carved from shadows: bass moving like a low tide, drums reflecting on wet pavement, melodies glowing softly on the edges of the district.\n\nNo rush. No spotlight. Just the quiet electricity of a city breathing differently when everyone else is asleep.",
+
+  tracks: [
+    { title: "Neon Drizzle", bpm: 124, key: "E minor", isrc: "TBD" }
+  ],
+
+  embeds: {
+    youtube: "lbkGlo451gA"
+  },
+
+  links: {},
+
+  credits: {
+    writtenBy: "Neel Miles",
+    producedBy: "Neel Miles",
+    mixedBy: "Neel Miles",
+    masteredBy: "Neel Miles",
+    artwork: "BelloSounds Records" 
+  },
+}
 ];
