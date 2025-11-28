@@ -176,7 +176,7 @@ export function bootReleaseDetail(){
         </section>
 
         <section class="links">
-          <h3>Listen / Buy</h3>
+          <h3>Listen</h3>
           ${links}
         </section>
       </div>
