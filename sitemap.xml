@@ -67,6 +67,12 @@
     <priority>0.80</priority>
   </url>
 
+  <url>
+    <loc>https://bellosoundsrecords.place/releases/bsr005-neon-drizzle</loc>
+    <lastmod>2025-12-14</lastmod>
+    <priority>0.80</priority>
+  </url>
+
   <!-- Se vuoi includere pagine Future -->
   <!--
   <url>
