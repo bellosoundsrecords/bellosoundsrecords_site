@@ -329,21 +329,23 @@ nav.nav a:hover{ color:#000; text-decoration:underline; }
 .cookie-link{ text-decoration:underline; color:var(--fg); }
 @media(min-width:900px){ .cookie-bar{ left:calc(50% - 420px); right:auto; width:840px; } }
 
-/* === Secret Room hero === */
+/* === Secret Room hero (versione più sobria, niente seconda fascia arancione) === */
 
 .secret-hero {
-  /* niente sfondo pieno: lasciamo lo sfondo scuro del sito */
   background: transparent;
   padding: 24px 16px 0;
 }
 
 .secret-hero-inner {
   max-width: 1040px;
-  margin: 0 auto 32px;           /* centra e stacca dal bordo */
+  margin: 0 auto 32px;
   padding: 20px 24px;
   border-radius: 18px;
-  background: var(--accent);     /* arancione già usato nel sito */
-  color: #111;
+
+  /* invece del pieno arancione, sfondo scuro + bordo accent */
+  background: #111;
+  border: 1px solid rgba(255, 138, 61, 0.6);
+  color: var(--fg);
 
   display: grid;
   grid-template-columns: minmax(0, 2fr) minmax(0, 3fr);
@@ -351,21 +353,12 @@ nav.nav a:hover{ color:#000; text-decoration:underline; }
   align-items: flex-start;
 }
 
-.secret-hero-inner h1 {
-  margin: 0 0 4px;
-  font-size: 1.8rem;
-}
-
-.secret-hero-inner p {
-  margin: 0;
-  font-size: 0.9rem;
-}
-
 .secret-hero-inner .secret-tag {
   font-size: 0.75rem;
   text-transform: uppercase;
   letter-spacing: 0.12em;
   opacity: 0.85;
+  color: var(--accent);
 }
 
 /* mobile */
