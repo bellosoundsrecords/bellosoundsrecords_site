@@ -143,6 +143,10 @@ async function route(){
       const mod = await load('./renderers/playlists.js');
       mod.bootPlaylistDetail();
 
+    } else if (pathname === '/secret.html'){
+      const mod = await load('./renderers/secret.js');
+      mod.bootSecretRoom();
+
     } else if (INTERNAL_PATHS.has(pathname) || pathname.endsWith('.html')){
       // Pagine statiche semplici: fetch del file e estrazione <main id="app">…</main>
       const res = await fetch(pathname, { cache: 'no-cache' });
