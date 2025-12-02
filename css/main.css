@@ -329,51 +329,65 @@ nav.nav a:hover{ color:#000; text-decoration:underline; }
 .cookie-link{ text-decoration:underline; color:var(--fg); }
 @media(min-width:900px){ .cookie-bar{ left:calc(50% - 420px); right:auto; width:840px; } }
 
-//* === Secret Room hero === */
-.page-hero.secret-hero {
-  background: transparent;
-  padding: 24px 0 16px;
-  border-top: none; /* sicurezza: rimuove eventuale linea */
+/* =========================================================
+   SECRET ROOM — HERO SECTION
+   Sempre layout in colonna, mobile-first, zero affiancamenti
+   ========================================================= */
+
+.secret-hero {
+  padding: 24px 16px;
+  background: transparent; /* lasciamo lo sfondo generale del sito */
+  max-width: 900px;
+  margin: 0 auto;
+  text-align: left;
 }
 
-/* Rimuove la barra/arancione decorativa SOLO nella Secret Room */
-.page-hero.secret-hero::before {
-  display: none;
+.secret-hero-grid {
+  display: flex !important;           /* forza il layout flex */
+  flex-direction: column !important;  /* TUTTO in colonna */
+  gap: 16px !important;               /* spazio verticale */
+  width: 100%;
 }
 
-.secret-hero-inner {
-  max-width: 1040px;
-  margin: 0 auto 32px;
-  padding: 20px 24px;
-  border-radius: 18px;
-
-  /* invece del pieno arancione, sfondo scuro + bordo accent */
-  background: #111;
-  border: 1px solid rgba(255, 138, 61, 0.6);
-  color: var(--fg);
-
-  display: grid;
-  grid-template-columns: minmax(0, 2fr) minmax(0, 3fr);
-  gap: 16px;
-  align-items: flex-start;
+/* BLOCCO 1: testo introduttivo */
+.secret-hero-main {
+  padding: 24px;
+  background: #1c1c1c;
+  border-left: 4px solid var(--accent);
+  color: #f0f0f0;
+  border-radius: 6px;
+  width: 100%;
 }
 
-.secret-hero-inner .secret-tag {
-  font-size: 0.75rem;
-  text-transform: uppercase;
-  letter-spacing: 0.12em;
-  opacity: 0.85;
-  color: var(--accent);
+/* BLOCCO 2: la pill arancione */
+.secret-hero-pill {
+  padding: 18px;
+  background: #321b00;
+  border-left: 4px solid var(--accent);
+  color: #ffb266;
+  font-weight: 600;
+  border-radius: 6px;
+  width: 100%;
 }
 
-/* mobile */
-@media (max-width: 720px) {
-  .secret-hero-inner {
-    grid-template-columns: 1fr;
-    row-gap: 8px;
+/* BLOCCO 3: nota finale */
+.secret-hero-note {
+  padding: 18px;
+  background: #202020;
+  border-left: 4px solid var(--accent);
+  color: #aaa;
+  border-radius: 6px;
+  width: 100%;
+}
+
+/* PER SICUREZZA annulliamo qualunque media-query di layout orizzontale */
+@media (min-width: 600px),
+       (min-width: 768px),
+       (min-width: 1024px) {
+
+  .secret-hero-grid {
+    display: flex !important;
+    flex-direction: column !important; /* impedisce il row su desktop */
+    gap: 16px !important;
   }
-
-  .secret-hero-inner h1 {
-    font-size: 1.4rem;
-  }
-}
+       }
