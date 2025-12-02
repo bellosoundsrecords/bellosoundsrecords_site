@@ -59,7 +59,12 @@ const INTERNAL_PATHS = new Set([
   '/releases.html', '/release.html',
   '/artists.html',  '/artist.html',
   '/playlists.html','/playlist.html',
-  '/about.html','/contact.html','/legal.html'
+  '/about.html','/contact.html','/legal.html',
+  '/secret-room.html',
+  '/unreleased.html',
+  '/videos.html',
+  '/beats.html',
+  '/notes.html'
 ]);
 function sameOrigin(href){
   try { return new URL(href, location.href).origin === location.origin; }
