@@ -18,10 +18,10 @@ export function renderHeaderFooter(settings){
   </button>
 
   <nav id="site-nav" class="nav" aria-label="Main menu">
-    <a href="./">Home</a>
     <a href="./releases.html">Releases</a>
     <a href="./artists.html">Artists</a>
     <a href="./playlists.html">Playlists</a>
+    <a href="./secret-room.html" class="secret-link">Secret Room</a>
     <a href="./about.html">About</a>
     <a href="./contact.html">Contact</a>
   </nav>
