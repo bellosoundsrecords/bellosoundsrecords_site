@@ -329,11 +329,16 @@ nav.nav a:hover{ color:#000; text-decoration:underline; }
 .cookie-link{ text-decoration:underline; color:var(--fg); }
 @media(min-width:900px){ .cookie-bar{ left:calc(50% - 420px); right:auto; width:840px; } }
 
-/* === Secret Room hero (versione più sobria, niente seconda fascia arancione) === */
-
-.secret-hero {
+//* === Secret Room hero === */
+.page-hero.secret-hero {
   background: transparent;
-  padding: 24px 16px 0;
+  padding: 24px 0 16px;
+  border-top: none; /* sicurezza: rimuove eventuale linea */
+}
+
+/* Rimuove la barra/arancione decorativa SOLO nella Secret Room */
+.page-hero.secret-hero::before {
+  display: none;
 }
 
 .secret-hero-inner {
