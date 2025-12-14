@@ -177,7 +177,7 @@ export const releases = [
   ],
 
   embeds: {
-    youtube: "lbkGlo451gA"
+    youtube: "MQ0rBpCf170"
   },
 
   links: {},
