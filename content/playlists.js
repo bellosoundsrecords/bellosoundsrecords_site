@@ -6,6 +6,7 @@ export const playlists = [
     description: "All BelloSounds Records releases for 2025. Two sides, one vision: Nick Evan & Neel Miles. Deep, soulful, raw.",
     cover: "./images/playlists/release-2025.jpg",
     items: [
+      "bsr005-neon-drizzle",
       "bsr004-lost-in-the-feeling",
       "bsr003-night-at-district",
       "bsr002-city-tension",
