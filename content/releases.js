@@ -173,7 +173,7 @@ export const releases = [
     "Past 2 AM, the city changes shape.\n\nNeon Drizzle was born there — in the thin rain that slides down steel beams, in the warm fog rising from the asphalt, in the hum of trains passing above. It’s deep house carved from shadows: bass moving like a low tide, drums reflecting on wet pavement, melodies glowing softly on the edges of the district.\n\nNo rush. No spotlight. Just the quiet electricity of a city breathing differently when everyone else is asleep.",
 
   tracks: [
-    { title: "Neon Drizzle", bpm: 124, key: "E minor", isrc: "TBD" }
+    { title: "Neon Drizzle", bpm: 124, key: "F minor", isrc: "TBD" }
   ],
 
   embeds: {
