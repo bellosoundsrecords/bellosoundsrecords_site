@@ -29,7 +29,7 @@ export function renderHeaderFooter(settings){
 
   footer.innerHTML = `
     <div class="grid">
-      <div>© ${new Date().getFullYear()} ${settings.brand} · <a href="./legal.html">Legal</a></div>
+      <div>© 2025-${new Date().getFullYear()} ${settings.brand} · <a href="./legal.html">Legal</a></div>
       <div class="social" aria-label="Social links">
         ${renderSocial(settings.socials)}
       </div>
