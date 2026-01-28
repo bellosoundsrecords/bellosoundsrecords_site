@@ -27,7 +27,7 @@ export const releases = [
       },  
       buy: {  
         beatport: "https://www.beatport.com/it/release/your-heart/5109760",  
-        bandcamp: "https://nickevan.bandcamp.com"  
+        bandcamp: "https://nickevan.bandcamp.com/album/your-heart"  
       }  
     },  
     credits: {  
@@ -72,7 +72,7 @@ export const releases = [
         youtube: "https://www.youtube.com/watch?v=ScJCsjhJifU"  
       },  
       buy: {  
-        beatport: "https://www.beatport.com/it/release/city-tension/5125387",  
+        beatport: "https://nickevan.bandcamp.com/track/city-tension",  
         bandcamp: "https://nickevan.bandcamp.com"  
       }  
     },  
@@ -144,7 +144,7 @@ export const releases = [
         spotify: "track:6pg7enrcAoexwRjtMo8EGu?si=ab6cd532870e4ff1"  
       },  
       buy: {  
-        beatport: "https://www.beatport.com/it/release/lost-in-the-feeling/5440607",  
+        beatport: "https://nickevan.bandcamp.com/track/lost-in-the-feeling",  
         bandcamp: "https://nickevan.bandcamp.com"  
       }  
     },  
