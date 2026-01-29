@@ -170,11 +170,26 @@ function setToggleUI(isPlaying) {
 
 function enableControls(enabled) {
   const bar = getBar(); if (!bar) return;
-  bar.querySelectorAll('.btn-ctl').forEach(btn => {
-    btn.style.cursor = enabled ? 'pointer' : 'not-allowed';
-    btn.style.opacity = enabled ? '1' : '.5';
+
+  const hasQueue = state.queue.length > 1;
+
+  // Toggle sempre attivo quando enabled=true
+  const toggleBtn = bar.querySelector('.btn-ctl.toggle');
+  if (toggleBtn){
+    toggleBtn.style.cursor = enabled ? 'pointer' : 'not-allowed';
+    toggleBtn.style.opacity = enabled ? '1' : '.5';
+  }
+
+  // Prev/Next solo se c'è una vera coda
+  ['prev','next'].forEach(cls => {
+    const btn = bar.querySelector('.btn-ctl.'+cls);
+    if (!btn) return;
+    const ok = enabled && hasQueue;
+    btn.style.cursor = ok ? 'pointer' : 'not-allowed';
+    btn.style.opacity = ok ? '1' : '.4';
   });
 }
+
 
 function updateMetaUI(rel) {
   const bar = getBar(); if (!bar) return;
@@ -529,12 +544,11 @@ function doStop(){
 }
 
 export function next() {
-  const cur = current();
-  if (!cur) return;
-
-  if (state.queue.length <= 1) {
-    state.queue = releases.map(r => r.slug);
-    state.index = state.queue.indexOf(cur.slug);
+  // Se non c'è una vera coda, non “espandere” automaticamente a tutte le release.
+  // Comportamento desiderato: la singola traccia resta singola.
+  if (state.queue.length <= 1) { 
+    doStop(); 
+    return; 
   }
 
   const ni = state.index + 1;
@@ -546,14 +560,15 @@ export function prev() {
   const cur = current();
   if (!cur) return;
 
+  // Se non c'è una vera coda, niente salto: riporta all'inizio della traccia.
   if (state.queue.length <= 1) {
-    state.queue = releases.map(r => r.slug);
-    state.index = state.queue.indexOf(cur.slug);
+    try { player?.seekTo?.(0, true); } catch(e) {}
+    return;
   }
 
   const pi = state.index - 1;
   if (pi >= 0) playAt(pi);
-  else playAt(0); // opzionale: vai all'inizio
+  else playAt(0); // opzionale: vai alla prima in coda
 }
 
 // ---------- Wire dei bottoni nel footer ----------
