@@ -194,5 +194,41 @@ export const releases = [
     masteredBy: "Neel Miles",
     artwork: "BelloSounds Records" 
   },
-}
+},
+   {  
+    slug: "bsr006-late-closure",  
+    catalog: "BSR006",  
+    title: "Late Closure",  
+    artists: ["Nick Evan"],  
+    alias: "nick-evan",  
+    previewAudio: "/audio/previews/BSR006_mono64.mp3",  
+    oggAudio: "/audio/BSR006_st.ogg",
+    releaseDate: "2026-02-03",  
+    cover: "./images/releases/BSR006.jpg",  
+    tags: ["deephouse", "soulfulhouse", "latenight", "latewalking", "nickevan", "BelloSoundsRecords"],  
+    descriptionShort:
+      "Late-nicht soulful house. Music that stays a little longer.",  
+    descriptionLong:
+      "Nick Evan explores the space where the night slows down. Rooted in deep and soul house, his music is built around warm piano and Rhodes textures, organic basslines and steady, unforced grooves. The focus is not on peaks or drops, but on continuity — tracks that hold their shape and let time pass naturally. Each release feels connected to after-hours moments: empty streets, quiet rooms, the last light still on. The music doesn’t rush to resolve itself; it stays, fades, and leaves room for reflection. Subtle vocals and restrained dynamics are used as texture rather than statement, reinforcing an intimate and human approach to electronic music. Nick Evan’s sound is vinyl-minded but not nostalgic, electronic but grounded, designed for late listening, long drives and closing moments rather than crowded dancefloors. It’s music that doesn’t ask for attention — it simply waits a little longer.",  
+    tracks: [  
+      { title: "Late Closure", bpm: 125, key: "C minor", isrc: "QZES72698559" }  
+    ],  
+    
+    links: {  
+      stream: {  
+        spotify: "track:5VRXhFGTl0iPbtbW3Tt7d1?si=Qg9z9j3NSeC5HXyR9gduoA"  
+      },  
+      buy: {  
+        beatport: "https://nickevan.bandcamp.com/track/late-closure",  
+        bandcamp: "https://nickevan.bandcamp.com"  
+      }  
+    },  
+    credits: {  
+      writtenBy: "Nick Evan",  
+      producedBy: "Nick Evan",  
+      mixedBy: "Nick Evan",  
+      masteredBy: "Nick Evan",  
+      artwork: "BelloSounds Records"  
+    }  
+  }
 ];
