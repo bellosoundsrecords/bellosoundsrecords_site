@@ -222,7 +222,7 @@ function ensureQueueUI(){
       z-index:9999;
       backdrop-filter: blur(8px);
     `;
-    bar.style.position = bar.style.position || 'relative';
+    // bar.style.position = bar.style.position || 'relative';
     bar.appendChild(panel);
   }
 
