@@ -10,7 +10,7 @@ export const releases = [
     oggAudio: "/audio/BSR001_st.ogg",
     releaseDate: "2025-06-03",  
     cover: "./images/releases/BSR001.jpg",  
-    tags: ["deephouse", "soulfulhouse", "NickEvan", "BelloSoundsRecords", "YourHeart"],  
+    tags: ["deephouse", "soulfulhouse", "nickevan", "latenight", "bellosoundsrecords", "yourheart"],  
     descriptionShort:
       "Born after a night in a St Martin St pub: a live piano stuck in my head, carved into a groove that won’t let go.",  
     descriptionLong:
@@ -50,13 +50,13 @@ export const releases = [
     releaseDate: "2025-07-10",  
     cover: "./images/releases/BSR002.jpg",  
     tags: [
-      "DeepHouse",
-      "UrbanVibes",
-      "LateNight",
-      "MinimalGroove",
-      "NickEvan",
-      "BelloSoundsRecords",
-      "CityTension"
+      "deephouse",
+      "urbanvibes",
+      "latenight",
+      "minimalgroove",
+      "nickevan",
+      "bellosoundsrecords",
+      "citytension"
     ],  
     descriptionShort:
       "Born on a late-night platform: city murmur, last train running late, groove held in suspense.",  
@@ -96,7 +96,7 @@ export const releases = [
     oggAudio: "/audio/BSR003_st.ogg",
     releaseDate: "2025-08-14",  
     cover: "./images/releases/BSR003.jpg",  
-    tags: ["deephouse", "undergroundhouse", "analogdeep", "nightatdistrict", "neelmiles", "bellosoundsrecords"],  
+    tags: ["deephouse", "undergroundhouse", "#chicagonight", "nightatdistrict", "neelmiles", "bellosoundsrecords"],  
     descriptionShort:
       "Chicago night. A glance, no words. Night at District is sweet tension—desire moving without hurry.",  
     descriptionLong:
@@ -131,7 +131,7 @@ export const releases = [
     oggAudio: "/audio/BSR004_st.ogg",
     releaseDate: "2025-10-15",  
     cover: "./images/releases/BSR004.jpg",  
-    tags: ["deephouse", "soulfulhouse", "NickEvan", "AnalogHouse", "BelloSoundsRecords", "LostInTheFeeling"],  
+    tags: ["deephouse", "soulfulhouse", "nickevan", "warminadigitalworld", "analoghouse", "bellosoundsrecords", "lostinthefeeling"],  
     descriptionShort:
       "3 a.m. — empty roads, windows down, the city breathing slow. Lost in the Feeling is a night drive with no address, just a pulse to follow.",  
     descriptionLong:
@@ -170,7 +170,7 @@ export const releases = [
   oggAudio: "/audio/BSR005_st.ogg",
   releaseDate: "2025-12-14",
   cover: "/images/releases/BSR005.jpg",
-  tags: ["deephouse", "undergroundhouse", "noirhouse", "neoncity", "neelmiles"],
+  tags: ["deephouse", "undergroundhouse", "noirhouse", "neoncity", "neelmiles", "urbanvibes", "bellosoundsrecords"],
   descriptionShort: 
     "A late-night walk under wet neon. A pulse, a shadow, a breath. Neon Drizzle is the sound the city makes when no one is watching.",
 
