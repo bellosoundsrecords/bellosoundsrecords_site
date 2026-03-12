@@ -236,5 +236,41 @@ export const releases = [
       masteredBy: "Nick Evan",  
       artwork: "BelloSounds Records"  
     }  
-  }
+  },
+   {
+  slug: "bsr007-lower-wacker-drive",
+  catalog: "BSR007",
+  title: "Lower Wacker Drive (2:17 AM)",
+  artists: ["Neel Miles"],
+  alias: "neel-miles",
+  previewAudio: "/audio/previews/BSR007pre_mono64.mp3",
+  oggAudio: "/audio/BSR007pre_st.ogg",
+  mp3Audio: "/audio/BSR007pre_st.mp3",
+  releaseDate: "2026-03-20",
+  cover: "/images/releases/BSR007pre.jpg",
+  tags: ["deephouse", "undergroundhouse", "chicagohouse", "lowerwackerdrive", "neelmiles", "urbanvibes", "bellosoundsrecords"],
+  descriptionShort: 
+    "Lower Wacker Drive. 2:17 AM. Something is resonating beneath the city.",
+
+  descriptionLong: 
+    "Beneath the city, concrete pillars and empty lanes stretch into the distance. Street lights reflect on wet asphalt, and the sound of the night settles into the structure of the space itself. “Lower Wacker Drive (2:17 AM)” is an underground house piece built around a slowly evolving pad and a restrained groove, designed for late-night moments where atmosphere and movement merge. The track unfolds gradually, allowing tension and resonance to emerge from the environment rather than from obvious drops. Rooted in the deeper tradition of Chicago and Detroit house, the sound moves steadily, hypnotic and spatial, built for DJs and late-hour sets where subtle shifts carry the energy forward.",
+
+  tracks: [
+    { title: "Lower Wacker Drive (2:17 AM)", bpm: 127, key: "Eb minor", isrc: "QZK6H2625231" }
+  ],
+
+  embeds: {
+    youtube: 
+  },
+
+  links: {},
+
+  credits: {
+    writtenBy: "Neel Miles",
+    producedBy: "Neel Miles",
+    mixedBy: "Neel Miles",
+    masteredBy: "Neel Miles",
+    artwork: "BelloSounds Records" 
+  },
+},
 ];
