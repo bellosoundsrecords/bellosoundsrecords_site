@@ -198,7 +198,7 @@ export const releases = [
     mixedBy: "Neel Miles",
     masteredBy: "Neel Miles",
     artwork: "BelloSounds Records" 
-  },
+  }
 },
    {  
     slug: "bsr006-late-closure",  
@@ -271,6 +271,6 @@ export const releases = [
     mixedBy: "Neel Miles",
     masteredBy: "Neel Miles",
     artwork: "BelloSounds Records" 
-  },
-},
+  }
+}
 ];
