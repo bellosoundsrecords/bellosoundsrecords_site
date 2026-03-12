@@ -10,7 +10,7 @@ export const releases = [
     oggAudio: "/audio/BSR001_st.ogg",
     mp3Audio: "/audio/BSR001_st.mp3",
     releaseDate: "2025-06-03",  
-    cover: "./images/releases/BSR001.jpg",  
+    cover: "/images/releases/BSR001.jpg",  
     tags: ["deephouse", "soulfulhouse", "nickevan", "latenight", "bellosoundsrecords", "yourheart"],  
     descriptionShort:
       "Born after a night in a St Martin St pub: a live piano stuck in my head, carved into a groove that won’t let go.",  
@@ -99,7 +99,7 @@ export const releases = [
     mp3Audio: "/audio/BSR003_st.mp3",
     releaseDate: "2025-08-14",  
     cover: "./images/releases/BSR003.jpg",  
-    tags: ["deephouse", "undergroundhouse", "#chicagonight", "nightatdistrict", "neelmiles", "bellosoundsrecords"],  
+    tags: ["deephouse", "undergroundhouse", "chicagonight", "nightatdistrict", "neelmiles", "bellosoundsrecords"],  
     descriptionShort:
       "Chicago night. A glance, no words. Night at District is sweet tension—desire moving without hurry.",  
     descriptionLong:
@@ -171,8 +171,8 @@ export const releases = [
   artists: ["Neel Miles"],
   alias: "neel-miles",
   previewAudio: "/audio/previews/BSR005_mono64.mp3",
-  oggAudio: "/audio/BSR006_st.ogg",
-  mp3Audio: "/audio/BSR006_st.mp3",
+  oggAudio: "/audio/BSR005_st.ogg",
+  mp3Audio: "/audio/BSR005_st.mp3",
   releaseDate: "2025-12-14",
   cover: "/images/releases/BSR005.jpg",
   tags: ["deephouse", "undergroundhouse", "noirhouse", "neoncity", "neelmiles", "urbanvibes", "bellosoundsrecords"],
