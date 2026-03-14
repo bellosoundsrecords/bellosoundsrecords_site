@@ -3,7 +3,7 @@
 // Supporta .ogg (preferito) + fallback .mp3 (Safari/iOS), queue, waveform da previewAudio,
 // Media Session (BT / lockscreen / car) e una tendina per vedere/selezionare la coda.
 //
-// NOTE:
+// NOTE: 2147483000
 // - Il nome del dispositivo BT non è normalmente accessibile dal web: mostriamo solo una "spia" BT
 //   (attiva quando si rileva uso da controlli remoti / media session).
 // - OGG non è supportato su Safari/iOS -> fallback su mp3Audio.
@@ -58,7 +58,7 @@ function injectFooterPlayerCSS(){
       right: 0 !important;
       bottom: 0 !important;
       width: 100vw !important;
-      z-index: 2147483000 !important;
+      z-index: 1099 !important;
       box-sizing: border-box;
       overflow: visible !important;
       background: rgba(8,8,12,.92);
