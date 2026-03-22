@@ -260,10 +260,19 @@ export const releases = [
   ],
 
   embeds: {
-    youtube: ""
+    youtube: "Y-JA9TfIg9Y",
+    spotify: "track:4mL4bLtEl99oTJWdbtXqGK"
   },
-
-  links: {},
+    links: { 
+      stream: { 
+        youtube: "https://www.youtube.com/watch?v=Y-JA9TfIg9Y",
+        spotify: "https://open.spotify.com/intl-it/track/4mL4bLtEl99oTJWdbtXqGK"
+      }
+  },
+      buy: {  
+        beatport: "https://www.beatport.com/it/release/lower-wacker-drive-217-am/5932181"  
+        },  
+     
 
   credits: {
     writtenBy: "Neel Miles",
