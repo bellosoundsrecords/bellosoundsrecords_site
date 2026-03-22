@@ -244,10 +244,10 @@ export const releases = [
   artists: ["Neel Miles"],
   alias: "neel-miles",
   previewAudio: "/audio/previews/BSR007pre_mono64.mp3",
-  oggAudio: "/audio/BSR007pre_st.ogg",
-  mp3Audio: "/audio/BSR007pre_st.mp3",
+  oggAudio: "/audio/BSR007_st.ogg",
+  mp3Audio: "/audio/BSR007_st.mp3",
   releaseDate: "2026-03-20",
-  cover: "/images/releases/BSR007pre.jpg",
+  cover: "/images/releases/BSR007.jpg",
   tags: ["deephouse", "undergroundhouse", "chicagohouse", "lowerwackerdrive", "neelmiles", "urbanvibes", "bellosoundsrecords"],
   descriptionShort: 
     "Lower Wacker Drive. 2:17 AM. Something is resonating beneath the city.",
