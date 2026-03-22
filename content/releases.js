@@ -243,7 +243,7 @@ export const releases = [
   title: "Lower Wacker Drive (2:17 AM)",
   artists: ["Neel Miles"],
   alias: "neel-miles",
-  previewAudio: "/audio/previews/BSR007pre_mono64.mp3",
+  previewAudio: "/audio/previews/BSR007_mono64.mp3",
   oggAudio: "/audio/BSR007_st.ogg",
   mp3Audio: "/audio/BSR007_st.mp3",
   releaseDate: "2026-03-20",
