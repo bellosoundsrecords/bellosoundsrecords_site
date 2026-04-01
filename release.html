@@ -14,7 +14,17 @@
   <link rel="preconnect" href="https://open.spotify.com"/>
   <link rel="stylesheet" href="./css/main.css?v=9">
 <script type="module" src="./js/app.js?v=9"></script>
- 
+<script id="canonical-script">
+    const params = new URLSearchParams(window.location.search);
+    const slug = params.get("slug");
+
+    if (slug) {
+      const canonical = document.createElement("link");
+      canonical.rel = "canonical";
+      canonical.href = "https://bellosoundsrecords.place/release.html?slug=" + slug;
+      document.head.appendChild(canonical);
+    }
+</script> 
   
 </head>
   <div id="sticky-player" aria-live="polite"></div>
