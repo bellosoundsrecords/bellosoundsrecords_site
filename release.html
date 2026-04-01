@@ -14,17 +14,76 @@
   <link rel="preconnect" href="https://open.spotify.com"/>
   <link rel="stylesheet" href="./css/main.css?v=9">
 <script type="module" src="./js/app.js?v=9"></script>
-<script id="canonical-script">
-    const params = new URLSearchParams(window.location.search);
-    const slug = params.get("slug");
+<script type="module">
+  import { releases } from "./content/releases.js";
 
-    if (slug) {
-      const canonical = document.createElement("link");
-      canonical.rel = "canonical";
-      canonical.href = "https://bellosoundsrecords.place/release.html?slug=" + slug;
-      document.head.appendChild(canonical);
+  const params = new URLSearchParams(window.location.search);
+  const slug = params.get("slug");
+
+  if (slug) {
+    const release = releases.find(r => r.slug === slug);
+
+    if (release) {
+      const artistText = Array.isArray(release.artists)
+        ? release.artists.join(", ")
+        : release.artists;
+
+      const canonicalUrl = `https://bellosoundsrecords.place/release.html?slug=${release.slug}`;
+      const pageTitle = `${release.title} – ${artistText} | BelloSounds Records`;
+      const pageDescription =
+        release.descriptionShort ||
+        `${release.title} by ${artistText}. Release from BelloSounds Records.`;
+
+      // TITLE
+      document.title = pageTitle;
+
+      // CANONICAL
+      let canonical = document.querySelector("link[rel='canonical']");
+      if (!canonical) {
+        canonical = document.createElement("link");
+        canonical.rel = "canonical";
+        document.head.appendChild(canonical);
+      }
+      canonical.href = canonicalUrl;
+
+      // META DESCRIPTION
+      let metaDesc = document.querySelector('meta[name="description"]');
+      if (!metaDesc) {
+        metaDesc = document.createElement("meta");
+        metaDesc.name = "description";
+        document.head.appendChild(metaDesc);
+      }
+      metaDesc.content = pageDescription;
+
+      // OG TITLE
+      let ogTitle = document.querySelector('meta[property="og:title"]');
+      if (!ogTitle) {
+        ogTitle = document.createElement("meta");
+        ogTitle.setAttribute("property", "og:title");
+        document.head.appendChild(ogTitle);
+      }
+      ogTitle.content = pageTitle;
+
+      // OG DESCRIPTION
+      let ogDesc = document.querySelector('meta[property="og:description"]');
+      if (!ogDesc) {
+        ogDesc = document.createElement("meta");
+        ogDesc.setAttribute("property", "og:description");
+        document.head.appendChild(ogDesc);
+      }
+      ogDesc.content = pageDescription;
+
+      // OG IMAGE (questa è una bomba per condivisioni)
+      let ogImage = document.querySelector('meta[property="og:image"]');
+      if (!ogImage) {
+        ogImage = document.createElement("meta");
+        ogImage.setAttribute("property", "og:image");
+        document.head.appendChild(ogImage);
+      }
+      ogImage.content = `https://bellosoundsrecords.place${release.cover}`;
     }
-</script> 
+  }
+</script>
   
 </head>
   <div id="sticky-player" aria-live="polite"></div>
