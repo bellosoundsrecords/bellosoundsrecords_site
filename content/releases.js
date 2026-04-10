@@ -282,5 +282,34 @@ export const releases = [
     masteredBy: "Neel Miles",
     artwork: "BelloSounds Records" 
   }
-}
+},
+  {  
+    slug: "bsr006-evolution",  
+    catalog: "BSR008",  
+    title: "Evolution",  
+    artists: ["Nick Evan"],  
+    alias: "nick-evan",  
+    previewAudio: "/audio/previews/BSR008_mono64.mp3",  
+    oggAudio: "/audio/BSR008_st.ogg",
+    mp3Audio: "/audio/BSR008_st.mp3",
+    releaseDate: "2026-04-15",  
+    cover: "./images/releases/BSR008.jpg",  
+    tags: ["deephouse", "soulfulhouse", "latenight", "pianohouse", "atmospherichouse", "saxophone", "nickevan", "bellosoundsrecords"],  
+    descriptionShort:
+      "A deep and soulful house track built on a warm piano line, soft vocals and a distant, narrative saxophone. Introspective, nostalgic and designed for slow-building moments.",  
+    descriptionLong:
+      "Evolution is a deep and soulful house journey built on quiet intensity and emotional nuance. Shaped around a warm piano line, soft vocal fragments and a distant, narrative saxophone, the track unfolds slowly, letting space and atmosphere lead the way rather than immediate impact. The groove moves with subtle precision, allowing each element to emerge naturally — a restrained rhythm section, a nostalgic harmonic progression, and melodic lines that feel more like memory than performance. The saxophone does not dominate but appears as a fleeting presence, enhancing the emotional landscape rather than defining it. Designed for late hours, introspective listening and slow-building DJ sets, Evolution balances warmth, distance and depth, embodying the intimate and understated aesthetic at the heart of Nick Evan’s sound and the BelloSounds Records vision.",  
+    tracks: [  
+      { title: "Evolution", bpm: 126, key: "A minor", isrc: "QZNWZ2697152" }  
+    ],  
+    
+  
+    credits: {  
+      writtenBy: "Nick Evan",  
+      producedBy: "Nick Evan",  
+      mixedBy: "Nick Evan",  
+      masteredBy: "Nick Evan",  
+      artwork: "BelloSounds Records"  
+    }  
+  }
 ];
