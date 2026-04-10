@@ -284,7 +284,7 @@ export const releases = [
   }
 },
   {  
-    slug: "bsr006-evolution",  
+    slug: "bsr008-evolution",  
     catalog: "BSR008",  
     title: "Evolution",  
     artists: ["Nick Evan"],  
