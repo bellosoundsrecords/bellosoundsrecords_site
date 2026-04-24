@@ -302,6 +302,15 @@ export const releases = [
     tracks: [  
       { title: "Evolution", bpm: 126, key: "A minor", isrc: "QZNWZ2697152" }  
     ],  
+    links: {  
+      stream: {  
+        youtube: "https://www.youtube.com/watch?v=_j79m1cmWI",  
+        spotify: "track:"  
+      },  
+      buy: {  
+        beatport: "https://nickevan.bandcamp.com/track/lost-in-the-feeling",  
+        bandcamp: "https://nickevan.bandcamp.com"  
+      }  
     
   
     credits: {  
