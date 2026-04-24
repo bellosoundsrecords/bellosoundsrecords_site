@@ -305,11 +305,11 @@ export const releases = [
     links: {  
       stream: {  
         youtube: "https://www.youtube.com/watch?v=_j79m1cmWI",  
-        spotify: "track:"  
+        spotify: "track:7q5r9JKPsiJMzGFtF0KZia"  
       },  
       buy: {  
-        beatport: "https://nickevan.bandcamp.com/track/lost-in-the-feeling",  
-        bandcamp: "https://nickevan.bandcamp.com"  
+        beatport: "https://beatport.com/release/Evolution/6426626?utm_source=android&utm_medium=share&utm_content=release" 
+        
       }  
     
   
