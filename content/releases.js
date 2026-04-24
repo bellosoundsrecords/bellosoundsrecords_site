@@ -309,7 +309,8 @@ export const releases = [
       },  
       buy: {  
         beatport: "https://beatport.com/release/Evolution/6426626?utm_source=android&utm_medium=share&utm_content=release" 
-        
+
+       }
       }, 
     
   
