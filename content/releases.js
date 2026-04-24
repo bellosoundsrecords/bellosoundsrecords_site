@@ -305,7 +305,7 @@ export const releases = [
     links: {  
       stream: {  
         youtube: "https://www.youtube.com/watch?v=_j79m1cmWI",  
-        spotify: "track:7q5r9JKPsiJMzGFtF0KZia"  
+        spotify: "https://open.spotify.com/track/7q5r9JKPsiJMzGFtF0KZia?si=P-bdTWq2QDmOdrotITnb6Q"  
       },  
       buy: {  
         beatport: "https://beatport.com/release/Evolution/6426626?utm_source=android&utm_medium=share&utm_content=release" 
