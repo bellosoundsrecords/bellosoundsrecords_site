@@ -321,5 +321,44 @@ export const releases = [
       masteredBy: "Nick Evan",  
       artwork: "BelloSounds Records"  
     }  
+  },
+   {  
+    slug: "bsr009-nobody-sees",  
+    catalog: "BSR009",  
+    title: "Nobody Sees",  
+    artists: ["Neel Miles"],  
+    alias: "neel-miles",  
+    previewAudio: "/audio/previews/BSR009_mono64.mp3",  
+    oggAudio: "/audio/BSR009_st.ogg",
+    mp3Audio: "/audio/BSR009_st.mp3",
+    releaseDate: "2026-05-11",  
+    cover: "./images/releases/BSR009.jpg",  
+    tags: ["deephouse", "chicagohouse", "latenight", "urbanvibes", "atmospherichouse", "nightwalk", "neelmiles", "bellosoundsrecords"],  
+    descriptionShort:
+      "A late-night deep house journey through empty streets, fog, and cinematic Chicago-inspired atmosphere.",  
+    descriptionLong:
+      "“Nobody Sees” is a deep house track built around a minimal groove and a cinematic urban atmosphere. Driven by warm pads, restrained drums, and subtle rhythmic movement, the track unfolds like a solitary late-night walk through empty city streets. Inspired by Chicago deep house aesthetics, it focuses on tension, space, and progression rather than density — creating a hypnotic balance between introspection and motion. Set somewhere between rain, fog, and sodium streetlights, “Nobody Sees” explores the invisible rhythm of the city: the movement that continues long after everything appears still.",  
+    tracks: [  
+      { title: "Nobody Sees", bpm: 126, key: "Eb minor", isrc: "QZTBE2677465" }  
+    ],  
+    links: {  
+      stream: {  
+        youtube: "https://www.youtube.com/watch?v=dny-LLtcm3o",  
+        spotify: "https://open.spotify.com/album/1ZCHuStQAxfT1ldXqKsWsK?si=PrcPdzJoRzy9NlDPWXBdXw"  
+      },  
+      buy: {  
+        beatport: "https://www.beatport.com/it/release/nobody-sees/6794358" 
+
+       }
+      }, 
+    
+  
+    credits: {  
+      writtenBy: "Neel Miles",  
+      producedBy: "Neel Miles",  
+      mixedBy: "Neel Miles",  
+      masteredBy: "Neel Miles",  
+      artwork: "BelloSounds Records"  
+    }  
   }
 ];
