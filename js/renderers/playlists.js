@@ -11,7 +11,9 @@ export function bootPlaylists(){
   app.innerHTML = `
     <h1>Playlists</h1>
     <section class="grid releases">
-      ${playlists.map(pl=>`
+      ${[...playlists]
+  .sort((a,b)=> b.playlistDate.localeCompare(a.playlistDate))
+  .map(pl=>`
         <article class="card">
           <a href="./playlist.html?slug=${pl.slug}" aria-label="${pl.title}">
             <figure><img src="${pl.cover}" alt="${pl.title}" onerror="this.onerror=null;this.src='./images/placeholder.svg';"/></figure>
