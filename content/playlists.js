@@ -1,20 +1,6 @@
 // content/playlists.js
 export const playlists = [
-  {
-    slug: "release-2025",
-    title: "Releases 2025",
-    description: "All BelloSounds Records releases for 2025. Two sides, one vision: Nick Evan & Neel Miles. Deep, soulful, raw.",
-    cover: "./images/playlists/release-2025.jpg",
-    items: [
-      "bsr005-neon-drizzle",
-      "bsr004-lost-in-the-feeling",
-      "bsr003-night-at-district",
-      "bsr002-city-tension",
-      "bsr001-your-heart"
-    ]
-  },
-
-  {
+ {
     slug: "the-journey",
     title: "The Journey",
     description: "A night-long journey through the worlds of BelloSounds Records. From memories and city lights to empty streets, late closures and the silence that follows.",
@@ -29,6 +15,19 @@ export const playlists = [
       "bsr005-neon-drizzle",
       "bsr006-late-closure",
       "bsr009-nobody-sees"
+    ]
+  }, 
+{
+    slug: "release-2025",
+    title: "Releases 2025",
+    description: "All BelloSounds Records releases for 2025. Two sides, one vision: Nick Evan & Neel Miles. Deep, soulful, raw.",
+    cover: "./images/playlists/release-2025.jpg",
+    items: [
+      "bsr005-neon-drizzle",
+      "bsr004-lost-in-the-feeling",
+      "bsr003-night-at-district",
+      "bsr002-city-tension",
+      "bsr001-your-heart"
     ]
   }
 ];
