@@ -16,6 +16,8 @@ export function bootHome(){
     .sort((a,b)=> b.releaseDate.localeCompare(a.releaseDate))
     .slice(0,6);
   const hero = latest[0] || releases[0];
+const latestPlaylist = [...playlists]
+  .sort((a,b)=> b.playlistDate.localeCompare(a.playlistDate))[0];
 
   app.innerHTML = `
     <section class="hero">${renderHero(hero)}</section>
