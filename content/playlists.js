@@ -17,7 +17,7 @@ export const playlists = [
  {
     slug: "the-journey",
     title: "The Journey",
-    playlistDate: "2026-06-08",
+    playlistDate: "2026-07-15",
     description: "A night-long journey through the worlds of BelloSounds Records. From memories and city lights to empty streets, late closures and the silence that follows.",
     cover: "./images/playlists/the-journey.jpg",
     items: [
