@@ -360,5 +360,45 @@ export const releases = [
       masteredBy: "Neel Miles",  
       artwork: "BelloSounds Records"  
     }  
+  },
+     {  
+    slug: "bsr010-beyond-the-streetlights",  
+    catalog: "BSR010",  
+    title: "Beyuond The Streetlights",  
+    artists: ["Nick Evan"],  
+    alias: "nnick-evan",  
+    previewAudio: "/audio/previews/BSR010_mono64.mp3",  
+    oggAudio: "/audio/BSR010_st.ogg",
+    mp3Audio: "/audio/BSR010_st.mp3",
+    releaseDate: "2026-05-11",  
+    cover: "./images/releases/BSR010.jpg",  
+    tags: ["nickevan", "beyondthestreetlights", "bsr010", "bellosoundsrecords", "deephouse", "atmospherichouse", "nightdriving", "chichester", "reflectivejourney", "trumpet"],  
+    descriptionShort:
+      "A deep atmospheric journey from the last streetlights of the city to the quiet open coast, built for late-night listening and reflective drives.",  
+    descriptionLong:
+      "Beyond The Streetlights is a deep, atmospheric journey inspired by the quiet transition from the city to the open coast. Built around warm grooves, subtle trumpet lines and restrained vocals, the track captures the moment when the last streetlights fade behind you and the road continues into the night. Designed for late-night listening, reflective drives and deep house lovers who appreciate atmosphere over intensity.",  
+    tracks: [  
+      { title: "Beyond The Streetlights", bpm: 121, key: "A minor", isrc: "QT3FD2627465" }  
+    ],  
+    links: {  
+      stream: {  
+        youtube: "https://www.youtube.com/watch?v=ScSl2i-HILg",  
+        spotify: "https://open.spotify.com/intl-it/album/43vcQ0zm137P5S9A1dEf22"  
+      },  
+      buy: {  
+        beatport: "https://www.beatport.com/it/release/beyond-the-streetlights/7094812" 
+
+       }
+      }, 
+    
+  
+    credits: {  
+      writtenBy: "Nick Evan",  
+      producedBy: "Nick Evan",
+      trumpet: "Adrian Cole",
+      mixedBy: "Nick Evan",  
+      masteredBy: "Nick Evan",  
+      artwork: "BelloSounds Records"  
+    }  
   }
 ];
