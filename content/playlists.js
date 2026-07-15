@@ -25,6 +25,7 @@ export const playlists = [
       "bsr008-evolution",
       "bsr004-lost-in-the-feeling",
       "bsr002-city-tension",
+      "bsr010-beyond-the-streetlights",
       "bsr003-night-at-district",
       "bsr007-lower-wacker-drive",
       "bsr005-neon-drizzle",
