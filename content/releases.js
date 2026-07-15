@@ -364,7 +364,7 @@ export const releases = [
      {  
     slug: "bsr010-beyond-the-streetlights",  
     catalog: "BSR010",  
-    title: "Beyuond The Streetlights",  
+    title: "Beyond The Streetlights",  
     artists: ["Nick Evan"],  
     alias: "nnick-evan",  
     previewAudio: "/audio/previews/BSR010_mono64.mp3",  
