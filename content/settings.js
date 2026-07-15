@@ -2,7 +2,7 @@
 export const settings = {
   brand: "BelloSounds Records™",
   tagline: "Two sides, one vision.",
-  hashtags: ["#deephouse", "#soulfulhouse", "#deepgarage", "#bellosoundsrecords"],
+  hashtags: ["#nightdrive", "#nightdrivemusic", "#deephouse", "#soulfulhouse", "#chicagovibes", "#bellosoundsrecords"],
   socials: {
     youtube: "https://youtube.com/@BelloSoundsRecords",
     soundcloud:"https://soundcloud.com/bellosoundsrecords",
