@@ -23,8 +23,15 @@ Each release tells a different story while remaining part of the same identity: 
     slug: "neel-miles",
     name: "Neel Miles",
     tagline: "Instinctive, cutting grooves that shake the floor.",
-    bioShort: "Neel Miles is a signal coming from afar. Born within BelloSounds Records, it travels through the night, across distance and memory. No face, only presence. A sound that crosses through, leaves a trace, then fades. A message that arrives, even if no one is waiting.",
-    bioLong: "Neel Miles is a sound project born within BelloSounds Records. His sound moves between deep house, urban grooves, and modern electronic influences, always focused on rhythm and impact. Each production grows from instinct — built on deep basslines, dynamic details, and a tension that evolves over time. Neel Miles embodies the more direct and physical side of the BelloSounds world: less theory, more impulse. A sound designed to move, yet built to be heard. Controlled energy, rhythm as language.",
+    bioShort:
+"Neel Miles is a sound project created within BelloSounds Records, exploring deep house and underground electronic music shaped by urban movement, late-night journeys and the atmosphere of modern cities. Rhythm comes first, carrying every story forward.",
+
+bioLong:
+"Neel Miles is a sound project created within BelloSounds Records, dedicated to deep house and underground electronic music inspired by the energy of cities after dark. Empty streets, elevated railways, concrete structures and late-night drives become part of the musical language, transforming urban environments into rhythm and atmosphere.
+
+Built on deep basslines, evolving grooves and carefully crafted textures, the music combines the influence of Chicago house and Detroit electronic culture with a contemporary production approach. Rather than relying on dramatic effects, Neel Miles creates tension through movement, subtle changes and a constant sense of direction.
+
+Each release explores a different urban landscape while remaining connected by the same identity: music designed for people who keep moving, whether on a dancefloor, behind the wheel or walking through a city that never truly falls silent.",
     image: "./images/artists/neel-miles.jpg",
     socials: { 
       youtube: "https://youtube.com/@NeelMiles",
