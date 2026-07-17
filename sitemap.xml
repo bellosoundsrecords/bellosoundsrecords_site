@@ -73,6 +73,43 @@
     <priority>0.80</priority>
   </url>
 
+    <url>
+    <loc>https://bellosoundsrecords.place/release.html?slug=bsr006-late-closure</loc>
+    <lastmod>2026-02-03</lastmod>
+    <priority>0.80</priority>
+  </url>
+
+    <url>
+    <loc>https://bellosoundsrecords.place/release.html?slug=bsr007-lower-wacker-drive</loc>
+    <lastmod>2026-03-20</lastmod>
+    <priority>0.80</priority>
+  </url>
+
+      <url>
+    <loc>https://bellosoundsrecords.place/release.html?slug=bsr008-evolution</loc>
+    <lastmod>2026-04-15</lastmod>
+    <priority>0.80</priority>
+  </url>
+
+      <url>
+    <loc>https://bellosoundsrecords.place/release.html?slug=bsr009-nobody-sees</loc>
+    <lastmod>2026-05-11</lastmod>
+    <priority>0.80</priority>
+  </url>
+
+    <url>
+    <loc>https://bellosoundsrecords.place/release.html?slug=bsr010-beyond-the-streetlights</loc>
+    <lastmod>2026-07-15</lastmod>
+    <priority>0.80</priority>
+  </url>
+
+
+
+  
+
+
+
+
   <!-- Se vuoi includere pagine Future -->
   <!--
   <url>
