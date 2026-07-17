@@ -25,7 +25,7 @@ export const artists = [
     image: "./images/artists/neel-miles.jpg",
     socials: { 
       youtube: "https://youtube.com/@NeelMiles",
-      spotify: " https://open.spotify.com/intl-it/artist/67xtsqHXj0H7QReNrN2qe7?si=wB1RED3kQJWdXyO3N3TC5g",
+      spotify: "https://open.spotify.com/intl-it/artist/67xtsqHXj0H7QReNrN2qe7?si=wB1RED3kQJWdXyO3N3TC5g",
     }
   }
 ];
