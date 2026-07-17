@@ -4,8 +4,15 @@ export const artists = [
     slug: "nick-evan",
     name: "Nick Evan",
     tagline: "Identity, Evolution. <br> Sound comes first",
-    bioShort: "Nick Evan is a sound project born inside BelloSounds Records. It comes from a time—the ’90s and 2000s—that still moves us. It starts again from there: no imitation, it remembers where it came from and looks ahead. No special effects—just presence. Memory becoming future.",
-    bioLong: "Nick Evan is a sound project born inside BelloSounds Records. It comes from a time—the ’90s and 2000s—that still moves us. It starts again from there: it doesn’t imitate; it remembers and looks forward, to preserve and pass on that culture. <br>His music begins with a simple idea: a few well-chosen elements and room to breathe. It changes the air through details, not special effects: a step, a pause, a chord that opens. Deep house with urban and soulful touches, made to move without shouting—from the club to the headphones. <br>Memory becoming future.",
+    bioShort:
+"Nick Evan is a sound project created within BelloSounds Records, exploring deep house, soulful house and reflective electronic music. Inspired by late-night places, everyday moments and timeless grooves, each release transforms simple ideas into warm, understated atmospheres.",
+
+bioLong:
+"Nick Evan is a sound project created within BelloSounds Records, dedicated to deep house, soulful house and reflective electronic music. Rather than chasing trends, it draws inspiration from familiar places, late-night streets, quiet pubs and the small moments that often go unnoticed. Every track begins with a simple musical idea: a groove, a chord progression or a melody that is given space to breathe and evolve naturally.
+
+Influenced by the deep house traditions of the UK and the soulful spirit of Chicago house, Nick Evan combines warm basslines, subtle rhythms and carefully chosen details to create music that works both on the dancefloor and in personal listening. The focus is never on excess, but on atmosphere, movement and emotional continuity.
+
+Each release tells a different story while remaining part of the same identity: music that values simplicity, timelessness and genuine expression. For Nick Evan, sound comes first.",
     image: "./images/artists/Nick-Evan.jpg",
     socials: {
       youtube: "https://youtube.com/@Nick_Evan",
