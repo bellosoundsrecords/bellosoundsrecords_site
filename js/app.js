@@ -33,7 +33,8 @@ renderHeaderFooter(settings);
   bar.style.display = 'block';
 })();
 wireFooterControls();
-mountCookieBar();
+const GA4_MEASUREMENT_ID = 'G-YQ0N2MQ26C';
+mountCookieBar({ measurementId: GA4_MEASUREMENT_ID });
 
 // 1) Azioni globali: play / queue
 document.addEventListener('click', (e)=>{
