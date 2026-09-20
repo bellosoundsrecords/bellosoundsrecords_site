@@ -11,6 +11,52 @@
 
 let progressTimer = null;
 
+// --- GA4 audio analytics ---
+// Events are emitted only when Analytics consent has loaded window.gtag.
+let audioAnalyticsStarted = false;
+let audioAnalyticsMilestones = new Set();
+
+function sendAudioAnalytics(eventName, rel, extra = {}) {
+  if (typeof window.gtag !== 'function' || !rel) return false;
+
+  const a = audioEl;
+  const duration = Number.isFinite(a?.duration) ? Math.round(a.duration) : undefined;
+  const position = Number.isFinite(a?.currentTime) ? Math.round(a.currentTime) : undefined;
+
+  window.gtag('event', eventName, {
+    track_title: rel.title || '',
+    artist: rel.artists?.join(', ') || 'BelloSounds Records',
+    catalog: rel.catalog || '',
+    track_slug: rel.slug || '',
+    audio_duration_seconds: duration,
+    playback_position_seconds: position,
+    ...extra
+  });
+  return true;
+}
+
+function resetAudioAnalytics() {
+  audioAnalyticsStarted = false;
+  audioAnalyticsMilestones = new Set();
+}
+
+function trackAudioMilestones(a) {
+  const rel = current();
+  const dur = a?.duration || 0;
+  const cur = a?.currentTime || 0;
+  if (!rel || !dur || !Number.isFinite(dur)) return;
+
+  const pct = (cur / dur) * 100;
+  for (const threshold of [25, 50, 75]) {
+    if (pct >= threshold && !audioAnalyticsMilestones.has(threshold)) {
+      const sent = sendAudioAnalytics(`audio_${threshold}`, rel, {
+        progress_percent: threshold
+      });
+      if (sent) audioAnalyticsMilestones.add(threshold);
+    }
+  }
+}
+
 // --- Media Session (BT / lockscreen / car) ---
 let mediaSessionWired = false;
 
@@ -962,6 +1008,15 @@ function wireAudioEvents(a){
     updateMediaSessionState();
   });
 
+  // 'playing' fires when media playback has actually started, not merely on button click.
+  a.addEventListener('playing', () => {
+    const rel = current();
+    if (!rel || audioAnalyticsStarted) return;
+    if (sendAudioAnalytics('audio_play', rel)) {
+      audioAnalyticsStarted = true;
+    }
+  });
+
   a.addEventListener('pause', () => {
     state.playing = false;
     setToggleUI(false);
@@ -983,6 +1038,7 @@ function wireAudioEvents(a){
   a.addEventListener('timeupdate', () => {
     // tick leggero: l'interval fa il lavoro "smooth", qui solo fail-safe
     if (!progressTimer && !a.paused) refreshProgressTimer();
+    trackAudioMilestones(a);
   });
 
   a.addEventListener('durationchange', () => {
@@ -990,6 +1046,12 @@ function wireAudioEvents(a){
   });
 
   a.addEventListener('ended', () => {
+    const rel = current();
+    if (rel && !audioAnalyticsMilestones.has(100)) {
+      if (sendAudioAnalytics('audio_complete', rel, { progress_percent: 100 })) {
+        audioAnalyticsMilestones.add(100);
+      }
+    }
     setWaveProgress(1);
     next();
   });
@@ -1022,6 +1084,7 @@ async function playAt(index) {
       const rel = relTry;
 
       const a = ensureAudioEl();
+      resetAudioAnalytics();
       updateMetaUI(rel);
       updateMediaSessionMeta(rel);
       updateMediaSessionState();
