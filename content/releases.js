@@ -433,6 +433,12 @@ export const releases = [
     }
   ],
   "links": {},
-  "credits": {}
+  "credits": {
+    "writtenBy": "Neel Miles",
+    "producedBy": "Neel Miles",
+    "mixedBy": "Neel Miles",
+    "masteredBy": "Neel Miles",
+    "artwork": "BelloSounds Records"
+  }
 }
 ];
