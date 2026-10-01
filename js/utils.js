@@ -67,20 +67,21 @@ export function onImageErrorUsePlaceholder(el){
   el.onerror = null; el.src = './images/placeholder.svg';
 }
 
-export function setPageMeta({title, description, image}){
+export function setPageMeta({title, description, image, type = 'website'}){
   if(title) document.title = title;
   if(description){
     setOrCreate('meta[name="description"]','content',description, {name:'description'});
     setOrCreate('meta[property="og:description"]','content',description, {'property':'og:description'});
   }
   if(image){
-    setOrCreate('meta[property="og:image"]','content',image, {'property':'og:image'});
+    setOrCreate('meta[property="og:image"]','content',new URL(image, location.origin).href, {'property':'og:image'});
   }
   setOrCreate('meta[property="og:title"]','content',document.title, {'property':'og:title'});
-  setOrCreate('meta[property="og:type"]','content','website', {'property':'og:type'});
+  setOrCreate('meta[property="og:type"]','content',type, {'property':'og:type'});
   function setOrCreate(sel,attr,val,attrs){
     let el = document.head.querySelector(sel);
     if(!el){ el = document.createElement('meta'); Object.entries(attrs).forEach(([k,v])=> el.setAttribute(k,v)); document.head.appendChild(el); }
     el.setAttribute(attr,val);
   }
 }
+

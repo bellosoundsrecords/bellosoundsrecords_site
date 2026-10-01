@@ -123,4 +123,10 @@
   <!-- Le aggiungiamo automaticamente qui sotto -->
   <!-- Basterà che tu mi copi i tuoi slug e generiamo tutto -->
 
+  <url>
+    <loc>https://bellosoundsrecords.place/extension.html</loc>
+    <lastmod>2026-10-01</lastmod>
+    <priority>0.80</priority>
+  </url>
 </urlset>
+

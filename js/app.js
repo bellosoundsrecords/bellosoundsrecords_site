@@ -92,6 +92,8 @@ document.addEventListener('click', async (e)=>{
   if (a.hasAttribute('download')) return;
   if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button === 1) return; // nuovi tab
   const href = a.getAttribute('href'); if (!href) return;
+  // Keep the static release's metadata correct when entering or leaving it.
+  if (location.pathname === '/extension.html' || new URL(href, location.href).pathname === '/extension.html') return;
   if (href.startsWith('#')) return;               // ancore
   if (!isInternalRoute(href)) return;             // esterni
 
@@ -124,7 +126,7 @@ async function route(){
       const mod = await load('./renderers/releases.js');
       mod.bootReleases();
 
-    } else if (pathname === '/release.html'){
+    } else if (pathname === '/release.html' || pathname === '/extension.html'){
       const mod = await load('./renderers/releases.js');
       mod.bootReleaseDetail();
       if (searchParams.get('autoplay') === '1') {
@@ -187,3 +189,4 @@ async function route(){
 
 // Primo boot
 route();
+

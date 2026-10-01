@@ -46,7 +46,7 @@ function renderHero(rel){
     <div class="hero-text">
       <h1>${rel.title}</h1>
       <p>${rel.descriptionShort ?? ''}</p>
-      <a class="btn" href="/release.html?slug=${rel.slug}&autoplay=1">Listen</a>
+      <a class="btn" href="${rel.pageUrl ? rel.pageUrl + '?autoplay=1' : `/release.html?slug=${rel.slug}&autoplay=1`}">${rel.previewOnly ? 'Listen to preview' : 'Listen'}</a>
       <a class="btn outline" href="./releases.html">View all</a>
     </div>
   </div>`;
@@ -133,15 +133,20 @@ export function bootReleases(){
 // ---------------- Release detail ----------------
 export function bootReleaseDetail(){
   const app  = qs('#app');
-  const slug = getParam('slug');
+  const slug = getParam('slug') || (location.pathname === '/extension.html' ? 'bsr011-extension' : null);
   const rel  = releases.find(r=> r.slug===slug);
   if(!rel){ app.innerHTML = `<p>Release not found.</p>`; return; }
 
   setPageMeta({
     title: `${rel.title} — ${rel.artists.join(', ')} | ${rel.catalog}`,
     description: rel.descriptionShort,
-    image: rel.cover
+    image: rel.cover,
+    type: 'music.album'
   });
+  const canonicalUrl = new URL(rel.pageUrl || `/release.html?slug=${rel.slug}`, location.origin).href;
+  let canonical = document.querySelector('link[rel="canonical"]');
+  if (!canonical) { canonical = document.createElement('link'); canonical.rel = 'canonical'; document.head.appendChild(canonical); }
+  canonical.href = canonicalUrl;
   injectJSONLD(rel);
 
   const tags = (rel.tags||[]).map(t=>`<span class="tag">#${t}</span>`).join(' ');
@@ -159,11 +164,14 @@ export function bootReleaseDetail(){
       <div class="info">
         <h1>${rel.title}</h1>
         <p class="artists">${rel.artists.join(', ')}</p>
-        <p><strong>${rel.catalog}</strong> · ${formatDate(rel.releaseDate)}</p>
+        <p><strong>${rel.catalog}</strong> · ${rel.previewOnly ? 'Scheduled release: ' : ''}${formatDate(rel.releaseDate)}</p>
+        ${rel.previewOnly ? '<p class="tag">Pre-release · Audio excerpt</p>' : ''}
+        <p>${rel.descriptionShort || ''}</p>
+        ${rel.descriptionLong ? `<section class="release-description"><h2>About this release</h2>${rel.descriptionLong.split(/\n\n/).map(p => `<p>${p}</p>`).join('')}</section>` : ''}
         <div class="tags">${tags}</div>
 
         <div class="actions">
-          <button class="btn"        data-action="play"  data-slug="${rel.slug}">Play</button>
+          <button class="btn"        data-action="play"  data-slug="${rel.slug}">${rel.previewOnly ? 'Play preview' : 'Play'}</button>
           <button class="btn ghost"  data-action="queue" data-slug="${rel.slug}">Add to queue</button>
         </div>
 
@@ -172,17 +180,17 @@ export function bootReleaseDetail(){
           <ol>${tracklist}</ol>
         </section>
 
-        <section class="credits">
+        ${Object.keys(rel.credits||{}).length ? `<section class="credits">
           <h3>Credits</h3>
           <p>${Object.entries(rel.credits||{})
                 .map(([k,v])=>`<strong>${titleCase(k)}:</strong> ${v}`)
                 .join('<br/>')}</p>
-        </section>
+        </section>` : ''}
 
-        <section class="links">
+        ${links ? `<section class="links">
           <h3>Listen</h3>
           ${links}
-        </section>
+        </section>` : ''}
       </div>
     </article>
 
@@ -266,7 +274,7 @@ function injectJSONLD(rel){
     ? `${location.origin}/artist.html?slug=${encodeURIComponent(rel.alias)}#artist`
     : undefined;
 
-  const albumId = `${location.origin}/release.html?slug=${encodeURIComponent(rel.slug)}#album`;
+  const albumId = new URL(rel.pageUrl || `/release.html?slug=${encodeURIComponent(rel.slug)}`, location.origin).href + '#album';
 
   const tracks = (rel.tracks || []).map((t, i) => {
     const name = t.title || `${rel.title}${rel.tracks?.length > 1 ? ` (Track ${i+1})` : ''}`;
@@ -300,7 +308,9 @@ function injectJSONLD(rel){
         "@type": "MusicAlbum",
         "@id": albumId,
         "name": rel.title,
-        "catalogNumber": rel.catalog,
+        "identifier": rel.catalog,
+        "albumReleaseType": "https://schema.org/SingleRelease",
+        "url": albumId.split('#')[0],
         "datePublished": rel.releaseDate,
         "image": abs(rel.cover),
         "description": rel.descriptionLong || rel.descriptionShort || undefined,
@@ -309,6 +319,12 @@ function injectJSONLD(rel){
         "byArtist": artistId ? { "@id": artistId } : { "@type":"MusicGroup","name": artistName },
         "recordLabel": { "@id": `${location.origin}/#label` },
         "track": tracks
+      },
+      {
+        "@type": "MusicGroup",
+        "@id": artistId,
+        "name": artistName,
+        "url": `${location.origin}/artist.html?slug=${encodeURIComponent(rel.alias)}`
       },
       {
         "@type": "Organization",
@@ -336,4 +352,5 @@ function injectJSONLD(rel){
   s.textContent = JSON.stringify(ld);
   document.head.appendChild(s);
 }
+
 

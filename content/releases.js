@@ -400,5 +400,39 @@ export const releases = [
       masteredBy: "Nick Evan",  
       artwork: "BelloSounds Records"  
     }  
-  }
+  },
+{
+  "slug": "bsr011-extension",
+  "catalog": "BSR011",
+  "title": "Extension",
+  "artists": [
+    "Neel Miles"
+  ],
+  "alias": "neel-miles",
+  "pageUrl": "/extension.html",
+  "status": "pre-release",
+  "previewOnly": true,
+  "previewAudio": "/audio/previews/BSR011_pre_mono64.mp3",
+  "oggAudio": "/audio/BSR011_pre_st.ogg",
+  "mp3Audio": "/audio/BSR011_pre_st.mp3",
+  "releaseDate": "2026-10-23",
+  "cover": "/images/releases/BSR011_pre.jpg",
+  "tags": [
+    "neelmiles",
+    "extension",
+    "bsr011",
+    "housemusic",
+    "chicagoinspired",
+    "bellosoundsrecords"
+  ],
+  "descriptionShort": "Extension by Neel Miles (BSR011). A reflection on the unseen self and the connections that let it emerge. Preview now; out 23 October 2026 on BelloSounds Records.",
+  "descriptionLong": "Extension begins with a personal idea: the part of us that has yet to take shape, but can exist through the support of someone else. It is a reflection on connection, on being accompanied, and on finding room for something that could not emerge alone.\n\nWithin Neel Miles’ Chicago-inspired world, that idea takes on a nocturnal setting. The visual story moves between streets, studio fragments and the image of a second presence crossing the self. Pilsen forms part of this imagined landscape, where the city becomes a backdrop for an inner dialogue.\n\nExtension is BSR011 on BelloSounds Records, scheduled for 23 October 2026. This page offers a pre-release audio excerpt ahead of the full release.",
+  "tracks": [
+    {
+      "title": "Extension"
+    }
+  ],
+  "links": {},
+  "credits": {}
+}
 ];
