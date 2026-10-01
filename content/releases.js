@@ -366,7 +366,7 @@ export const releases = [
     catalog: "BSR010",  
     title: "Beyond The Streetlights",  
     artists: ["Nick Evan"],  
-    alias: "nnick-evan",  
+    alias: "nick-evan",  
     previewAudio: "/audio/previews/BSR010_mono64.mp3",  
     oggAudio: "/audio/BSR010_st.ogg",
     mp3Audio: "/audio/BSR010_st.mp3",
@@ -409,7 +409,6 @@ export const releases = [
     "Neel Miles"
   ],
   "alias": "neel-miles",
-  "pageUrl": "/extension.html",
   "status": "pre-release",
   "previewOnly": true,
   "previewAudio": "/audio/previews/BSR011_pre_mono64.mp3",
