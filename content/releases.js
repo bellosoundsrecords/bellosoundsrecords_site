@@ -426,7 +426,7 @@ export const releases = [
   descriptionLong: "A street after dark. A passing reflection. The feeling that something continues beyond the frame.\n\nExtension opens another chapter in Neel Miles’ nocturnal world, leaving room for what remains unseen. Some things are felt before they can be named.\n\nListen to the pre-release preview. Extension arrives on BelloSounds Records on 23 October 2026. Catalogue: BSR011.",
   tracks: [
     {
-      "title": "Extension", bpm: 123, key: "Eb minor", isrc: "QT3FD2627465" 
+      "title": "Extension", bpm: 123, key: "Eb minor", isrc: "QT9XM2671748" 
     }
   ],
   credits: {
