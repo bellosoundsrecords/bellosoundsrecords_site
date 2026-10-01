@@ -429,13 +429,12 @@ export const releases = [
       "title": "Extension", bpm: 123, key: "Eb minor", isrc: "QT3FD2627465" 
     }
   ],
-  links: {},
   credits: {
-    "writtenBy": "Neel Miles",
-    "producedBy": "Neel Miles",
-    "mixedBy": "Neel Miles",
-    "masteredBy": "Neel Miles",
-    "artwork": "BelloSounds Records"
+    writtenBy: "Neel Miles",
+    producedBy: "Neel Miles",
+    mixedBy: "Neel Miles",
+    masteredBy: "Neel Miles",
+    artwork: "BelloSounds Records"
   }
 }
 ];
