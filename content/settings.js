@@ -2,6 +2,11 @@
 export const settings = {
   brand: "BelloSounds Records™",
   tagline: "Two sides, one vision.",
+  announcement: {
+    enabled: true,
+    text: "Extension — Neel Miles · Preview now · Out 23 October 2026",
+    href: "/extension.html"
+  },
   hashtags: ["#nightdrive", "#nightdrivemusic", "#deephouse", "#soulfulhouse", "#chicagovibes", "#bellosoundsrecords"],
   socials: {
     youtube: "https://youtube.com/@BelloSoundsRecords",
