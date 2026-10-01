@@ -405,7 +405,7 @@ export const releases = [
   slug: "bsr011-extension",
   catalog: "BSR011",
   title: "Extension",
-  artists: "Neel Miles",
+  artists: ["Neel Miles"],
   alias: "neel-miles",
   status: "pre-release",
   previewOnly: true,
