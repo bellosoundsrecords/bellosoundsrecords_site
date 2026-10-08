@@ -2,7 +2,17 @@
 export function qs(selector, root=document){ return root.querySelector(selector); }
 export function qsa(selector, root=document){ return Array.from(root.querySelectorAll(selector)); }
 export function getParam(name){ const url = new URL(window.location.href); return url.searchParams.get(name); }
-export function formatDate(iso){ if(!iso) return ''; try{ return new Date(iso).toLocaleDateString('en-GB',{year:'numeric',month:'short',day:'2-digit'});}catch(e){return iso;}}
+export function formatDate(iso){
+  if(!iso) return '';
+  const match = /^(\d{4})-(\d{2})-(\d{2})$/.exec(iso);
+  if(!match) return iso;
+  const year = Number(match[1]);
+  const month = Number(match[2]);
+  const day = Number(match[3]);
+  const date = new Date(year, month - 1, day);
+  if(date.getFullYear() !== year || date.getMonth() !== month - 1 || date.getDate() !== day) return iso;
+  return date.toLocaleDateString('en-GB',{year:'numeric',month:'short',day:'2-digit'});
+}
 
 export function renderHeaderFooter(settings){
   const header = document.getElementById('site-header');
