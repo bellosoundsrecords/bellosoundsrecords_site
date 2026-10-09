@@ -4,6 +4,7 @@ export const playlists = [
     slug: "release-2025",
     title: "Releases 2025",
     playlistDate: "2025-12-31",
+    genres: ["Deep House", "Soulful House", "Underground House"],
     description: "All BelloSounds Records releases for 2025. Two sides, one vision: Nick Evan & Neel Miles. Deep, soulful, raw.",
     cover: "./images/playlists/release-2025.jpg",
     items: [
@@ -18,6 +19,7 @@ export const playlists = [
     slug: "the-journey",
     title: "The Journey",
     playlistDate: "2026-07-15",
+    genres: ["Deep House", "Soulful House", "Underground House"],
     description: "A night-long journey through the worlds of BelloSounds Records. From memories and city lights to empty streets, late closures and the silence that follows.",
     cover: "./images/playlists/the-journey.jpg",
     items: [

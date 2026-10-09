@@ -256,7 +256,9 @@ function injectJSONLD(rel){
     if (!v) return undefined;
     if (v.startsWith('http://') || v.startsWith('https://')) return v;
     // examples: "track:ID?si=..." or "album:ID?si=..."
-    return 'https://open.spotify.com/' + v.replace(/^\//,'');
+    const m = String(v).match(/^(track|album|playlist|artist):([^?]+)(\?.*)?$/i);
+    if (!m) return undefined;
+    return `https://open.spotify.com/${m[1].toLowerCase()}/${m[2]}${m[3] || ''}`;
   };
 
   const toYouTubeUrl = (v) => {
@@ -364,6 +366,14 @@ function injectJSONLD(rel){
     const refs = [...new Set(sameAs.filter(Boolean))];
     ld['@graph'][0].sameAs = refs;
     ld['@graph'][1].sameAs = refs;
+    ld['@graph'][0].potentialAction = refs.map(url => ({
+      "@type": "ListenAction",
+      "target": url
+    }));
+    ld['@graph'][1].potentialAction = refs.map(url => ({
+      "@type": "ListenAction",
+      "target": url
+    }));
   }
 
   const s = document.createElement('script');
