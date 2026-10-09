@@ -31,8 +31,8 @@ export function bootHome(){
   `;
 
   setPageMeta({
-    title: settings.brand + ' — Two sides, one vision',
-    description: 'Deep House, Soulful and Urban vibes.',
+    title: settings.brand + ' — Independent Deep House Label',
+    description: 'BelloSounds Records is an independent deep house record label and creative lab focused on deep, soulful and late-night underground house music.',
     image: hero?.cover
   });
 }
@@ -137,9 +137,10 @@ export function bootReleaseDetail(){
   const rel  = releases.find(r=> r.slug===slug);
   if(!rel){ app.innerHTML = `<p>Release not found.</p>`; return; }
 
+  const seoDescription = `${rel.title} by ${rel.artists.join(', ')} — ${rel.catalog}, released by BelloSounds Records. ${rel.descriptionShort || ''}`.trim();
   setPageMeta({
-    title: `${rel.title} — ${rel.artists.join(', ')} | ${rel.catalog}`,
-    description: rel.descriptionShort,
+    title: `${rel.title} — ${rel.artists.join(', ')} | BelloSounds Records ${rel.catalog}`,
+    description: seoDescription,
     image: rel.cover,
     type: 'music.album'
   });
@@ -164,7 +165,7 @@ export function bootReleaseDetail(){
       <div class="info">
         <h1>${rel.title}</h1>
         <p class="artists">${rel.artists.join(', ')}</p>
-        <p><strong>${rel.catalog}</strong> · ${rel.previewOnly ? 'Scheduled release: ' : ''}${formatDate(rel.releaseDate)}</p>
+        <p><strong>${rel.catalog}</strong> · BelloSounds Records · ${rel.previewOnly ? 'Scheduled release: ' : ''}${formatDate(rel.releaseDate)}</p>
         ${rel.previewOnly ? '<p class="tag">Pre-release · Audio excerpt</p>' : ''}
         <p>${rel.descriptionShort || ''}</p>
         ${rel.descriptionLong ? `<section class="release-description"><h2>About this release</h2>${rel.descriptionLong.split(/\n\n/).map(p => `<p>${p}</p>`).join('')}</section>` : ''}
@@ -274,7 +275,9 @@ function injectJSONLD(rel){
     ? `${location.origin}/artist.html?slug=${encodeURIComponent(rel.alias)}#artist`
     : undefined;
 
-  const albumId = new URL(rel.pageUrl || `/release.html?slug=${encodeURIComponent(rel.slug)}`, location.origin).href + '#album';
+  const pageUrl = new URL(rel.pageUrl || (rel.slug === 'bsr011-extension' ? '/extension.html' : `/release.html?slug=${encodeURIComponent(rel.slug)}`), location.origin).href;
+  const albumId = pageUrl + '#album';
+  const releaseId = pageUrl + '#release';
 
   const tracks = (rel.tracks || []).map((t, i) => {
     const name = t.title || `${rel.title}${rel.tracks?.length > 1 ? ` (Track ${i+1})` : ''}`;
@@ -300,7 +303,7 @@ function injectJSONLD(rel){
     return rec;
   });
 
-  // Build a graph so entities can reference each other cleanly
+  // Build a graph so the artist, release and label relationships are explicit.
   const ld = {
     "@context": "https://schema.org",
     "@graph": [
@@ -308,29 +311,44 @@ function injectJSONLD(rel){
         "@type": "MusicAlbum",
         "@id": albumId,
         "name": rel.title,
-        "identifier": rel.catalog,
         "albumReleaseType": "https://schema.org/SingleRelease",
-        "url": albumId.split('#')[0],
+        "url": pageUrl,
         "datePublished": rel.releaseDate,
         "image": abs(rel.cover),
         "description": rel.descriptionLong || rel.descriptionShort || undefined,
         "keywords": keywords.length ? keywords.join(', ') : undefined,
         "numTracks": tracks.length || undefined,
         "byArtist": artistId ? { "@id": artistId } : { "@type":"MusicGroup","name": artistName },
-        "recordLabel": { "@id": `${location.origin}/#label` },
+        "albumRelease": { "@id": releaseId },
         "track": tracks
+      },
+      {
+        "@type": "MusicRelease",
+        "@id": releaseId,
+        "name": rel.title,
+        "catalogNumber": rel.catalog,
+        "url": pageUrl,
+        "datePublished": rel.releaseDate,
+        "image": abs(rel.cover),
+        "description": rel.descriptionLong || rel.descriptionShort || undefined,
+        "musicReleaseFormat": "https://schema.org/DigitalFormat",
+        "releaseOf": { "@id": albumId },
+        "recordLabel": { "@id": `${location.origin}/#label` },
+        "creditedTo": artistId ? { "@id": artistId } : { "@type":"MusicGroup","name": artistName }
       },
       {
         "@type": "MusicGroup",
         "@id": artistId,
         "name": artistName,
-        "url": `${location.origin}/artist.html?slug=${encodeURIComponent(rel.alias)}`
+        "url": `${location.origin}/artist.html?slug=${encodeURIComponent(rel.alias)}`,
+        "memberOf": { "@id": `${location.origin}/#label` }
       },
       {
         "@type": "Organization",
         "@id": `${location.origin}/#label`,
         "name": "BelloSounds Records",
-        "url": `${location.origin}/`
+        "url": `${location.origin}/`,
+        "description": "Independent deep house record label and creative lab focused on deep, soulful and late-night underground house music."
       }
     ]
   };
@@ -343,7 +361,9 @@ function injectJSONLD(rel){
   if (rel.links?.stream?.youtube) sameAs.push(rel.links.stream.youtube);
   if (rel.links?.stream?.soundcloud) sameAs.push(rel.links.stream.soundcloud);
   if (sameAs.length) {
-    ld['@graph'][0].sameAs = [...new Set(sameAs.filter(Boolean))];
+    const refs = [...new Set(sameAs.filter(Boolean))];
+    ld['@graph'][0].sameAs = refs;
+    ld['@graph'][1].sameAs = refs;
   }
 
   const s = document.createElement('script');
