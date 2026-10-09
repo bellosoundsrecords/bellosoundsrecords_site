@@ -14,7 +14,10 @@ export function bootArtists(){
       ${artists.map(cardArtist).join('')}
     </section>
   `;
-  setPageMeta({ title: settings.brand + ' — Artists', description: 'Nick Evan & Neel Miles' });
+  setPageMeta({
+    title: settings.brand + ' — Deep House Artists',
+    description: 'Nick Evan and Neel Miles — deep house artist projects released by BelloSounds Records.'
+  });
 }
 
 export function bootArtistDetail(){
@@ -37,5 +40,64 @@ export function bootArtistDetail(){
       <div class="grid releases">${authored.map(cardRelease).join('')}</div>
     </section>
   `;
-  setPageMeta({ title: `${a.name} — ${settings.brand}`, description: a.bioShort, image: a.image });
+
+  const genreLabel = (a.genres || []).slice(0,2).join(' / ');
+  setPageMeta({
+    title: `${a.name} — ${genreLabel || 'House Artist'} | BelloSounds Records`,
+    description: a.bioShort,
+    image: a.image
+  });
+
+  const canonicalUrl = new URL(`/artist.html?slug=${encodeURIComponent(a.slug)}`, location.origin).href;
+  let canonical = document.querySelector('link[rel="canonical"]');
+  if (!canonical) {
+    canonical = document.createElement('link');
+    canonical.rel = 'canonical';
+    document.head.appendChild(canonical);
+  }
+  canonical.href = canonicalUrl;
+
+  injectArtistJSONLD(a, authored, canonicalUrl);
+}
+
+function injectArtistJSONLD(a, authored, canonicalUrl){
+  const existing = document.getElementById('bsr-jsonld-artist');
+  if (existing) existing.remove();
+
+  const releaseUrl = (rel) => rel.pageUrl
+    ? new URL(rel.pageUrl, location.origin).href
+    : rel.slug === 'bsr011-extension'
+      ? new URL('/extension.html', location.origin).href
+      : new URL(`/release.html?slug=${encodeURIComponent(rel.slug)}`, location.origin).href;
+
+  const ld = {
+    "@context": "https://schema.org",
+    "@type": "MusicGroup",
+    "@id": canonicalUrl + "#artist",
+    "name": a.name,
+    "url": canonicalUrl,
+    "image": new URL(a.image, location.origin).href,
+    "description": a.bioShort,
+    "genre": a.genres || [],
+    "sameAs": Object.values(a.socials || {}).filter(Boolean),
+    "memberOf": {
+      "@type": "Organization",
+      "@id": `${location.origin}/#label`,
+      "name": "BelloSounds Records",
+      "url": `${location.origin}/`
+    },
+    "album": authored.map(rel => ({
+      "@type": "MusicAlbum",
+      "@id": releaseUrl(rel) + "#album",
+      "name": rel.title,
+      "url": releaseUrl(rel),
+      "datePublished": rel.releaseDate
+    }))
+  };
+
+  const s = document.createElement('script');
+  s.id = 'bsr-jsonld-artist';
+  s.type = 'application/ld+json';
+  s.textContent = JSON.stringify(ld);
+  document.head.appendChild(s);
 }
