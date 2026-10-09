@@ -8,11 +8,11 @@
   <meta name="robots" content="index, follow">
 <link rel="canonical" href="https://bellosoundsrecords.place/">
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <title>BelloSounds Records™ — Two sides, one vision</title>
+  <title>BelloSounds Records™ — Independent Deep House Label</title>
   <script type="application/ld+json">
 {
   "@context": "https://schema.org",
-  "@type": ["Organization", "Brand", "MusicGroup"],
+  "@type": ["Organization", "Brand"],
   "@id": "https://bellosoundsrecords.place/#label",
   "name": "BelloSounds Records",
   "alternateName": [
@@ -34,10 +34,17 @@
     "name": "Emanuele Siravo"
   },
 
-  "artist": [
-    { "@type": "Person", "name": "Nick Evan" },
-    { "@type": "Person", "name": "Neel Miles" },
-    { "@type": "Person", "name": "Mark Ellis" }
+  "member": [
+    {
+      "@type": "MusicGroup",
+      "@id": "https://bellosoundsrecords.place/artist.html?slug=nick-evan#artist",
+      "name": "Nick Evan"
+    },
+    {
+      "@type": "MusicGroup",
+      "@id": "https://bellosoundsrecords.place/artist.html?slug=neel-miles#artist",
+      "name": "Neel Miles"
+    }
   ],
 
   "location": {
@@ -62,12 +69,15 @@
     "Soulful House"
   ],
 
-  "description": "BelloSounds Records is a cloud-based independent deep and soulful house creative space and record label shaped by UK underground rhythms and US house culture, featuring artists like Nick Evan, Neel Miles and Mark Ellis.",
+  "description": "BelloSounds Records is an independent deep house record label and creative lab focused on deep, soulful and late-night underground house music, featuring Nick Evan and Neel Miles.",
+  "slogan": "Sound comes first.",
 
   "disambiguatingDescription": "BelloSounds Records is an independent cloud-based label and creative project. It is not associated with, endorsed by, or operating as 'BelloSound', 'Bello Sound', or similarly named studios or services.",
 
   "keywords": [
     "BelloSounds",
+    "independent deep house record label",
+    "independent house music label",
     "deep house",
     "soulful house",
     "UK house",
@@ -85,7 +95,7 @@
     "https://bellosoundsrecords.place/",
     "https://soundcloud.com/bellosoundsrecords",
     "https://www.youtube.com/@bellosoundsrecords",
-    "https://open.spotify.com/",
+    "https://open.spotify.com/user/31ammax2ahod5upq7lcxur7hgwfm",
     "https://www.discogs.com/label/4322125-BelloSounds-Records"
   ]
 }
@@ -98,28 +108,37 @@
 
   const baseUrl = "https://bellosoundsrecords.place";
 
-  const itemListElement = releases.map((release, idx) => ({
-    "@type": "ListItem",
-    "position": idx + 1,
-    "item": {
-      "@type": "MusicRelease",
-      "@id": `${baseUrl}/releases/${release.slug}#release`,
-      "name": release.title,
-      "alternateName": release.catalog,
-      "url": `${baseUrl}/releases/${release.slug}`,
-      "image": `${baseUrl}${release.cover.replace("./", "/")}`,
-      "description": release.descriptionShort || release.descriptionLong,
-      "datePublished": release.releaseDate,
-      "genre": ["House", "Deep House", "Soulful House"],
-      "recordLabel": {
-        "@id": "https://bellosoundsrecords.place/#label"
-      },
-      "byArtist": release.artists.map(name => ({
-        "@type": "MusicGroup",
-        "name": name
-      }))
-    }
-  }));
+  const itemListElement = releases.map((release, idx) => {
+    const releaseUrl = release.pageUrl
+      ? new URL(release.pageUrl, baseUrl).href
+      : release.slug === "bsr011-extension"
+        ? `${baseUrl}/extension.html`
+        : `${baseUrl}/release.html?slug=${encodeURIComponent(release.slug)}`;
+
+    return {
+      "@type": "ListItem",
+      "position": idx + 1,
+      "item": {
+        "@type": "MusicRelease",
+        "@id": `${releaseUrl}#release`,
+        "name": release.title,
+        "catalogNumber": release.catalog,
+        "url": releaseUrl,
+        "image": `${baseUrl}${release.cover.replace("./", "/")}`,
+        "description": release.descriptionShort || release.descriptionLong,
+        "datePublished": release.releaseDate,
+        "genre": ["House", "Deep House", "Soulful House"],
+        "recordLabel": {
+          "@id": "https://bellosoundsrecords.place/#label"
+        },
+        "byArtist": release.artists.map(name => ({
+          "@type": "MusicGroup",
+          "@id": `${baseUrl}/artist.html?slug=${encodeURIComponent(release.alias)}#artist`,
+          "name": name
+        }))
+      }
+    };
+  });
 
   const schema = {
     "@context": "https://schema.org",
@@ -131,10 +150,10 @@
   document.getElementById("releases-schema").textContent =
     JSON.stringify(schema, null, 2);
 </script>
-  <meta name="description" content="Deep House, Soulful and Urban vibes."/>
+  <meta name="description" content="BelloSounds Records is an independent deep house record label and creative lab focused on deep, soulful and late-night underground house music."/>
   <meta property="og:type" content="website"/>
-  <meta property="og:title" content="BelloSounds Records — Two sides, one vision"/>
-  <meta property="og:description" content="Deep House, Soulful and Urban vibes."/>
+  <meta property="og:title" content="BelloSounds Records — Independent Deep House Label"/>
+  <meta property="og:description" content="Independent deep house record label and creative lab for deep, soulful and late-night underground house music."/>
   <meta property="og:image" content="./images/og-default.jpg"/>
   <link rel="stylesheet" href="./css/main.css?v=9">
 <script type="module" src="./js/app.js?v=9"></script>
