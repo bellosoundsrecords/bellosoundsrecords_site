@@ -44,7 +44,7 @@ export function bootArtistDetail(){
   const genreLabel = (a.genres || []).slice(0,2).join(' / ');
   setPageMeta({
     title: `${a.name} — ${genreLabel || 'House Artist'} | BelloSounds Records`,
-    description: a.bioShort,
+    description: a.seoDescription || a.bioShort,
     image: a.image
   });
 
@@ -77,9 +77,19 @@ function injectArtistJSONLD(a, authored, canonicalUrl){
     "name": a.name,
     "url": canonicalUrl,
     "image": new URL(a.image, location.origin).href,
-    "description": a.bioShort,
+    "description": a.seoDescription || a.bioShort,
+    "disambiguatingDescription": a.disambiguatingDescription || undefined,
     "genre": a.genres || [],
-    "sameAs": Object.values(a.socials || {}).filter(Boolean),
+    "sameAs": [...new Set([
+      ...(a.sameAs || []),
+      ...Object.values(a.socials || {})
+    ].filter(Boolean))],
+    "identifier": (a.identifiers || []).map(id => ({
+      "@type": "PropertyValue",
+      "propertyID": id.propertyID,
+      "value": id.value
+    })),
+    "mainEntityOfPage": canonicalUrl,
     "memberOf": {
       "@type": "Organization",
       "@id": `${location.origin}/#label`,
