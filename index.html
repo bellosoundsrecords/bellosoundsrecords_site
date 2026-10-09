@@ -63,10 +63,11 @@
     "DE"
   ],
 
-  "genre": [
-    "House",
+  "knowsAbout": [
+    "Independent deep house record labels",
     "Deep House",
-    "Soulful House"
+    "Soulful House",
+    "Underground House Music"
   ],
 
   "description": "BelloSounds Records is an independent deep house record label and creative lab focused on deep, soulful and late-night underground house music, featuring Nick Evan and Neel Miles.",
@@ -131,7 +132,7 @@
         "recordLabel": {
           "@id": "https://bellosoundsrecords.place/#label"
         },
-        "byArtist": release.artists.map(name => ({
+        "creditedTo": release.artists.map(name => ({
           "@type": "MusicGroup",
           "@id": `${baseUrl}/artist.html?slug=${encodeURIComponent(release.alias)}#artist`,
           "name": name
