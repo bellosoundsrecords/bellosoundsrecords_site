@@ -407,13 +407,11 @@ export const releases = [
   title: "Extension",
   artists: ["Neel Miles"],
   alias: "neel-miles",
-  status: "pre-release",
-  previewOnly: true,
-  previewAudio: "/audio/previews/BSR011_pre_mono64.mp3",
-  oggAudio: "/audio/BSR011_pre_st.ogg",
-  mp3Audio: "/audio/BSR011_pre_st.mp3",
+  previewAudio: "/audio/previews/BSR011_mono64.mp3",
+  oggAudio: "/audio/BSR011_st.ogg",
+  mp3Audio: "/audio/BSR011_st.mp3",
   releaseDate: "2026-10-23",
-  cover: "/images/releases/BSR011_pre.jpg",
+  cover: "/images/releases/BSR011.jpg",
   tags: [
     "neelmiles",
     "extension",
@@ -422,8 +420,8 @@ export const releases = [
     "chicagoinspired",
     "bellosoundsrecords"
   ],
-  descriptionShort: "Something continues beyond what you see. Extension by Neel Miles — BSR011 on BelloSounds Records. Preview now. Out 23 October 2026.",
-  descriptionLong: "A street after dark. A passing reflection. The feeling that something continues beyond the frame.\n\nExtension opens another chapter in Neel Miles’ nocturnal world, leaving room for what remains unseen. Some things are felt before they can be named.\n\nListen to the pre-release preview. Extension arrives on BelloSounds Records on 23 October 2026. Catalogue: BSR011.",
+  descriptionShort: "Something continues beyond what you see. ",
+  descriptionLong: "A street after dark. A passing reflection. The feeling that something continues beyond the frame.\n\nExtension opens another chapter in Neel Miles’ nocturnal world, leaving room for what remains unseen. Some things are felt before they can be named.",
   tracks: [
     {
       "title": "Extension", bpm: 123, key: "Eb minor", isrc: "QT9XM2671748" 
