@@ -222,6 +222,7 @@ function renderLinks(rel){
   const b = rel.links?.buy||{};
   if(s.youtube) out.push(`<a class="btn" href="${s.youtube}" target="_blank" rel="noopener">YouTube</a>`);
   if(s.spotify) out.push(`<a class="btn" href="${s.spotify}" target="_blank" rel="noopener">Spotify</a>`);
+  if(s.tidal) out.push(`<a class="btn" href="${s.tidal}" target="_blank" rel="noopener">Tidal</a>`);
   if(s.apple)   out.push(`<a class="btn" href="${s.apple}"   target="_blank" rel="noopener">Apple</a>`);
   if(b.beatport) out.push(`<a class="btn outline" href="${b.beatport}" target="_blank" rel="noopener">Beatport</a>`);
   if(b.bandcamp) out.push(`<a class="btn outline" href="${b.bandcamp}" target="_blank" rel="noopener">Bandcamp</a>`);
