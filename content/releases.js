@@ -427,6 +427,16 @@ export const releases = [
       "title": "Extension", bpm: 123, key: "Eb minor", isrc: "QT9XM2671748" 
     }
   ],
+  links: {
+    stream: {
+      spotify: "https://open.spotify.com/album/5MM4Py4mw9DZZUEgMldwZC",
+      tidal: "https://tidal.com/album/562537086/u",
+      youtube: "https://music.youtube.com/playlist?list=OLAK5uy_n9hUVSCt_f4cyDKpxKjhtaoGDtbNZ4BWc"
+    },
+    buy: {
+      beatport: "https://beatport.com/release/Extension/7491158"
+    }
+  },
   credits: {
     writtenBy: "Neel Miles",
     producedBy: "Neel Miles",
