@@ -6,7 +6,7 @@ export const artists = [
     tagline: "Identity, Evolution. <br> Sound comes first",
     genres: ["Deep House", "Soulful House"],
     seoDescription:
-"Nick Evan is the deep and soulful house artist project released by BelloSounds Records, known for Your Heart, City Tension, Lost In The Feeling, Late Closure, Evolution and Beyond The Streetlights.",
+"Nick Evan makes deep and soulful house with warm basslines, thoughtful chords and UK house influences. Explore his releases on BelloSounds Records.",
     disambiguatingDescription:
 "Nick Evan is the BelloSounds Records deep and soulful house artist project associated with the releases Your Heart, City Tension, Lost In The Feeling, Late Closure, Evolution and Beyond The Streetlights.",
     sameAs: [
