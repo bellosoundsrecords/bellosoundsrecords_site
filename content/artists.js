@@ -20,9 +20,9 @@ export const artists = [
       { propertyID: "Beatport Artist ID", value: "1318354" }
     ],
     bioShort:
-"Nick Evan is a BelloSounds Records artist project focused on deep house, soulful house and reflective electronic music. Inspired by late-night places, everyday moments and timeless grooves, each release transforms simple ideas into warm, understated atmospheres.",
+"Nick Evan makes deep and soulful house built around warm basslines, carefully placed chords and rhythms that leave room to breathe. His music connects UK house influences with the soulful side of the genre.",
     bioLong:
-"Nick Evan is a BelloSounds Records artist project dedicated to deep house, soulful house and reflective electronic music. Rather than chasing trends, it draws inspiration from familiar places, late-night streets, quiet pubs and the small moments that often go unnoticed. Every track begins with a simple musical idea: a groove, a chord progression or a melody that is given space to breathe and evolve naturally.<br>Influenced by the deep house traditions of the UK and the soulful spirit of Chicago house, Nick Evan combines warm basslines, subtle rhythms and carefully chosen details to create music that works both on the dancefloor and in personal listening. The focus is never on excess, but on atmosphere, movement and emotional continuity.<br>Each release tells a different story while remaining part of the same identity: music that values simplicity, timelessness and genuine expression. For Nick Evan, sound comes first.",
+"Nick Evan makes deep and soulful house built around the things that make a track feel right: a warm bassline, a few well-placed chords, a rhythm that doesn't need to prove anything.<br>There's a strong connection to UK house culture in his music, but also a love for the soulful side of the genre. Sometimes a track starts with a melody, sometimes with a groove. The interesting part is seeing where it goes.<br>From Your Heart to Late Closure and Beyond The Streetlights, his releases move between the dancefloor and quieter moments, without drawing a hard line between the two.<br>Nick Evan is part of BelloSounds Records, where there's room to follow an idea without forcing it into a particular sound.",
     image: "./images/artists/Nick-Evan.jpg",
     socials: {
       youtube: "https://youtube.com/@Nick_Evan",
@@ -35,9 +35,9 @@ export const artists = [
     tagline: "Instinctive, cutting grooves that shake the floor.",
     genres: ["Deep House", "Underground House"],
     bioShort:
-"Neel Miles is a BelloSounds Records artist project focused on deep house and underground house shaped by urban movement, late-night journeys and the atmosphere of modern cities. Rhythm comes first, carrying every story forward.",
+"Neel Miles makes deep and underground house led by drums, bass and subtle rhythmic shifts. Drawing from Chicago house and Detroit electronic culture, his tracks build atmosphere without losing the groove.",
     bioLong:
-"Neel Miles is a BelloSounds Records artist project dedicated to deep house and underground electronic music inspired by the energy of cities after dark. Empty streets, elevated railways, concrete structures and late-night drives become part of the musical language, transforming urban environments into rhythm and atmosphere.<br>Built on deep basslines, evolving grooves and carefully crafted textures, the music combines the influence of Chicago house and Detroit electronic culture with a contemporary production approach. Rather than relying on dramatic effects, Neel Miles creates tension through movement, subtle changes and a constant sense of direction.<br>Each release explores a different urban landscape while remaining connected by the same identity: music designed for people who keep moving, whether on a dancefloor, behind the wheel or walking through a city that never truly falls silent.",
+"Neel Miles starts with the groove.<br>Drums, bass and small rhythmic changes do most of the talking. His music draws from Chicago house, Detroit's electronic roots and the raw energy of underground dance floors.<br>The city is never far away. You can hear it in the movement of the tracks, in the tension that builds without warning, in the spaces between one beat and the next.<br>Records like Lower Wacker Drive, Nobody Sees and Extension follow different directions, but share the same instinct: keep the rhythm moving and let the atmosphere grow around it.<br>Released through BelloSounds Records, Neel Miles is a project that leaves plenty of room for experimentation, without losing sight of the dancefloor.",
     image: "./images/artists/neel-miles.jpg",
     socials: { 
       youtube: "https://youtube.com/@NeelMiles",
